@@ -1,0 +1,45 @@
+.content a{
+	color:white;
+}
+
+.content a {
+	width: 300px;
+	margin-left: 15%;
+}
+
+.content {
+	margin-top: 25px;
+}
+
+.auth_form {
+	width: 300px;
+	margin-left: 35%;
+	margin-top: 25px;
+	border: 2px solid #000;
+	padding: 20px;
+	border-radius: 15px;
+}
+
+#Auth_text {
+	margin-left: 38%;
+}
+
+.reg_form {
+	width: 300px;
+	margin-left: 35%;
+	margin-top: 25px;
+	border: 2px solid #000;
+	padding: 20px;
+	border-radius: 15px;
+}
+
+#reg_text {
+	margin-left: 38%;
+}
+
+#alert {
+	width: 500px;
+	margin-left: 25%;
+	border-radius: 15px;
+	text-align: center;
+}

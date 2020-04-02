@@ -10,6 +10,6 @@
 </head>
 <body>
 	<c:out value="${message}"></c:out>
-	<h1>ERROR</h1>
+	<h1>ERRORrrzzz</h1>
 </body>
 </html>

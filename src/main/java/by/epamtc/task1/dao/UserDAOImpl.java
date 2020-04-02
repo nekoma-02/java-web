@@ -5,74 +5,95 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
 
 import by.epamtc.task1.dao.connectionpool.ConnectionPool;
 import by.epamtc.task1.dao.connectionpool.ConnectionPoolException;
+import by.epamtc.task1.dao.connectionpool.ConnectionPoolManager;
 import by.epamtc.task1.dao.exception.DAOConnectionPoolException;
 import by.epamtc.task1.dao.exception.DAOException;
 import by.epamtc.task1.dao.exception.DAOSQLException;
 import by.epamtc.task1.entity.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Level;
 
-public class UserDAOImpl implements SQLDao<User> {
+public class UserDAOImpl implements SQLUserDao {
+	
+	private static Logger logger = LogManager.getLogger();	
+	private ConnectionPool connectionPool = ConnectionPoolManager.getInstance().getConnectionPool();
 
-	private static final String INSER_USER = "insert into users(name_user,login,password_user) values (?,?,?)";
-	private static final String SELECT_USERS = "select * from users";
+	private static final String INSER_USER = "insert into users(name,secondName,lastName,status,login,password,email,roles_id_role) values (?,?,?,?,?,?,?,1)";
+	private static final String SELECT_USER_BY_PASSWORD_LOGIN = "select * from users where login = ? and password = ?";
+	private static final String SELECT_USER_BY_LOGIN = "select * from users where login = ?";
+	private static final String SELECT_USER_BY_ID = "select * from users where id_user = ?";
+	
 	@Override
-	public int insert(User field) throws DAOException {
-		ConnectionPool connectionPool = ConnectionPool.getInstance();
+	public boolean insert(User field) throws DAOException {
 		Connection connection = null;
 		PreparedStatement ps = null;
 
-		int name = 1;
-		int login = 2;
-		int password = 3;
+		int nameInt = 1;
+		int secondNameInt = 2;
+		int lastNameInt = 3;
+		int statusInt = 4;
+		int loginInt = 5;
+		int passwordInt = 6;
+		int emailInt = 7;
+		
 		
 		try {
-			connectionPool.initPoolData();
 			connection = connectionPool.takeConnection();
 			ps = connection.prepareStatement(INSER_USER);
 
-			ps.setString(name, field.getName());
-			ps.setString(login, field.getLogin());
-			ps.setString(password, field.getPassword());
+			ps.setString(nameInt, field.getName());
+			ps.setString(secondNameInt, field.getSecondName());
+			ps.setString(lastNameInt, field.getLastName());
+			ps.setBoolean(statusInt, field.isStatus());
+			ps.setString(loginInt, field.getLogin());
+			ps.setString(passwordInt, field.getPassword());
+			ps.setString(emailInt, field.getEmail());
 
-			return ps.executeUpdate();
+			return ps.executeUpdate() == 1;
 
 		} catch (ConnectionPoolException e) {
 			throw new DAOConnectionPoolException(e.getMessage());
 		} catch (SQLException e) {
 			throw new DAOSQLException(e.getMessage());
 		} finally {
-			connectionPool.closeConnection(connection, ps);
+			closeConnection(connection, ps);
 		}
+	
 	}
 
 	@Override
-	public User getValue(String key) throws DAOException {
+	public User getUserByLoginPassword(String login, String password) throws DAOException {
 		User user = null;
-		ConnectionPool connectionPool = ConnectionPool.getInstance();
 		Connection connection = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String query = "select * from users where login = ?";
 		
-		int name = 2;
-		int login = 3;
-		int password = 4;
+		int idInt = 1;
+		int nameInt = 2;
+		int secondNameInt = 3;
+		int lastNameInt = 4;
+		int statusInt = 5;
+		int loginInt = 6;
+		int passwordInt = 7;
+		int emailInt = 8;
 
 		try {
-			connectionPool.initPoolData();
 			connection = connectionPool.takeConnection();
-			ps = connection.prepareStatement(query);
+			ps = connection.prepareStatement(SELECT_USER_BY_PASSWORD_LOGIN);
 			
-			ps.setString(1, key);
+			ps.setString(1, login);
+			ps.setString(2, password);
 
 			rs = ps.executeQuery();
 			
-			while (rs.next()) {
-				user = new User(rs.getString(name), rs.getString(login), rs.getString(password));
+			if (rs.next()) {
+				user = new User(rs.getInt(idInt),rs.getString(nameInt),rs.getString(secondNameInt),rs.getString(lastNameInt),rs.getString(loginInt),rs.getString(passwordInt),rs.getBoolean(statusInt),rs.getString(emailInt),1);
 			}
+			
 			return user;
 			
 		} catch (ConnectionPoolException e) {
@@ -80,45 +101,134 @@ public class UserDAOImpl implements SQLDao<User> {
 		} catch (SQLException e) {
 			throw new DAOSQLException(e.getMessage());
 		} finally {
-			connectionPool.closeConnection(connection, ps,rs);
+			closeConnection(connection, ps,rs);
 		}
 	}
 
-	@SuppressWarnings("null")
+
 	@Override
-	public List<User> getAll() throws DAOException {
-		List<User> users = null;
-		ConnectionPool connectionPool = ConnectionPool.getInstance();
+	public User getUserByLogin(String login) throws DAOException {
+		User user = null;
+
 		Connection connection = null;
-		Statement statement = null;
+		PreparedStatement ps = null;
 		ResultSet rs = null;
-
-		int name = 2;
-		int login = 3;
-		int password = 4;
 		
-		try {
-			connectionPool.initPoolData();
-			connection = connectionPool.takeConnection();
-			statement = connection.createStatement();
+		int idInt = 1;
+		int nameInt = 2;
+		int secondNameInt = 3;
+		int lastNameInt = 4;
+		int statusInt = 5;
+		int loginInt = 6;
+		int passwordInt = 7;
+		int emailInt = 8;
 
-			rs = statement.executeQuery(SELECT_USERS);
+		try {
+			connection = connectionPool.takeConnection();
+			ps = connection.prepareStatement(SELECT_USER_BY_LOGIN);
 			
-			while (rs.next()) {
-				users.add(new User(rs.getString(name), rs.getString(login), rs.getString(password)));
+			ps.setString(1, login);
+
+			rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				user = new User(rs.getInt(idInt),rs.getString(nameInt),rs.getString(secondNameInt),rs.getString(lastNameInt),rs.getString(loginInt),rs.getString(passwordInt),rs.getBoolean(statusInt),rs.getString(emailInt),1);
 			}
 			
-			return users;
+			return user;
 			
 		} catch (ConnectionPoolException e) {
 			throw new DAOConnectionPoolException(e.getMessage());
 		} catch (SQLException e) {
 			throw new DAOSQLException(e.getMessage());
 		} finally {
-			connectionPool.closeConnection(connection, statement, rs);;
+			closeConnection(connection, ps,rs);
 		}
 	}
 
+	@Override
+	public User getUserById(int id) throws DAOException {
+		User user = null;
+		Connection connection = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		int idInt = 1;
+		int nameInt = 2;
+		int secondNameInt = 3;
+		int lastNameInt = 4;
+		int statusInt = 5;
+		int loginInt = 6;
+		int passwordInt = 7;
+		int emailInt = 8;
+
+		try {
+			connection = connectionPool.takeConnection();
+			ps = connection.prepareStatement(SELECT_USER_BY_ID);
+			
+			ps.setInt(1, id);
+
+			rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				user = new User(rs.getInt(idInt),rs.getString(nameInt),rs.getString(secondNameInt),rs.getString(lastNameInt),rs.getString(loginInt),rs.getString(passwordInt),rs.getBoolean(statusInt),rs.getString(emailInt),1);
+			}
+			
+			return user;
+			
+		} catch (ConnectionPoolException e) {
+			throw new DAOConnectionPoolException(e.getMessage());
+		} catch (SQLException e) {
+			throw new DAOSQLException(e.getMessage());
+		} finally {
+			closeConnection(connection, ps,rs);
+		}
+	}
+	
+	private void closeConnection(Connection con, Statement st, ResultSet rs) {
+		try {
+			if (con != null) {
+				con.close();
+			}
+
+		} catch (SQLException e) {
+			 logger.log(Level.ERROR, "Connection isn't closed.");
+		}
+		try {
+			if (rs != null) {
+				rs.close();
+			}
+		} catch (SQLException e) {
+			 logger.log(Level.ERROR, "ResultSet isn't closed.");
+		}
+		try {
+			if (st != null) {
+				st.close();
+			}
+		} catch (SQLException e) {
+			 logger.log(Level.ERROR, "Statement isn't closed.");
+		}
+		
+	}
+
+	private void closeConnection(Connection con, Statement st) {
+		try {
+			if (con != null) {
+				con.close();
+			}
+
+		} catch (SQLException e) {
+			 logger.log(Level.ERROR, "Connection isn't closed.");
+		}
+		try {
+			if (st != null) {
+				st.close();
+			}
+		} catch (SQLException e) {
+			logger.log(Level.ERROR, "Statement isn't closed.");
+		}
+		
+	}
 
 
 }

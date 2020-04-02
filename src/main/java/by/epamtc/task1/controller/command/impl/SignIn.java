@@ -1,21 +1,28 @@
 package by.epamtc.task1.controller.command.impl;
 
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import by.epamtc.task1.controller.JSPPageName;
 import by.epamtc.task1.controller.RequestParameterName;
 import by.epamtc.task1.controller.command.Command;
 import by.epamtc.task1.service.ServiceFactory;
 import by.epamtc.task1.service.UserService;
-import by.epamtc.task1.service.exception.ServiceEmptyValuesException;
 import by.epamtc.task1.service.exception.ServiceException;
-import by.epamtc.task1.service.exception.ServiceInvalidLoginException;
-import by.epamtc.task1.service.exception.ServiceInvalidPasswordException;
 
 public class SignIn implements Command {
 
+	private static Logger logger = LogManager.getLogger();
 	@Override
-	public String execute(HttpServletRequest request) {
+	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String page = null;
 		UserService service = ServiceFactory.getInstance().getService();
 		String login = request.getParameter(RequestParameterName.LOGIN);
@@ -24,24 +31,30 @@ public class SignIn implements Command {
 		try {
 				
 			
-			service.signIn(login, password);
-			page = JSPPageName.USER_PAGE;		
-			request.setAttribute(RequestParameterName.RESULT_INFO, "hello " + login);
-			
+			boolean flag = service.signIn(login, password);
 
-		} catch (ServiceEmptyValuesException | ServiceInvalidLoginException | ServiceInvalidPasswordException e) {
+			if (flag) {
+				page = JSPPageName.USER_PAGE;
+			} else {
+				request.setAttribute(RequestParameterName.RESULT_INFO, "Авторизация не выполнена");
+				page = JSPPageName.LOGIN_PAGE;
+			}
 
-			request.setAttribute(RequestParameterName.RESULT_INFO, e.getMessage());
-			page = JSPPageName.INDEX_PAGE;
 
 		} catch (ServiceException e) {
 
-			request.setAttribute(RequestParameterName.RESULT_INFO, e.getMessage());
+			logger.log(Level.ERROR,e.getMessage());
 			page = JSPPageName.ERROR_PAGE;
 
 		}
 
-		return page;
+		RequestDispatcher dispatcher = request.getRequestDispatcher(page);
+		if (dispatcher != null) {
+			dispatcher.forward(request, response);
+		} else {
+			response.setContentType("text/html");
+			response.getWriter().println("e r r o r");
+		}
 	}
 
 }

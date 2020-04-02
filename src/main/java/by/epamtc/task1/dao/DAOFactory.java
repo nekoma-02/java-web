@@ -1,7 +1,5 @@
 package by.epamtc.task1.dao;
 
-import by.epamtc.task1.entity.User;
-
 public class DAOFactory {
 
 	private static final DAOFactory instance = new DAOFactory();
@@ -10,7 +8,7 @@ public class DAOFactory {
 		return instance;
 	}
 	
-	public SQLDao<User> getDAO() {
+	public SQLUserDao getDAO() {
 		return new UserDAOImpl();
 	}
 }
