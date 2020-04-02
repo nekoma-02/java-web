@@ -13,13 +13,22 @@ public class UserServiceImpl implements UserService {
 	public boolean signIn(String login, String password) throws ServiceException {
 		SQLUserDao dao = DAOFactory.getInstance().getDAO();
 
+		User user = null;
+		
+		UserValidator userValidator = new UserValidator();
+		boolean isValidate = userValidator.validate(login,password);
+		
 		try {
-			
-			User user = dao.getUserByLoginPassword(login, password);
 
+			if (isValidate) {
+			user = dao.getUserByLoginPassword(login, password);
+			} else {
+				return false;
+			}
+			
 			return user != null ? true : false;
 		} catch (DAOException e) {
-			throw new ServiceException(e.getMessage());
+			throw new ServiceException(e);
 		}
 
 	}
@@ -28,26 +37,48 @@ public class UserServiceImpl implements UserService {
 	public boolean registration(User user) throws ServiceException {
 		SQLUserDao dao = DAOFactory.getInstance().getDAO();
 
-		UserValidator userValidator = new UserValidator(user);
-		boolean isValidate = userValidator.validate();
-		boolean flag = false;
+		UserValidator userValidator = new UserValidator();
+		boolean isValidate = userValidator.validate(user.getLogin(), user.getPassword(), user.getEmail(),
+				user.getName(), user.getSecondName(), user.getLastName());
 		
+		boolean flag = false;
+
 		try {
-			
+
 			if (isValidate) {
 				flag = dao.insert(user);
 			} else {
 				return false;
 			}
-			
+
 			return flag;
 		} catch (DAOException e) {
-			throw new ServiceException(e.getMessage());
+			throw new ServiceException(e);
 		}
 
 	}
 	
+	@Override
+	public boolean isUserExist(String login) throws ServiceException  {
+		SQLUserDao dao = DAOFactory.getInstance().getDAO();
 
+		User user = null;
+		
+		UserValidator userValidator = new UserValidator();
+		boolean isValidate = userValidator.validate(login);
+		
+		try {
 
+			if (isValidate) {
+			user = dao.getUserByLogin(login);
+			} else {
+				return false;
+			}
+			
+			return user == null ? true : false;
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
 
 }

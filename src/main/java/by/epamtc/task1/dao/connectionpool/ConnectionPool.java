@@ -30,8 +30,6 @@ import org.apache.logging.log4j.Level;
 
 public final class ConnectionPool {
 
-	private static final ConnectionPool instance = new ConnectionPool();
-
 	private static Logger logger = LogManager.getLogger();
 	private BlockingQueue<Connection> connectionQueue;
 	private BlockingQueue<Connection> givenAwayConQueue;
@@ -53,10 +51,6 @@ public final class ConnectionPool {
 		} catch (NumberFormatException e) {
 			poolSize = 5;
 		}
-	}
-
-	public static ConnectionPool getInstance() {
-		return instance;
 	}
 
 	public void initPoolData() throws ConnectionPoolException {

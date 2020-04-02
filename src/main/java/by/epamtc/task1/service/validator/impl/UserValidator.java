@@ -1,62 +1,52 @@
 package by.epamtc.task1.service.validator.impl;
 
-import by.epamtc.task1.entity.User;
-import by.epamtc.task1.service.validator.Validator;
+import by.epamtc.task1.service.validator.UserDataValidator;
 
-public class UserValidator implements Validator {
+public class UserValidator implements UserDataValidator {
 
-//	private static final String LOGIN_PATTERN = "[a-zA-Z0-9-_]{5,15}$";
-//    private static final String PASSWORD_PATTERN = "[a-zA-Z0-9_-]{6,18}$";
-//    private static final String NAME_PATTERN = "^([a-zA-Z-]|[а-яА-Я-]){2,25}$";
-	
-	private User user;
-	
-	public UserValidator(User user) {
-		this.user=user;
-	}
-	
 	@Override
-	public boolean validate() {
-
-        if (user.getLogin() == null || user.getLogin().isEmpty()) {
-            return false;
-        }
-
-        if (user.getPassword() == null || user.getPassword().isEmpty()) {
-        	 return false;
-
-        }
-        if (user.getName() == null || user.getName().isEmpty()) {
-        	 return false;
-
-        }
-        
-        if (user.getEmail() == null || user.getEmail().isEmpty()) {
-            return false;
-        }
-
-        if (user.getSecondName() == null || user.getSecondName().isEmpty()) {
-        	 return false;
-
-        }
-        if (user.getLastName() == null || user.getLastName().isEmpty()) {
-        	 return false;
-
-        }
+	public boolean validate(String login) {
+		if (login == null || login.isEmpty()) {
+			return false;
+		}
 		return true;
 	}
-	
 
-//    private boolean validateLogin(String login) {
-//        return login.matches(LOGIN_PATTERN);
-//    }
-//
-//    private boolean validatePassword(String password) {
-//        return password.matches(PASSWORD_PATTERN);
-//    }
-//
-//    private boolean validateName(String name) {
-//        return name.matches(NAME_PATTERN);
-//    }
+	@Override
+	public boolean validate(String login, String password) {
+		if (login == null || login.isEmpty()) {
+			return false;
+		}
+		if (password == null || password.isEmpty()) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean validate(String login, String password, String email, String name, String secondName,
+			String lastName) {
+		if (login == null || login.isEmpty()) {
+			return false;
+		}
+		if (password == null || password.isEmpty()) {
+			return false;
+		}
+		if (email == null || email.isEmpty()) {
+			return false;
+		}
+		if (name == null || name.isEmpty()) {
+			return false;
+		}
+		if (secondName == null || secondName.isEmpty()) {
+			return false;
+		}
+		if (lastName == null || lastName.isEmpty()) {
+			return false;
+		}
+		return true;
+	}
+
+
 
 }

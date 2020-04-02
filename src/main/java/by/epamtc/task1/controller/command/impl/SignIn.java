@@ -24,13 +24,14 @@ public class SignIn implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String page = null;
+		
 		UserService service = ServiceFactory.getInstance().getService();
+		
 		String login = request.getParameter(RequestParameterName.LOGIN);
 		String password = request.getParameter(RequestParameterName.PASSWORD);
 		
 		try {
 				
-			
 			boolean flag = service.signIn(login, password);
 
 			if (flag) {
@@ -43,8 +44,8 @@ public class SignIn implements Command {
 
 		} catch (ServiceException e) {
 
-			logger.log(Level.ERROR,e.getMessage());
-			page = JSPPageName.ERROR_PAGE;
+			logger.log(Level.ERROR,e);
+			response.sendRedirect(JSPPageName.ERROR_PAGE);
 
 		}
 
@@ -52,8 +53,7 @@ public class SignIn implements Command {
 		if (dispatcher != null) {
 			dispatcher.forward(request, response);
 		} else {
-			response.setContentType("text/html");
-			response.getWriter().println("e r r o r");
+			response.sendRedirect(JSPPageName.ERROR_PAGE);
 		}
 	}
 

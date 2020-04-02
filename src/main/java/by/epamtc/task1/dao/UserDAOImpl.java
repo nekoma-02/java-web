@@ -56,9 +56,9 @@ public class UserDAOImpl implements SQLUserDao {
 			return ps.executeUpdate() == 1;
 
 		} catch (ConnectionPoolException e) {
-			throw new DAOConnectionPoolException(e.getMessage());
+			throw new DAOConnectionPoolException(e);
 		} catch (SQLException e) {
-			throw new DAOSQLException(e.getMessage());
+			throw new DAOSQLException(e);
 		} finally {
 			closeConnection(connection, ps);
 		}
@@ -138,9 +138,9 @@ public class UserDAOImpl implements SQLUserDao {
 			return user;
 			
 		} catch (ConnectionPoolException e) {
-			throw new DAOConnectionPoolException(e.getMessage());
+			throw new DAOConnectionPoolException(e);
 		} catch (SQLException e) {
-			throw new DAOSQLException(e.getMessage());
+			throw new DAOSQLException(e);
 		} finally {
 			closeConnection(connection, ps,rs);
 		}
@@ -177,9 +177,9 @@ public class UserDAOImpl implements SQLUserDao {
 			return user;
 			
 		} catch (ConnectionPoolException e) {
-			throw new DAOConnectionPoolException(e.getMessage());
+			throw new DAOConnectionPoolException(e);
 		} catch (SQLException e) {
-			throw new DAOSQLException(e.getMessage());
+			throw new DAOSQLException(e);
 		} finally {
 			closeConnection(connection, ps,rs);
 		}

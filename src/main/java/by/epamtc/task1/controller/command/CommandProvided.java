@@ -3,6 +3,7 @@ package by.epamtc.task1.controller.command;
 import java.util.HashMap;
 import java.util.Map;
 
+import by.epamtc.task1.controller.command.impl.ChangeLocal;
 import by.epamtc.task1.controller.command.impl.Registration;
 import by.epamtc.task1.controller.command.impl.SignIn;
 
@@ -19,6 +20,7 @@ public class CommandProvided {
 	public CommandProvided() {
 		commands.put(CommandName.REGISTRATION, new Registration());
 		commands.put(CommandName.SIGN_IN, new SignIn()); 
+		commands.put(CommandName.CHANGE_LOCAL, new ChangeLocal()); 
 	}
 			
 			

@@ -7,4 +7,5 @@ public interface UserService {
 
 	boolean signIn(String login, String password) throws ServiceException;
 	boolean registration(User user) throws ServiceException;
+	boolean isUserExist(String login) throws ServiceException;
 }

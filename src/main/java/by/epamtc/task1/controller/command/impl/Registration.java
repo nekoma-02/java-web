@@ -7,6 +7,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.epamtc.task1.controller.JSPPageName;
 import by.epamtc.task1.controller.RequestParameterName;
 import by.epamtc.task1.controller.command.Command;
@@ -17,9 +21,12 @@ import by.epamtc.task1.service.exception.ServiceException;
 
 public class Registration implements Command {
 
+	private static Logger logger = LogManager.getLogger();
+	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String page = null;
+		
 		UserService service = ServiceFactory.getInstance().getService();
 
 		String name = request.getParameter(RequestParameterName.NAME);
@@ -31,22 +38,30 @@ public class Registration implements Command {
 		String email = request.getParameter(RequestParameterName.EMAIL);
 		int role = 1;
 
-		User user = new User(0,name,secondName,lastName,login,password,status,email,role);
+		User user = new User(0, name, secondName, lastName, login, password, status, email, role);
 
 		try {
 
-			boolean isSaved = service.registration(user);
-			if (isSaved) {
-				page = JSPPageName.INDEX_PAGE;
+			boolean isExist = service.isUserExist(login);
+			if (isExist) {
+				request.setAttribute(RequestParameterName.RESULT_INFO,
+						"Пользователь с данным логином уже зарегистрирован");
 			} else {
-				request.setAttribute(RequestParameterName.RESULT_INFO, "registration error");
-				page = JSPPageName.REGISTRATION_PAGE;
+
+				boolean isSaved = service.registration(user);
+				
+				if (isSaved) {
+					page = JSPPageName.INDEX_PAGE;
+				} else {
+					request.setAttribute(RequestParameterName.RESULT_INFO, "Ошибка регистрации");
+					page = JSPPageName.REGISTRATION_PAGE;
+				}
+
 			}
 
 		} catch (ServiceException e) {
-
-			request.setAttribute(RequestParameterName.RESULT_INFO, e.getMessage());
-			page = JSPPageName.ERROR_PAGE;
+			response.sendRedirect(JSPPageName.ERROR_PAGE);
+			logger.log(Level.ERROR,e);
 
 		}
 
@@ -54,8 +69,7 @@ public class Registration implements Command {
 		if (dispatcher != null) {
 			dispatcher.forward(request, response);
 		} else {
-			response.setContentType("text/html");
-			response.getWriter().println("e r r o r");
+			response.sendRedirect(JSPPageName.ERROR_PAGE);
 		}
 	}
 
