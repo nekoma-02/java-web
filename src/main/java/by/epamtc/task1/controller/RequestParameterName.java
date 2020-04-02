@@ -10,4 +10,5 @@ public class RequestParameterName {
     public static final String LAST_NAME = "lastname";
     public static final String EMAIL = "email";
     public static final String RESULT_INFO = "message";
+    public static final String USER_INFO = "user_info";
 }

@@ -5,12 +5,12 @@
 <%@ page isELIgnored="false"%>
 <html>
 <head>
-<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
 <link rel="stylesheet" href="resources/css/style.css" />
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 
 <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="local/local" var="loc" />
@@ -26,8 +26,12 @@
 	var="ru_button" />
 <fmt:message bundle="${loc}" key="local.locbutton.name.en"
 	var="en_button" />
+<fmt:message bundle="${loc}" key="local.locbutton.name.sign"
+	var="sign_in_button" />
+<fmt:message bundle="${loc}" key="local.locbutton.name.registr"
+	var="regist_button" />
 
-<title>Регистрация</title>
+<title>Index page</title>
 </head>
 <body>
 	<div>
@@ -42,7 +46,7 @@
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item"><a class="nav-link" href="index.jsp">${mainpage}
 					</a></li>
-					<li class="nav-item"><a class="nav-link"
+					<li class="nav-item active"><a class="nav-link"
 						href="${pageContext.request.contextPath}/Controller?command=show_specialties">${infopage}</a>
 					</li>
 					<li class="nav-item"><a class="nav-link" href="#">${contactpage}</a>
@@ -51,8 +55,8 @@
 				<c:if test="${not empty sessionScope.user_id}">
 					<form id="navlogin" class="form-inline mt-2 mt-md-0"
 						action="Controller" method="post">
-						<input type="hidden" name="command" value="sign_out" /> <span
-							class="navbar-text">${sessionScope.user_login} </span>
+						<input type="hidden" name="command" value="sign_out" /> <a href="${pageContext.request.contextPath}/Controller?command=show_userpage"
+							class="navbar-text">${sessionScope.user_login} </a>
 						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Выйти</button>
 					</form>
 				</c:if>
@@ -72,63 +76,34 @@
 		</nav>
 	</div>
 
-	<div>
+	<c:if test="${not empty specialties}">
+		<div class="content">
+			<table class="table table-hover">
+			<caption>Список специальностей</caption>
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col">Имя специальности</th>
+						<th scope="col">План</th>
+						<th scope="col">Год</th>
+						<th scope="col">Форма обучения</th>
+						<th scope="col">Факультет</th>
 
-		<h1 id="reg_text">Регистрация</h1>
-
-		<c:if test="${not empty message }">
-			<div class="alert alert-warning" role="alert" id="alert">
-				<c:out value="${message}"></c:out>
-			</div>
-		</c:if>
-
-		<form action="Controller" method="post" class="reg_form">
-
-			<input type="hidden" name="command" value="registration">
-
-
-
-			<div class="form-group">
-				<label for="formGroupExampleInput">Логин</label> <input type="text"
-					class="form-control" id="formGroupExampleInput" placeholder="Login"
-					name="login">
-			</div>
-
-			<div class="form-group">
-				<label for="exampleInputPassword1">Пароль</label> <input
-					type="password" class="form-control" id="exampleInputPassword1"
-					placeholder="Password" name="password">
-			</div>
-
-			<div class="form-group">
-				<label for="formGroupExampleInput">Имя</label> <input type="text"
-					class="form-control" id="formGroupExampleInput" placeholder="Name"
-					name="name">
-			</div>
-
-			<div class="form-group">
-				<label for="formGroupExampleInput">Фамилия</label> <input
-					type="text" class="form-control" id="formGroupExampleInput"
-					placeholder="second name" name="secondname">
-			</div>
-
-			<div class="form-group">
-				<label for="formGroupExampleInput">Отчество</label> <input
-					type="text" class="form-control" id="formGroupExampleInput"
-					placeholder="last name" name="lastname">
-			</div>
-
-			<div class="form-group">
-				<label for="exampleInputEmail1">Почтовый ящик</label> <input
-					type="email" class="form-control" id="exampleInputEmail1"
-					placeholder="Enter email" name="email">
-			</div>
-
-			<button type="submit" class="btn btn-primary">Зарегистрироваться</button>
-
-		</form>
-
-	</div>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${specialties}" var="spec">
+						<tr>
+							<td>${spec.getName()}</td>
+							<td>${spec.getPlan()}</td>
+							<td>${spec.getYear()}</td>
+							<td>${spec.getTypeStudy().getTypeName()}</td>
+							<td>${spec.getFaculty().getName()}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
+	</c:if>
 
 
 	<script

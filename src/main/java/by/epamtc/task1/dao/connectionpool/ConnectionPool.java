@@ -64,8 +64,10 @@ public final class ConnectionPool {
 				connectionQueue.add(pooledConnection);
 			}
 		} catch (SQLException e) {
+			logger.log(Level.ERROR, e);
 			throw new ConnectionPoolException("SQLException in ConnectionPool", e);
 		} catch (ClassNotFoundException e) {
+			logger.log(Level.ERROR, e);
 			throw new ConnectionPoolException("Can't find database driver class", e);
 		}
 	}
@@ -89,6 +91,7 @@ public final class ConnectionPool {
 			connection = connectionQueue.take();
 			givenAwayConQueue.add(connection);
 		} catch (InterruptedException e) {
+			logger.log(Level.ERROR, e);
 			throw new ConnectionPoolException("Error connecting to the data source.", e);
 		}
 		return connection;

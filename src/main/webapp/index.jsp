@@ -14,46 +14,84 @@
 
 <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="local/local" var="loc" />
-<fmt:message bundle="${loc}" key="local.message.mainpage" var="mainpage" />
+<fmt:message bundle="${loc}" key="local.namepage.mainpage"
+	var="mainpage" />
+<fmt:message bundle="${loc}" key="local.namepage.infopage"
+	var="infopage" />
+<fmt:message bundle="${loc}" key="local.namepage.contactpage"
+	var="contactpage" />
+<fmt:message bundle="${loc}" key="local.namepage.contactpage"
+	var="contactpage" />
 <fmt:message bundle="${loc}" key="local.locbutton.name.ru"
 	var="ru_button" />
 <fmt:message bundle="${loc}" key="local.locbutton.name.en"
 	var="en_button" />
+<fmt:message bundle="${loc}" key="local.locbutton.name.sign"
+	var="sign_in_button" />
+<fmt:message bundle="${loc}" key="local.locbutton.name.registr"
+	var="regist_button" />
 
 <title>Index page</title>
 </head>
 <body>
 	<div>
-		<ul class="nav justify-content-center">
-			<li class="nav-item"><a class="nav-link active" href="#">${mainpage}</a>
-			</li>
-			<li class="nav-item"><a class="nav-link" href="#">Информация</a>
-			</li>
-			<li class="nav-item"><a class="nav-link" href="#">Контакты</a></li>
-			<li class="nav-item"><a class="nav-link disabled" href="#">Disabled</a>
-			</li>
-			<li class="nav-item">
-				<form action="Controller" method="post" id="form_local">
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+			<a class="navbar-brand" href="#">BRAND</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarCollapse" aria-controls="navbarCollapse"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active"><a class="nav-link" href="#">${mainpage}
+							<span class="sr-only">(current)</span>
+					</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="${pageContext.request.contextPath}/Controller?command=show_specialties">${infopage}</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="#">${contactpage}</a>
+					</li>
+				</ul>
+				<c:if test="${not empty sessionScope.user_id}">
+					<form id="navlogin" class="form-inline mt-2 mt-md-0"
+						action="Controller" method="post">
+						<input type="hidden" name="command" value="sign_out" /> <a href="${pageContext.request.contextPath}/Controller?command=show_userpage"
+							class="navbar-text">${sessionScope.user_login} </a>
+						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Выйти</button>
+					</form>
+				</c:if>
+				<form class="form-inline mt-2 mt-md-0" action="Controller"
+					method="post">
 					<input type="hidden" name="local" value="ru" /> <input
-						type="hidden" name="command" value="change_local" /> <input
-						type="submit" value="${ru_button}" /><br />
+						type="hidden" name="command" value="change_local" />
+					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">${ru_button}</button>
 				</form>
-			</li>
-			<li class="nav-item">
-				<form action="Controller" method="post" id="form_local">
+				<form class="form-inline mt-2 mt-md-0" action="Controller"
+					method="post">
 					<input type="hidden" name="local" value="en" /> <input
-						type="hidden" name="command" value="change_local" /> <input
-						type="submit" value="${en_button}" /><br />
+						type="hidden" name="command" value="change_local" />
+					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">${en_button}</button>
 				</form>
-			</li>
-		</ul>
+			</div>
+		</nav>
 	</div>
 
+
 	<div class="content">
-		<a href="login.jsp" class="btn btn-primary btn-lg active"
-			role="button" aria-pressed="true">Авторизация</a> <a
-			href="registration.jsp" class="btn btn-primary btn-lg active"
-			role="button" aria-pressed="true">Регистрация</a>
+		<c:if test="${not empty sessionScope.user_id}">
+			<a id="btn_account" href="${pageContext.request.contextPath}/Controller?command=show_userpage"
+				class="btn btn-primary btn-lg btn-block active" role="button"
+				aria-pressed="true">Войти в личный кабинет</a>
+		</c:if>
+		<c:if test="${empty sessionScope.user_id}">
+			<a id="btn_aure" href="login.jsp"
+				class="btn btn-primary btn-lg active" role="button"
+				aria-pressed="true">${sign_in_button}</a>
+			<a id="btn_aure" href="registration.jsp"
+				class="btn btn-primary btn-lg active" role="button"
+				aria-pressed="true">${regist_button}</a>
+		</c:if>
 	</div>
 
 

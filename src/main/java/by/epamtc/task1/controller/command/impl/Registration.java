@@ -27,7 +27,7 @@ public class Registration implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String page = null;
 		
-		UserService service = ServiceFactory.getInstance().getService();
+		UserService service = ServiceFactory.getInstance().getUserService();
 
 		String name = request.getParameter(RequestParameterName.NAME);
 		String secondName = request.getParameter(RequestParameterName.SECOND_NAME);

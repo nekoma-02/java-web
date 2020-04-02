@@ -1,4 +1,4 @@
-package by.epamtc.task1.dao;
+package by.epamtc.task1.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import by.epamtc.task1.dao.SQLUserDao;
 import by.epamtc.task1.dao.connectionpool.ConnectionPool;
 import by.epamtc.task1.dao.connectionpool.ConnectionPoolException;
 import by.epamtc.task1.dao.connectionpool.ConnectionPoolManager;
@@ -28,7 +29,7 @@ public class UserDAOImpl implements SQLUserDao {
 	private static final String SELECT_USER_BY_ID = "select * from users where id_user = ?";
 	
 	@Override
-	public boolean insert(User field) throws DAOException {
+	public boolean insert(User user) throws DAOException {
 		Connection connection = null;
 		PreparedStatement ps = null;
 
@@ -45,19 +46,21 @@ public class UserDAOImpl implements SQLUserDao {
 			connection = connectionPool.takeConnection();
 			ps = connection.prepareStatement(INSER_USER);
 
-			ps.setString(nameInt, field.getName());
-			ps.setString(secondNameInt, field.getSecondName());
-			ps.setString(lastNameInt, field.getLastName());
-			ps.setBoolean(statusInt, field.isStatus());
-			ps.setString(loginInt, field.getLogin());
-			ps.setString(passwordInt, field.getPassword());
-			ps.setString(emailInt, field.getEmail());
+			ps.setString(nameInt, user.getName());
+			ps.setString(secondNameInt, user.getSecondName());
+			ps.setString(lastNameInt, user.getLastName());
+			ps.setBoolean(statusInt, user.isStatus());
+			ps.setString(loginInt, user.getLogin());
+			ps.setString(passwordInt, user.getPassword());
+			ps.setString(emailInt, user.getEmail());
 
 			return ps.executeUpdate() == 1;
 
 		} catch (ConnectionPoolException e) {
+			logger.log(Level.ERROR, e);
 			throw new DAOConnectionPoolException(e);
 		} catch (SQLException e) {
+			logger.log(Level.ERROR, e);
 			throw new DAOSQLException(e);
 		} finally {
 			closeConnection(connection, ps);
@@ -97,8 +100,10 @@ public class UserDAOImpl implements SQLUserDao {
 			return user;
 			
 		} catch (ConnectionPoolException e) {
+			logger.log(Level.ERROR, e);
 			throw new DAOConnectionPoolException(e.getMessage());
 		} catch (SQLException e) {
+			logger.log(Level.ERROR, e);
 			throw new DAOSQLException(e.getMessage());
 		} finally {
 			closeConnection(connection, ps,rs);
@@ -138,8 +143,10 @@ public class UserDAOImpl implements SQLUserDao {
 			return user;
 			
 		} catch (ConnectionPoolException e) {
+			logger.log(Level.ERROR, e);
 			throw new DAOConnectionPoolException(e);
 		} catch (SQLException e) {
+			logger.log(Level.ERROR, e);
 			throw new DAOSQLException(e);
 		} finally {
 			closeConnection(connection, ps,rs);
@@ -177,8 +184,10 @@ public class UserDAOImpl implements SQLUserDao {
 			return user;
 			
 		} catch (ConnectionPoolException e) {
+			logger.log(Level.ERROR, e);
 			throw new DAOConnectionPoolException(e);
 		} catch (SQLException e) {
+			logger.log(Level.ERROR, e);
 			throw new DAOSQLException(e);
 		} finally {
 			closeConnection(connection, ps,rs);
