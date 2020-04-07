@@ -2,68 +2,29 @@ package by.epamtc.task1.entity;
 
 import java.io.Serializable;
 
-public class Faculty implements Serializable{
-
-	private static final long serialVersionUID = 1336579684410526548L;
+public class Privilege implements Serializable {
+	
+	private static final long serialVersionUID = 5904983485707069271L;
 	
 	private int id;
 	private String name;
 	
-	public Faculty() {
+	public Privilege() {
 	}
 	
 	
-	
-	public Faculty(int id) {
+
+	public Privilege(int id) {
 		super();
 		this.id = id;
 	}
 
 
 
-	public Faculty(int id, String name) {
+	public Privilege(int id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
-	}
-	
-	@Override
-	public String toString() {
-		return "Faculty [id=" + id + ", name=" + name + "]";
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		Faculty other = (Faculty) obj;
-		if (id != other.id) {
-			return false;
-		}
-		if (name == null) {
-			if (other.name != null) {
-				return false;
-			}
-		} else if (!name.equals(other.name)) {
-			return false;
-		}
-		return true;
 	}
 
 	public int getId() {
@@ -82,5 +43,51 @@ public class Faculty implements Serializable{
 		this.name = name;
 	}
 
+
+
+	@Override
+	public String toString() {
+		return "Privilege [id=" + id + ", name=" + name + "]";
+	}
+
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Privilege other = (Privilege) obj;
+		if (id != other.id) {
+			return false;
+		}
+		if (name == null) {
+			if (other.name != null) {
+				return false;
+			}
+		} else if (!name.equals(other.name)) {
+			return false;
+		}
+		return true;
+	}
 	
+	
+
 }

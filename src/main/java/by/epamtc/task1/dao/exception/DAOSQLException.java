@@ -2,9 +2,6 @@ package by.epamtc.task1.dao.exception;
 
 public class DAOSQLException extends DAOException {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public DAOSQLException() {

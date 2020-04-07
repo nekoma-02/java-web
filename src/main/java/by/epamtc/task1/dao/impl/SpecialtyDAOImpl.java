@@ -1,6 +1,7 @@
 package by.epamtc.task1.dao.impl;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -28,6 +29,8 @@ public class SpecialtyDAOImpl implements SQLSpecialtyDao {
 	private ConnectionPool connectionPool = ConnectionPoolManager.getInstance().getConnectionPool();
 
 	private static final String SELECT_ALL_SPECIALTY = "select specialties.idspecialty,specialties.specialty_name,specialties.plan,specialties.year,types_study.type_name,faculties.faculty_name from specialties inner join types_study on specialties.idtype_study = types_study.idtype_study inner join faculties on faculties.idfaculty=specialties.faculties_idfaculty";
+	private static final String SELECT_SPECIALTY_BY_ID = "select specialties.idspecialty,specialties.specialty_name,specialties.plan,specialties.year,types_study.type_name,faculties.faculty_name from specialties inner join types_study on specialties.idtype_study = types_study.idtype_study inner join faculties on faculties.idfaculty=specialties.faculties_idfaculty where specialties.idspecialty = ?";
+	private static final String SELECT_SPECIALTY_BY_NAME = "select specialties.idspecialty,specialties.specialty_name,specialties.plan,specialties.year,types_study.type_name,faculties.faculty_name from specialties inner join types_study on specialties.idtype_study = types_study.idtype_study inner join faculties on faculties.idfaculty=specialties.faculties_idfaculty where specialties.specialty_name = ?";
 
 	@Override
 	public boolean insert(Specialty specialty) throws DAOException {
@@ -37,14 +40,90 @@ public class SpecialtyDAOImpl implements SQLSpecialtyDao {
 
 	@Override
 	public Specialty getSpecialtyByName(String name) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
+		Specialty specialty = null;
+		Connection connection = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		int idInt = 1;
+		int nameInt = 2;
+		int planInt = 3;
+		int yearInt = 4;
+		int typeStudyNameInt = 5;
+		int facultyNameInt = 6;
+
+		try {
+			connection = connectionPool.takeConnection();
+			
+			ps = connection.prepareStatement(SELECT_SPECIALTY_BY_NAME);
+			ps.setString(1,name);
+
+			rs = ps.executeQuery();
+
+			if (rs.next()) {
+				specialty = new Specialty(rs.getInt(idInt), 
+						rs.getString(nameInt), 
+						rs.getInt(planInt),
+						rs.getInt(yearInt), 
+						new TypeStudy(0, rs.getString(typeStudyNameInt)),
+						new Faculty(0, rs.getString(facultyNameInt)));
+			}
+
+			return specialty;
+
+		} catch (ConnectionPoolException e) {
+			logger.log(Level.ERROR, e);
+			throw new DAOConnectionPoolException(e);
+		} catch (SQLException e) {
+			logger.log(Level.ERROR, e);
+			throw new DAOSQLException(e);
+		} finally {
+			closeConnection(connection, ps, rs);
+		}
 	}
 
 	@Override
 	public Specialty getSpecialtyById(int id) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
+		Specialty specialty = null;
+		Connection connection = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		int idInt = 1;
+		int nameInt = 2;
+		int planInt = 3;
+		int yearInt = 4;
+		int typeStudyNameInt = 5;
+		int facultyNameInt = 6;
+
+		try {
+			connection = connectionPool.takeConnection();
+			
+			ps = connection.prepareStatement(SELECT_SPECIALTY_BY_ID);
+			ps.setInt(1, id);
+
+			rs = ps.executeQuery();
+
+			if (rs.next()) {
+				specialty = new Specialty(rs.getInt(idInt), 
+						rs.getString(nameInt), 
+						rs.getInt(planInt),
+						rs.getInt(yearInt), 
+						new TypeStudy(0, rs.getString(typeStudyNameInt)),
+						new Faculty(0, rs.getString(facultyNameInt)));
+			}
+
+			return specialty;
+
+		} catch (ConnectionPoolException e) {
+			logger.log(Level.ERROR, e);
+			throw new DAOConnectionPoolException(e);
+		} catch (SQLException e) {
+			logger.log(Level.ERROR, e);
+			throw new DAOSQLException(e);
+		} finally {
+			closeConnection(connection, ps, rs);
+		}
 	}
 
 	@Override
@@ -68,11 +147,8 @@ public class SpecialtyDAOImpl implements SQLSpecialtyDao {
 			rs = st.executeQuery(SELECT_ALL_SPECIALTY);
 
 			while (rs.next()) {
-				specialties.add(new Specialty(rs.getInt(idInt), 
-						rs.getString(nameInt), 
-						rs.getInt(planInt),
-						rs.getInt(yearInt), 
-						new TypeStudy(0, rs.getString(typeStudyNameInt)),
+				specialties.add(new Specialty(rs.getInt(idInt), rs.getString(nameInt), rs.getInt(planInt),
+						rs.getInt(yearInt), new TypeStudy(0, rs.getString(typeStudyNameInt)),
 						new Faculty(0, rs.getString(facultyNameInt))));
 			}
 

@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import by.epamtc.task1.controller.JSPPageName;
 import by.epamtc.task1.controller.RequestParameterName;
 import by.epamtc.task1.controller.command.Command;
+import by.epamtc.task1.entity.Role;
 import by.epamtc.task1.entity.User;
 import by.epamtc.task1.service.ServiceFactory;
 import by.epamtc.task1.service.UserService;
@@ -34,11 +35,11 @@ public class Registration implements Command {
 		String lastName = request.getParameter(RequestParameterName.LAST_NAME);
 		String login = request.getParameter(RequestParameterName.LOGIN);
 		String password = request.getParameter(RequestParameterName.PASSWORD);
-		boolean status = false;
+		//boolean status = false;
 		String email = request.getParameter(RequestParameterName.EMAIL);
-		int role = 1;
+		Role role = Role.valueOf(request.getParameter(RequestParameterName.USER_ROLE).toUpperCase());
 
-		User user = new User(0, name, secondName, lastName, login, password, status, email, role);
+		User user = new User(0, name, secondName, lastName, login, password, email, role);
 
 		try {
 

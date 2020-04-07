@@ -17,6 +17,15 @@ public class Specialty implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
+	
+	
+	public Specialty(int id) {
+		super();
+		this.id = id;
+	}
+
+
+
 	public Specialty(int id, String name, int plan, int year, TypeStudy typeStudy, Faculty faculty) {
 		super();
 		this.id = id;

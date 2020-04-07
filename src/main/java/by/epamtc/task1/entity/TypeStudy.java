@@ -10,7 +10,6 @@ public class TypeStudy implements Serializable {
 	private String typeName;
 
 	public TypeStudy() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public TypeStudy(int id, String typeName) {

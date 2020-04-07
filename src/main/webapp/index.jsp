@@ -94,7 +94,15 @@
 		</c:if>
 	</div>
 
+<!-- Footer -->
+<footer class="page-footer font-small black">
 
+  <div class="footer-copyright text-center py-3">© 2020 Copyright:
+    <a href="/"> MDBootstrap.com</a>
+  </div>
+
+</footer>
+<!-- Footer -->
 
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"

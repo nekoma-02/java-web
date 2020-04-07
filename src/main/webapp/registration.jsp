@@ -85,6 +85,7 @@
 		<form action="Controller" method="post" class="reg_form">
 
 			<input type="hidden" name="command" value="registration">
+			<input type="hidden" name="user_role" value="user">
 
 
 

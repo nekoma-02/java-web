@@ -14,9 +14,8 @@ public class UserValidator implements UserDataValidator {
 
 	@Override
 	public boolean validate(String login, String password) {
-		if (login == null || login.isEmpty()) {
-			return false;
-		}
+		this.validate(login);
+		
 		if (password == null || password.isEmpty()) {
 			return false;
 		}
@@ -26,12 +25,8 @@ public class UserValidator implements UserDataValidator {
 	@Override
 	public boolean validate(String login, String password, String email, String name, String secondName,
 			String lastName) {
-		if (login == null || login.isEmpty()) {
-			return false;
-		}
-		if (password == null || password.isEmpty()) {
-			return false;
-		}
+		this.validate(login, password);
+		
 		if (email == null || email.isEmpty()) {
 			return false;
 		}
