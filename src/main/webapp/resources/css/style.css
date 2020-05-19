@@ -42,6 +42,15 @@
 	border-radius: 15px;
 }
 
+.add_application_form {
+	width: 600px;
+	margin-left: 15%;
+	margin-top: 25px;
+	border: 2px solid #000;
+	padding: 20px;
+	border-radius: 15px;
+}
+
 #reg_text {
 	margin-left: 38%;
 }

@@ -12,4 +12,7 @@ public class RequestParameterName {
     public static final String RESULT_INFO = "message";
     public static final String USER_INFO = "user_info";
     public static final String USER_ROLE = "user_role";
+    public static final String PRIVILEGES = "privileges";
+    public static final String SCHOOLS = "schools";
+    public static final String SPECIALTIES = "specialties";
 }

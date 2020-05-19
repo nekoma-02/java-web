@@ -31,11 +31,41 @@ public class SpecialtyDAOImpl implements SQLSpecialtyDao {
 	private static final String SELECT_ALL_SPECIALTY = "select specialties.idspecialty,specialties.specialty_name,specialties.plan,specialties.year,types_study.type_name,faculties.faculty_name from specialties inner join types_study on specialties.idtype_study = types_study.idtype_study inner join faculties on faculties.idfaculty=specialties.faculties_idfaculty";
 	private static final String SELECT_SPECIALTY_BY_ID = "select specialties.idspecialty,specialties.specialty_name,specialties.plan,specialties.year,types_study.type_name,faculties.faculty_name from specialties inner join types_study on specialties.idtype_study = types_study.idtype_study inner join faculties on faculties.idfaculty=specialties.faculties_idfaculty where specialties.idspecialty = ?";
 	private static final String SELECT_SPECIALTY_BY_NAME = "select specialties.idspecialty,specialties.specialty_name,specialties.plan,specialties.year,types_study.type_name,faculties.faculty_name from specialties inner join types_study on specialties.idtype_study = types_study.idtype_study inner join faculties on faculties.idfaculty=specialties.faculties_idfaculty where specialties.specialty_name = ?";
-
+	private static final String INSERT_SPECIALTY = "insert into specialties(specialty_name,plan,year,idtype_study,faculties_idfaculty) values (?,?,?,?,?)";
+	
 	@Override
 	public boolean insert(Specialty specialty) throws DAOException {
-		// TODO Auto-generated method stub
-		return false;
+		Connection connection = null;
+		PreparedStatement ps = null;
+
+		int idInt = 1;
+		int nameInt = 2;
+		int planInt = 3;
+		int yearInt = 4;
+		int typeStudyIdInt = 5;
+		int facultyIdInt = 6;
+
+		try {
+			connection = connectionPool.takeConnection();
+			ps = connection.prepareStatement(INSERT_SPECIALTY);
+
+			ps.setString(nameInt, specialty.getName());
+			ps.setInt(planInt, specialty.getPlan());
+			ps.setInt(yearInt, specialty.getYear());
+			ps.setInt(typeStudyIdInt, specialty.getTypeStudy().getId());
+			ps.setInt(facultyIdInt, specialty.getFaculty().getId());
+
+			return ps.executeUpdate() == 1;
+
+		} catch (ConnectionPoolException e) {
+			logger.log(Level.ERROR, e);
+			throw new DAOConnectionPoolException(e);
+		} catch (SQLException e) {
+			logger.log(Level.ERROR, e);
+			throw new DAOSQLException(e);
+		} finally {
+			closeConnection(connection, ps);
+		}
 	}
 
 	@Override

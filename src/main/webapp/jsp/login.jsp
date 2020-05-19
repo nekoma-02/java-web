@@ -3,47 +3,51 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page isELIgnored="false"%>
+
+<!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
 <link rel="stylesheet" href="resources/css/style.css" />
-<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 
 <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="local/local" var="loc" />
-<fmt:message bundle="${loc}" key="local.namepage.mainpage"
-	var="mainpage" />
-<fmt:message bundle="${loc}" key="local.namepage.infopage"
-	var="infopage" />
-<fmt:message bundle="${loc}" key="local.namepage.contactpage"
-	var="contactpage" />
-<fmt:message bundle="${loc}" key="local.namepage.contactpage"
-	var="contactpage" />
-<fmt:message bundle="${loc}" key="local.locbutton.name.ru"
-	var="ru_button" />
-<fmt:message bundle="${loc}" key="local.locbutton.name.en"
-	var="en_button" />
-<fmt:message bundle="${loc}" key="local.locbutton.name.sign"
-	var="sign_in_button" />
-<fmt:message bundle="${loc}" key="local.locbutton.name.registr"
-	var="regist_button" />
-
-<title>Index page</title>
+<title>Авторизация</title>
 </head>
 <body>
-	<jsp:include page="WEB-INF/jsp/header_nav.jsp"></jsp:include>
+	<jsp:include page="../WEB-INF/jsp/header_nav.jsp"></jsp:include>
+
+	<div>
+		<h1 id="Auth_text">Авторизация</h1>
+
+		<c:if test="${not empty message }">
+			<div class="alert alert-warning" role="alert" id="alert">
+				<c:out value="${message}"></c:out>
+			</div>
+		</c:if>
 
 
-	<div class="content">
-		<h1>
-			<b>ERROR</b>
-		</h1>
+		<form action="Controller" method="post" class="auth_form">
+			<input type="hidden" name="command" value="sign_in">
+
+			<div class="form-group">
+				<label for="formGroupExampleInput">Логин</label> <input type="text"
+					class="form-control" id="formGroupExampleInput" placeholder="Login"
+					name="login">
+			</div>
+			<div class="form-group">
+				<label for="exampleInputPassword1">Пароль</label> <input
+					type="password" class="form-control" id="exampleInputPassword1"
+					placeholder="Password" name="password">
+			</div>
+			<button type="submit" class="btn btn-primary">Войти</button>
+
+		</form>
 	</div>
-
-
 
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
@@ -56,6 +60,5 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
 		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
 		crossorigin="anonymous"></script>
-
 </body>
 </html>

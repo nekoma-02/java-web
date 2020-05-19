@@ -24,7 +24,7 @@ public class UserDAOImpl implements SQLUserDao {
 	private static Logger logger = LogManager.getLogger();
 	private ConnectionPool connectionPool = ConnectionPoolManager.getInstance().getConnectionPool();
 
-	private static final String INSER_USER = "insert into users(name,secondName,lastName,login,password,email,roles_id_role) values (?,?,?,?,?,?,?,?)";
+	private static final String INSER_USER = "insert into users(name,secondName,lastName,login,password,email,roles_id_role) values (?,?,?,?,?,?,?)";
 	private static final String SELECT_USER_BY_PASSWORD_LOGIN = "select id_user,name,secondName,lastName,login,password,email,roles.role_name from users inner join roles on users.roles_id_role = roles.id_role where login = ? and password = ?";
 	private static final String SELECT_USER_BY_LOGIN = "select id_user,name,secondName,lastName,login,password,email,roles.role_name from users inner join roles on users.roles_id_role = roles.id_role where login = ?";
 	private static final String SELECT_USER_BY_ID = "select id_user,name,secondName,lastName,login,password,email,roles.role_name from users inner join roles on users.roles_id_role = roles.id_role where id_user = ?";
@@ -52,7 +52,7 @@ public class UserDAOImpl implements SQLUserDao {
 			ps.setString(loginInt, user.getLogin());
 			ps.setString(passwordInt, user.getPassword());
 			ps.setString(emailInt, user.getEmail());
-			ps.setInt(roleInt, user.getRole().ordinal());
+			ps.setInt(roleInt, user.getRole().ordinal()+1);
 
 			return ps.executeUpdate() == 1;
 

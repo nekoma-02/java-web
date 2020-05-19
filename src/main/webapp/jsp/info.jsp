@@ -14,42 +14,42 @@
 
 <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="local/local" var="loc" />
-<fmt:message bundle="${loc}" key="local.locbutton.name.sign"
-	var="sign_in_button" />
-<fmt:message bundle="${loc}" key="local.locbutton.name.registr"
-	var="regist_button" />
+
 
 <title>Index page</title>
 </head>
 <body>
-	<jsp:include page="WEB-INF/jsp/header_nav.jsp"></jsp:include>
+	<jsp:include page="../WEB-INF/jsp/header_nav.jsp"></jsp:include>
 
+	<c:if test="${not empty specialties}">
+		<div class="content">
+			<table class="table table-hover">
+			<caption>Список специальностей</caption>
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col">Имя специальности</th>
+						<th scope="col">План</th>
+						<th scope="col">Год</th>
+						<th scope="col">Форма обучения</th>
+						<th scope="col">Факультет</th>
 
-	<div class="content">
-		<c:if test="${not empty sessionScope.user_id}">
-			<a id="btn_account" href="${pageContext.request.contextPath}/Controller?command=show_addapplication_page"
-				class="btn btn-primary btn-lg btn-block active" role="button"
-				aria-pressed="true">Перейти к заполнению заявления</a>
-		</c:if>
-		<c:if test="${empty sessionScope.user_id}">
-			<a id="btn_aure" href="${pageContext.request.contextPath}/Controller?command=show_login_page"
-				class="btn btn-primary btn-lg active" role="button"
-				aria-pressed="true">${sign_in_button}</a>
-			<a id="btn_aure" href="${pageContext.request.contextPath}/Controller?command=show_registration_page"
-				class="btn btn-primary btn-lg active" role="button"
-				aria-pressed="true">${regist_button}</a>
-		</c:if>
-	</div>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${specialties}" var="spec">
+						<tr>
+							<td>${spec.getName()}</td>
+							<td>${spec.getPlan()}</td>
+							<td>${spec.getYear()}</td>
+							<td>${spec.getTypeStudy().getTypeName()}</td>
+							<td>${spec.getFaculty().getName()}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
+	</c:if>
 
-<!-- Footer -->
-<footer class="page-footer font-small black">
-
-  <div class="footer-copyright text-center py-3">© 2020 Copyright:
-    <a href="/"> MDBootstrap.com</a>
-  </div>
-
-</footer>
-<!-- Footer -->
 
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"

@@ -2,7 +2,6 @@ package by.epamtc.task1.controller.command.impl;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +26,6 @@ public class SignIn implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String page = null;
 
 		UserService service = ServiceFactory.getInstance().getUserService();
 
@@ -44,19 +42,11 @@ public class SignIn implements Command {
 				
 				session.setAttribute(SessionParameterName.USER_ID_SESSION_ATTRIBUTE, user.getId());
 				session.setAttribute(SessionParameterName.USER_LOGIN_SESSION_ATTRIBUTE, user.getLogin());
-				
-				page = JSPPageName.INDEX_PAGE;
+				response.sendRedirect(JSPPageName.INDEX_PAGE);
 				
 			} else {
 				request.setAttribute(RequestParameterName.RESULT_INFO, "Авторизация не выполнена");
-				page = JSPPageName.LOGIN_PAGE;
-			}
-
-			RequestDispatcher dispatcher = request.getRequestDispatcher(page);
-			if (dispatcher != null) {
-				dispatcher.forward(request, response);
-			} else {
-				response.sendRedirect(JSPPageName.ERROR_PAGE);
+				forwardTo(request, response, JSPPageName.LOGIN_PAGE);
 			}
 			
 		} catch (ServiceException e) {

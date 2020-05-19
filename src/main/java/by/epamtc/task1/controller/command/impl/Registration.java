@@ -35,29 +35,35 @@ public class Registration implements Command {
 		String lastName = request.getParameter(RequestParameterName.LAST_NAME);
 		String login = request.getParameter(RequestParameterName.LOGIN);
 		String password = request.getParameter(RequestParameterName.PASSWORD);
-		//boolean status = false;
-		String email = request.getParameter(RequestParameterName.EMAIL);
+		String email = request.getParameter(RequestParameterName.EMAIL);		
 		Role role = Role.valueOf(request.getParameter(RequestParameterName.USER_ROLE).toUpperCase());
-
+		
 		User user = new User(0, name, secondName, lastName, login, password, email, role);
+		
 
 		try {
 
 			boolean isExist = service.isUserExist(login);
-			if (isExist) {
+	
+			if (!isExist) {
 				request.setAttribute(RequestParameterName.RESULT_INFO,
 						"Пользователь с данным логином уже зарегистрирован");
+				forwardTo(request, response, JSPPageName.REGISTRATION_PAGE);
 			} else {
-
 				boolean isSaved = service.registration(user);
-				
 				if (isSaved) {
-					page = JSPPageName.INDEX_PAGE;
+					response.sendRedirect(JSPPageName.INDEX_PAGE);
 				} else {
 					request.setAttribute(RequestParameterName.RESULT_INFO, "Ошибка регистрации");
-					page = JSPPageName.REGISTRATION_PAGE;
+					forwardTo(request, response, JSPPageName.REGISTRATION_PAGE);
 				}
-
+			}
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher(page);
+			if (dispatcher != null) {
+				dispatcher.forward(request, response);
+			} else {
+				response.sendRedirect(JSPPageName.ERROR_PAGE);
 			}
 
 		} catch (ServiceException e) {
@@ -66,12 +72,7 @@ public class Registration implements Command {
 
 		}
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher(page);
-		if (dispatcher != null) {
-			dispatcher.forward(request, response);
-		} else {
-			response.sendRedirect(JSPPageName.ERROR_PAGE);
-		}
+		
 	}
 
 }

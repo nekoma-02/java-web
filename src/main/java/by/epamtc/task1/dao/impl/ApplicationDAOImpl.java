@@ -30,10 +30,12 @@ public class ApplicationDAOImpl implements SQLApplicationDao {
 	private ConnectionPool connectionPool = ConnectionPoolManager.getInstance().getConnectionPool();
 
 	/**
-	 * 1 - application id; 2 - application adress; 3 - application certificate; 4 - id privilege; 5 - id user;
-	 *  6 - id hostel; 7 - id school; 8 - id specialty; 9 - application need hostel; 10 - application confirmation;
+	 * 1 - application id; 2 - application adress; 3 - application certificate; 4 -
+	 * id privilege; 5 - id user; 6 - id hostel; 7 - id school; 8 - id specialty; 9
+	 * - application need hostel; 10 - application confirmation;
 	 **/
 	private static final String SELECT_APPLICATION_BY_USERID = "select applications.idapplication, applications.adress, applications.certificate, stud_privileges.idprivilege, users.id_user,hostels.idhostel, schools.idschool, specialties.idspecialty, applications.need_hostel,applications.confirmation from applications inner join stud_privileges on applications.privileges_idprivilege = stud_privileges.idprivilege inner join users on applications.users_id_user = users.id_user inner join hostels on applications.hostels_idhostel= hostels.idhostel inner join schools on applications.schools_idschool=schools.idschool inner join specialties on applications.specialties_idspecialty = specialties.idspecialty where users.id_user = ?";
+	private static final String INSERT_APPLICATION = "insert into applications value (default,?,?,?,?,?,?,?,?,?)";
 
 	@Override
 	public Application applicationByUserId(int userId) throws DAOException {
@@ -51,13 +53,9 @@ public class ApplicationDAOImpl implements SQLApplicationDao {
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
-				application = new Application(rs.getInt(1), rs.getString(2), rs.getInt(3), 
-						new Privilege(rs.getInt(4)),
-						new User(rs.getInt(5)), 
-						new School(rs.getInt(7)),
-						rs.getBoolean(9),
-						new Specialty(rs.getInt(8)),
-						rs.getBoolean(10));
+				application = new Application(rs.getInt(1), rs.getString(2), rs.getInt(3), new Privilege(rs.getInt(4)),
+						new User(rs.getInt(5)), new School(rs.getInt(7)), rs.getBoolean(9), new Hostel(rs.getInt(6)),
+						new Specialty(rs.getInt(8)), rs.getBoolean(10));
 			}
 
 			return application;
@@ -74,10 +72,35 @@ public class ApplicationDAOImpl implements SQLApplicationDao {
 	}
 
 	@Override
-	public boolean insertApplication(Application application, Hostel hostel, Privilege privelege, School school)
-			throws DAOException {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean insertApplication(Application application) throws DAOException {
+		Connection connection = null;
+		PreparedStatement ps = null;
+
+		try {
+			connection = connectionPool.takeConnection();
+			ps = connection.prepareStatement(INSERT_APPLICATION);
+
+			ps.setString(1, application.getAdress());
+			ps.setInt(2, application.getCertificate());
+			ps.setInt(3, application.getPrivilege().getId());
+			ps.setInt(4, application.getUser().getId());
+			ps.setInt(5, application.getSchool().getId());
+			ps.setBoolean(6, application.isNeedHostel());
+			ps.setInt(7, application.getHostel().getId());
+			ps.setInt(8, application.getSpecialty().getId());
+			ps.setBoolean(9, application.isConfirmation());
+
+			return ps.executeUpdate() == 1;
+
+		} catch (ConnectionPoolException e) {
+			logger.log(Level.ERROR, e);
+			throw new DAOConnectionPoolException(e);
+		} catch (SQLException e) {
+			logger.log(Level.ERROR, e);
+			throw new DAOSQLException(e);
+		} finally {
+			closeConnection(connection, ps);
+		}
 	}
 
 	@Override

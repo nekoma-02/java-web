@@ -14,18 +14,17 @@ public class ChangeLocal implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-        String local = request.getParameter("local");
-        session.setAttribute("local", local);
+		String local = request.getParameter("local");
+		session.setAttribute("local", local);
 
+		String command = (String) session.getAttribute("command");
 
-        String command = (String) session.getAttribute("command");
+		if (command != null) {
+			response.sendRedirect(request.getContextPath() + "/Controller?command=" + command);
+		} else {
+			response.sendRedirect(request.getContextPath());
+		}
 
-        if (command != null) {
-            response.sendRedirect(request.getContextPath() + "/Controller?command=" + command);
-        } else {
-            response.sendRedirect(request.getContextPath());
-        }
-		
 	}
 
 }

@@ -49,17 +49,17 @@ public class UserServiceImpl implements UserService {
 		boolean isValidate = userValidator.validate(user.getLogin(), user.getPassword(), user.getEmail(),
 				user.getName(), user.getSecondName(), user.getLastName());
 		
-		boolean flag = false;
+		boolean isInsert = false;
 
 		try {
 
 			if (isValidate) {
-				flag = dao.insert(user);
+				isInsert = dao.insert(user);
 			} else {
 				return false;
 			}
 
-			return flag;
+			return isInsert;
 		} catch (DAOException e) {
 			logger.log(Level.ERROR, e);
 			throw new ServiceException(e);
@@ -73,16 +73,9 @@ public class UserServiceImpl implements UserService {
 
 		User user = null;
 		
-		UserValidator userValidator = new UserValidator();
-		boolean isValidate = userValidator.validate(login);
-		
 		try {
 
-			if (isValidate) {
 			user = dao.getUserByLogin(login);
-			} else {
-				return false;
-			}
 			
 			return user == null ? true : false;
 		} catch (DAOException e) {
