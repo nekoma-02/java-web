@@ -9,7 +9,9 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="resources/css/style.css" />
+	
+<link rel="stylesheet" type="text/css" href="resources/css/style.css">
+
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
 
 <fmt:setLocale value="${sessionScope.local}" />
@@ -22,14 +24,50 @@
 <title>Index page</title>
 </head>
 <body>
-	<jsp:include page="WEB-INF/jsp/header_nav.jsp"></jsp:include>
-
-
+	<jsp:include page="WEB-INF/jsp/part/header_nav.jsp"></jsp:include>
+	
 	<div class="content">
-		<c:if test="${not empty sessionScope.user_id}">
+	<div class="row">
+    <div class="col">
+            <legend>                
+            <h2 style="text-align: center;">Личный кабинет абитуриента</h2>
+            </legend>
+            <div class="row">
+                <div class="col">
+                    <p>Если у Вас ещё нет личного кабинета абитуриента БГУИР, то Вам необходимо</p>
+                </div>
+                <div class="col" style="border-left: 1px dotted lightgray;">
+                    <p>Если Вы уже зарегистрировались, то можете</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div>
+                        <a class="btn btn-lg btn-primary" href="" style="width: 100%;">Создать кабинет</a>
+                    </div>
+                </div>
+                <div class="col">
+                    <div>
+                        <a class="btn btn-lg btn-success" href="/" style="width: 100%;">Войти в кабинет</a>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+</div>	
+	
+	<!--  	<c:if test="${not empty sessionScope.user_id}">
+		
+			<c:if test="${not empty sessionScope.application_id}">
+			<a id="btn_account" href="${pageContext.request.contextPath}/Controller?command=###"
+				class="btn btn-primary btn-lg btn-block active" role="button"
+				aria-pressed="true">Перейти к заявлению</a>
+			</c:if>
+			<c:if test="${empty sessionScope.application_id}">
 			<a id="btn_account" href="${pageContext.request.contextPath}/Controller?command=show_addapplication_page"
 				class="btn btn-primary btn-lg btn-block active" role="button"
 				aria-pressed="true">Перейти к заполнению заявления</a>
+			</c:if>
 		</c:if>
 		<c:if test="${empty sessionScope.user_id}">
 			<a id="btn_aure" href="${pageContext.request.contextPath}/Controller?command=show_login_page"
@@ -39,7 +77,7 @@
 				class="btn btn-primary btn-lg active" role="button"
 				aria-pressed="true">${regist_button}</a>
 		</c:if>
-	</div>
+	  -->
 
 <!-- Footer -->
 <footer class="page-footer font-small black">

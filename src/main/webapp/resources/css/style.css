@@ -1,59 +1,3 @@
-.content a{
-	color:white;
-}
-
-
-.content {
-	margin-top: 25px;
-}
-
-.auth_form {
-	width: 300px;
-	margin-left: 35%;
-	margin-top: 25px;
-	border: 2px solid #000;
-	padding: 20px;
-	border-radius: 15px;
-}
-
-#Auth_text {
-	margin-left: 38%;
-}
-
-#account_text {
-	margin-left: 38%;
-}
-
-.reg_form {
-	width: 300px;
-	margin-left: 35%;
-	margin-top: 25px;
-	border: 2px solid #000;
-	padding: 20px;
-	border-radius: 15px;
-}
-
-.account_form {
-	width: 300px;
-	margin-left: 35%;
-	margin-top: 25px;
-	border: 2px solid #000;
-	padding: 20px;
-	border-radius: 15px;
-}
-
-.add_application_form {
-	width: 600px;
-	margin-left: 15%;
-	margin-top: 25px;
-	border: 2px solid #000;
-	padding: 20px;
-	border-radius: 15px;
-}
-
-#reg_text {
-	margin-left: 38%;
-}
 
 #alert {
 	width: 500px;
@@ -66,27 +10,18 @@
 	margin-left: 20px;
 }
 
-#btn_aure {
-	width: 300px;
-	margin-left: 15%;
-}
-
-#btn_account {
-	width: 800px;
-	margin-left: 15%;
-}
-
 #navlogin {
 	margin-right: 15px;
 	
-}
-
-#navlogin a {
+	.a {
 	margin-right: 10px;
 	color: white;
-}
-
-#navlogin button {
+	}
+	
+	.button {
 	color: white;
 	border-color: white;
+	}
 }
+
+

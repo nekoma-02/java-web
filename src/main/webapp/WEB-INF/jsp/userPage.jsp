@@ -18,7 +18,7 @@
 <title>Профиль</title>
 </head>
 <body>
-	<jsp:include page="header_nav.jsp"></jsp:include>
+	<jsp:include page="part/header_nav.jsp"></jsp:include>
 
 	<div>
 

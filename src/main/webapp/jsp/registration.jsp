@@ -18,13 +18,13 @@
 <title>Регистрация</title>
 </head>
 <body>
-	<jsp:include page="../WEB-INF/jsp/header_nav.jsp"></jsp:include>
+	<jsp:include page="../WEB-INF/jsp/part/header_nav.jsp"></jsp:include>
 
 	<div>
 
 		<h1 id="reg_text">Регистрация</h1>
 
-		<c:if test="${not empty message }">
+		<c:if test="${not empty message}">
 			<div class="alert alert-warning" role="alert" id="alert">
 				<c:out value="${message}"></c:out>
 			</div>

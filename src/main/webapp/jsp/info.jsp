@@ -19,7 +19,7 @@
 <title>Index page</title>
 </head>
 <body>
-	<jsp:include page="../WEB-INF/jsp/header_nav.jsp"></jsp:include>
+	<jsp:include page="../WEB-INF/jsp/part/header_nav.jsp"></jsp:include>
 
 	<c:if test="${not empty specialties}">
 		<div class="content">

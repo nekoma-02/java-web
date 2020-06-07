@@ -5,20 +5,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>by.epamtc.ts</groupId>
-	<artifactId>jwd-ex1-sign-reg</artifactId>
+	<groupId>by.epam.university</groupId>
+	<artifactId>jwd-university-project</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-
-	<name>jwd-ex1-sign-reg Maven Webapp</name>
-	<!-- FIXME change it to the project's website -->
-	<url>http://www.example.com</url>
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>1.7</maven.compiler.source>
-		<maven.compiler.target>1.7</maven.compiler.target>
-	</properties>
 
 
 	<dependencies>
@@ -66,7 +56,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>jwd-webapp-exSR</finalName>
+		<finalName>university-project</finalName>
 		<plugins>
 
 			<plugin>

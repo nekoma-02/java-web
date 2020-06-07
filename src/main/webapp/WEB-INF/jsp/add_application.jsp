@@ -19,13 +19,19 @@
 <title>Анкета</title>
 </head>
 <body>
-	<jsp:include page="header_nav.jsp"></jsp:include>
+	<jsp:include page="part/header_nav.jsp"></jsp:include>
 
 	<div>
 
-		<h1 id="account_text">Заявление:</h1>
+		<h1 id="account_text">Заявление</h1>
 		
-		<form action="//" method="post" class="add_application_form">
+		<c:if test="${not empty message}">
+			<div class="alert alert-warning" role="alert" id="alert">
+				<c:out value="${message}"></c:out>
+			</div>
+		</c:if>
+		
+		<form action="Controller" method="post" class="add_application_form">
 
 			<input type="hidden" name="command" value="add_application">
 
@@ -47,8 +53,7 @@
 			  <div class="input-group-prepend">
 			    <label class="input-group-text" for="inputGroupSelect01">Льготы:</label>
 			  </div>
-			  <select class="custom-select" id="inputGroupSelect01">
-			    <option selected>Choose...</option>
+			  <select class="custom-select" id="inputGroupSelect01" name="privilege">
 			    <c:forEach items="${requestScope.privileges}" var="priv">
 					<option value="${priv.id}">${priv.name}</option>
 				</c:forEach>
@@ -86,8 +91,7 @@
 			  <div class="input-group-prepend">
 			    <label class="input-group-text" for="inputGroupSelect01">Учебное заведение:</label>
 			  </div>
-			  <select class="custom-select" id="inputGroupSelect01">
-			    <option selected>Choose...</option>
+			  <select class="custom-select" id="inputGroupSelect01" name="school">	
 			    <c:forEach items="${requestScope.schools}" var="school">
 					<option value="${school.id}">${school.name}</option>
 				</c:forEach>
@@ -98,8 +102,7 @@
 			  <div class="input-group-prepend">
 			    <label class="input-group-text" for="inputGroupSelect01">Специальность:</label>
 			  </div>
-			  <select class="custom-select" id="inputGroupSelect01">
-			    <option selected>Choose...</option>
+			  <select class="custom-select" id="inputGroupSelect01" name="specialty">
 			    <c:forEach items="${requestScope.specialties}" var="spec">
 					<option value="${spec.id}">${spec.name} (${spec.typeStudy.typeName})</option>
 				</c:forEach>
@@ -107,11 +110,11 @@
 			</div>
 			
 			<div class="form-check">
-    			<input type="checkbox" class="form-check-input" id="exampleCheck1">
+    			<input type="checkbox" class="form-check-input" id="exampleCheck1" name="needhostel" value="true">
     			<label class="form-check-label" for="exampleCheck1">Необходимость общежития:</label>
   			</div>
 
-
+		<button type="submit" class="btn btn-primary">Сохранить</button>
 		</form>
 
 	</div>
