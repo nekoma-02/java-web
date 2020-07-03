@@ -28,11 +28,12 @@ public class UserDAOImpl implements SQLUserDao {
 	private ConnectionPool connectionPool = ConnectionPoolManager.getInstance().getConnectionPool();
 
 	private static final String INSER_USER = "insert into users(name,secondName,lastName,login,password,email,roles_id_role) values (?,?,?,?,?,?,?)";
-	private static final String SELECT_USER_BY_PASSWORD_LOGIN = "select id_user,name,secondName,lastName,login,password,email,roles.role_name from users inner join roles on users.roles_id_role = roles.id_role where login = ? and password = ?";
-	private static final String SELECT_USER_BY_LOGIN = "select id_user,name,secondName,lastName,login,password,email,roles.role_name from users inner join roles on users.roles_id_role = roles.id_role where login = ?";
-	private static final String SELECT_USER_BY_ID = "select id_user,name,secondName,lastName,login,password,email,roles.role_name from users inner join roles on users.roles_id_role = roles.id_role where id_user = ?";
-	private static final String SELECT_ALL_USERS = "select * from users";
-	
+	private static final String SELECT_USER_BY_PASSWORD_LOGIN = "select id_user,name,secondName,lastName,login,password,email,roles.role_name,gender,marital_status,place_of_birth,date_of_birth from users inner join roles on users.roles_id_role = roles.id_role where login = ? and password = ?";
+	private static final String SELECT_USER_BY_LOGIN = "select id_user,name,secondName,lastName,login,password,email,roles.role_name,gender,marital_status,place_of_birth,date_of_birth from users inner join roles on users.roles_id_role = roles.id_role where login = ?";
+	private static final String SELECT_USER_BY_ID = "select id_user,name,secondName,lastName,login,password,email,roles.role_name,gender,marital_status,place_of_birth,date_of_birth from users inner join roles on users.roles_id_role = roles.id_role where id_user = ?";
+	private static final String SELECT_ALL_USERS = "select id_user,name,secondName,lastName,login,password,email,roles.role_name,gender,marital_status,place_of_birth,date_of_birth from users inner join roles on users.roles_id_role = roles.id_role";
+	private static final String UPDATE_USER_BY_ID = "update users set name = ?,secondName = ?,lastName = ?,email = ?,gender = ?,marital_status = ?,place_of_birth = ?,date_of_birth = ? where id_user = ?";
+
 	@Override
 	public boolean insert(User user) throws DAOException {
 		Connection connection = null;
@@ -61,10 +62,8 @@ public class UserDAOImpl implements SQLUserDao {
 			return ps.executeUpdate() == 1;
 
 		} catch (ConnectionPoolException e) {
-			logger.log(Level.ERROR, e);
 			throw new DAOConnectionPoolException(e);
 		} catch (SQLException e) {
-			logger.log(Level.ERROR, e);
 			throw new DAOSQLException(e);
 		} finally {
 			closeConnection(connection, ps);
@@ -87,6 +86,10 @@ public class UserDAOImpl implements SQLUserDao {
 		int passwordInt = 6;
 		int emailInt = 7;
 		int roleInt = 8;
+		int genderInt = 9;
+		int maritalInt = 10;
+		int placeInt = 11;
+		int dateInt = 12;
 
 		try {
 			connection = connectionPool.takeConnection();
@@ -100,7 +103,8 @@ public class UserDAOImpl implements SQLUserDao {
 			if (rs.next()) {
 				user = new User(rs.getInt(idInt), rs.getString(nameInt), rs.getString(secondNameInt),
 						rs.getString(lastNameInt), rs.getString(loginInt), rs.getString(passwordInt),
-						rs.getString(emailInt), Role.valueOf(rs.getString(roleInt).toUpperCase()));
+						rs.getString(emailInt), Role.valueOf(rs.getString(roleInt).toUpperCase()),
+						rs.getString(genderInt),rs.getString(maritalInt),rs.getString(placeInt),rs.getDate(dateInt));
 			}
 
 			return user;
@@ -109,7 +113,6 @@ public class UserDAOImpl implements SQLUserDao {
 			logger.log(Level.ERROR, e);
 			throw new DAOConnectionPoolException(e.getMessage());
 		} catch (SQLException e) {
-			logger.log(Level.ERROR, e);
 			throw new DAOSQLException(e.getMessage());
 		} finally {
 			closeConnection(connection, ps, rs);
@@ -132,6 +135,10 @@ public class UserDAOImpl implements SQLUserDao {
 		int passwordInt = 6;
 		int emailInt = 7;
 		int roleInt = 8;
+		int genderInt = 9;
+		int maritalInt = 10;
+		int placeInt = 11;
+		int dateInt = 12;
 
 		try {
 			connection = connectionPool.takeConnection();
@@ -144,8 +151,9 @@ public class UserDAOImpl implements SQLUserDao {
 			if (rs.next()) {
 				user = new User(rs.getInt(idInt), rs.getString(nameInt), rs.getString(secondNameInt),
 						rs.getString(lastNameInt), rs.getString(loginInt), rs.getString(passwordInt),
-						rs.getString(emailInt), Role.valueOf(rs.getString(roleInt).toUpperCase()));
-			}
+						rs.getString(emailInt), Role.valueOf(rs.getString(roleInt).toUpperCase()),
+						rs.getString(genderInt),rs.getString(maritalInt),rs.getString(placeInt),rs.getDate(dateInt));
+		}
 
 			return user;
 
@@ -153,7 +161,6 @@ public class UserDAOImpl implements SQLUserDao {
 			logger.log(Level.ERROR, e);
 			throw new DAOConnectionPoolException(e);
 		} catch (SQLException e) {
-			logger.log(Level.ERROR, e);
 			throw new DAOSQLException(e);
 		} finally {
 			closeConnection(connection, ps, rs);
@@ -175,6 +182,10 @@ public class UserDAOImpl implements SQLUserDao {
 		int passwordInt = 6;
 		int emailInt = 7;
 		int roleInt = 8;
+		int genderInt = 9;
+		int maritalInt = 10;
+		int placeInt = 11;
+		int dateInt = 12;
 
 		try {
 			connection = connectionPool.takeConnection();
@@ -187,8 +198,9 @@ public class UserDAOImpl implements SQLUserDao {
 			if (rs.next()) {
 				user = new User(rs.getInt(idInt), rs.getString(nameInt), rs.getString(secondNameInt),
 						rs.getString(lastNameInt), rs.getString(loginInt), rs.getString(passwordInt),
-						rs.getString(emailInt), Role.valueOf(rs.getString(roleInt).toUpperCase()));
-			}
+						rs.getString(emailInt), Role.valueOf(rs.getString(roleInt).toUpperCase()),
+						rs.getString(genderInt),rs.getString(maritalInt),rs.getString(placeInt),rs.getDate(dateInt));
+		}
 
 			return user;
 
@@ -196,7 +208,6 @@ public class UserDAOImpl implements SQLUserDao {
 			logger.log(Level.ERROR, e);
 			throw new DAOConnectionPoolException(e);
 		} catch (SQLException e) {
-			logger.log(Level.ERROR, e);
 			throw new DAOSQLException(e);
 		} finally {
 			closeConnection(connection, ps, rs);
@@ -263,6 +274,10 @@ public class UserDAOImpl implements SQLUserDao {
 		int passwordInt = 6;
 		int emailInt = 7;
 		int roleInt = 8;
+		int genderInt = 9;
+		int maritalInt = 10;
+		int placeInt = 11;
+		int dateInt = 12;
 
 		try {
 			connection = connectionPool.takeConnection();
@@ -273,7 +288,8 @@ public class UserDAOImpl implements SQLUserDao {
 			while (rs.next()) {
 				userList.add(new User(rs.getInt(idInt), rs.getString(nameInt), rs.getString(secondNameInt),
 						rs.getString(lastNameInt), rs.getString(loginInt), rs.getString(passwordInt),
-						rs.getString(emailInt), Role.valueOf(rs.getString(roleInt).toUpperCase())));
+						rs.getString(emailInt), Role.valueOf(rs.getString(roleInt).toUpperCase()),
+						rs.getString(genderInt),rs.getString(maritalInt),rs.getString(placeInt),rs.getDate(dateInt)));
 			}
 
 			return userList;
@@ -284,6 +300,48 @@ public class UserDAOImpl implements SQLUserDao {
 			throw new DAOSQLException(e);
 		} finally {
 			closeConnection(connection, st, rs);
+		}
+	}
+
+	
+	@Override
+	public boolean updateUser(User user) throws DAOException {
+		Connection connection = null;
+		PreparedStatement ps = null;
+
+		int nameInt = 1;
+		int secondNameInt = 2;
+		int lastNameInt = 3;
+		int emailInt = 4;
+		int genderInt = 5;
+		int maritalInt = 6;
+		int placeInt = 7;
+		int dateInt = 8;
+		int idInt = 9;
+
+		try {
+			connection = connectionPool.takeConnection();
+			ps = connection.prepareStatement(UPDATE_USER_BY_ID);
+
+			ps.setString(nameInt, user.getName());
+			ps.setString(secondNameInt, user.getSecondName());
+			ps.setString(lastNameInt, user.getLastName());
+			ps.setString(emailInt, user.getEmail());
+			ps.setString(genderInt, user.getGender());
+			ps.setString(maritalInt, user.getMaritalStatus());
+			ps.setString(placeInt, user.getPlaceOfBirth());
+			ps.setDate(dateInt, user.getDateOfBirth());
+			ps.setInt(idInt, user.getId());
+
+
+			return ps.executeUpdate() == 1;
+
+		} catch (ConnectionPoolException e) {
+			throw new DAOConnectionPoolException(e);
+		} catch (SQLException e) {
+			throw new DAOSQLException(e);
+		} finally {
+			closeConnection(connection, ps);
 		}
 	}
 

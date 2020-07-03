@@ -12,7 +12,7 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="resources/css/style.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
 
 <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="local/local" var="loc" />
@@ -21,33 +21,43 @@
 <body>
 	<jsp:include page="../WEB-INF/jsp/part/header_nav.jsp"></jsp:include>
 
-	<div>
-		<h1 id="Auth_text">Авторизация</h1>
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<h2 style="margin-left: 10%;">Личный кабинет абитуриента БГУА</h2>
 
-		<c:if test="${not empty message }">
-			<div class="alert alert-warning" role="alert" id="alert">
-				<c:out value="${message}"></c:out>
+				<c:if test="${not empty message }">
+					<div class="alert alert-warning" role="alert" id="alert">
+						<c:out value="${message}"></c:out>
+					</div>
+				</c:if>
+
+				<form action="${pageContext.request.contextPath}/Controller" method="post" class="authorization_form">
+					<input type="hidden" name="command" value="sign_in">
+					<legend>Вход в систему</legend>
+
+					<label>Чтобы получить
+						доступ к вашему личному кабинету, пожалуйста, введите логин и
+						текущий пароль. <br /> Обратите внимание, что пароль чувствителен
+						к регистру.
+					</label>
+					<div class="form-group">
+						<label for="formGroupExampleInput">Логин</label> <input
+							type="text" class="form-control" id="formGroupExampleInput"
+							placeholder="Введите логин" name="login">
+					</div>
+					<div class="form-group">
+						<label for="exampleInputPassword1">Пароль</label> <input
+							type="password" class="form-control" id="exampleInputPassword1"
+							placeholder="Введите пароль" name="password">
+					</div>
+					<button type="submit" class="btn btn-primary">Войти</button>
+
+				</form>
 			</div>
-		</c:if>
-
-
-		<form action="Controller" method="post" class="auth_form">
-			<input type="hidden" name="command" value="sign_in">
-
-			<div class="form-group">
-				<label for="formGroupExampleInput">Логин</label> <input type="text"
-					class="form-control" id="formGroupExampleInput" placeholder="Login"
-					name="login">
-			</div>
-			<div class="form-group">
-				<label for="exampleInputPassword1">Пароль</label> <input
-					type="password" class="form-control" id="exampleInputPassword1"
-					placeholder="Password" name="password">
-			</div>
-			<button type="submit" class="btn btn-primary">Войти</button>
-
-		</form>
+		</div>
 	</div>
+
 
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"

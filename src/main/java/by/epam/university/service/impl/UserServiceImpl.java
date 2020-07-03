@@ -2,21 +2,16 @@ package by.epam.university.service.impl;
 
 import java.util.List;
 
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import by.epam.university.dao.DAOFactory;
 import by.epam.university.dao.SQLUserDao;
 import by.epam.university.dao.exception.DAOException;
 import by.epam.university.entity.User;
 import by.epam.university.service.UserService;
 import by.epam.university.service.exception.ServiceException;
-import by.epam.university.service.validator.impl.UserValidator;
+import by.epam.university.service.exception.UserExistsException;
 
 public class UserServiceImpl implements UserService {
 
-	private static Logger logger = LogManager.getLogger();
 	
 	@Override
 	public boolean signIn(String login, String password) throws ServiceException {
@@ -24,67 +19,39 @@ public class UserServiceImpl implements UserService {
 
 		User user = null;
 		
-		UserValidator userValidator = new UserValidator();
-		boolean isValidate = userValidator.validate(login,password);
 		
 		try {
-
-			if (isValidate) {
 			user = dao.getUserByLoginPassword(login, password);
-			} else {
-				return false;
-			}
 			
 			return user != null ? true : false;
 		} catch (DAOException e) {
-			logger.log(Level.ERROR, e);
 			throw new ServiceException(e);
 		}
 
 	}
 
 	@Override
-	public boolean registration(User user) throws ServiceException {
+	public boolean registration(User user) throws ServiceException, UserExistsException {
 		SQLUserDao dao = DAOFactory.getInstance().getUserDAO();
 
-		UserValidator userValidator = new UserValidator();
-		boolean isValidate = userValidator.validate(user.getLogin(), user.getPassword(), user.getEmail(),
-				user.getName(), user.getSecondName(), user.getLastName());
-		
-		boolean isInsert = false;
-
 		try {
-
-			if (isValidate) {
+			
+			User userByLogin = dao.getUserByLogin(user.getLogin());
+			boolean isInsert;
+			
+			if (userByLogin == null) {
 				isInsert = dao.insert(user);
 			} else {
-				return false;
+				throw new UserExistsException("user already exists!");
 			}
-
+			
 			return isInsert;
 		} catch (DAOException e) {
-			logger.log(Level.ERROR, e);
 			throw new ServiceException(e);
 		}
 
 	}
 	
-	@Override
-	public boolean isUserExist(String login) throws ServiceException  {
-		SQLUserDao dao = DAOFactory.getInstance().getUserDAO();
-
-		User user = null;
-		
-		try {
-
-			user = dao.getUserByLogin(login);
-			
-			return user == null ? true : false;
-		} catch (DAOException e) {
-			logger.log(Level.ERROR, e);
-			throw new ServiceException(e);
-		}
-	}
 
 	@Override
 	public User userByLogin(String login) throws ServiceException {
@@ -98,7 +65,6 @@ public class UserServiceImpl implements UserService {
 			
 			return user;
 		} catch (DAOException e) {
-			logger.log(Level.ERROR, e);
 			throw new ServiceException(e);
 		}
 	}
@@ -122,14 +88,27 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> getAllUser() throws ServiceException {
 		SQLUserDao dao = DAOFactory.getInstance().getUserDAO();
-		List<User> userList = null;
+		
 		try {
-			userList = dao.getAll();
-			return userList;
+			return dao.getAll();
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
 		
 	}
+
+	@Override
+	public boolean updateUser(User user) throws ServiceException {
+		SQLUserDao dao = DAOFactory.getInstance().getUserDAO();
+		
+		try {
+			return dao.updateUser(user);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+
+
 
 }

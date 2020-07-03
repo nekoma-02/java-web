@@ -9,27 +9,18 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="resources/css/style.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/navbar.css" />
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
 
 <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="local/local" var="loc" />
-<fmt:message bundle="${loc}" key="local.namepage.mainpage"
+<fmt:message bundle="${loc}" key="local.namepage.main_page"
 	var="mainpage" />
-<fmt:message bundle="${loc}" key="local.namepage.infopage"
+<fmt:message bundle="${loc}" key="local.namepage.info_page"
 	var="infopage" />
-<fmt:message bundle="${loc}" key="local.namepage.contactpage"
+<fmt:message bundle="${loc}" key="local.namepage.contact_page"
 	var="contactpage" />
-<fmt:message bundle="${loc}" key="local.namepage.contactpage"
-	var="contactpage" />
-<fmt:message bundle="${loc}" key="local.locbutton.name.ru"
-	var="ru_button" />
-<fmt:message bundle="${loc}" key="local.locbutton.name.en"
-	var="en_button" />
-<fmt:message bundle="${loc}" key="local.locbutton.name.sign"
-	var="sign_in_button" />
-<fmt:message bundle="${loc}" key="local.locbutton.name.registr"
-	var="regist_button" />
 
 </head>
 <body>
@@ -43,39 +34,50 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarCollapse">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item"><a class="nav-link" href="index.jsp">${mainpage}</a>
+					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/index.jsp">${mainpage}</a>
 					</li>
 					<li class="nav-item"><a class="nav-link"
 						href="${pageContext.request.contextPath}/Controller?command=show_specialties">${infopage}</a>
 					</li>
 					<li class="nav-item"><a class="nav-link" href="#">${contactpage}</a>
 					</li>
-					
-					<c:if test="${sessionScope.user_role == 'ADMIN'}">
-					<a class="nav-link"
-						href="${pageContext.request.contextPath}/Controller?command=admin_page">Админка</a>
+
+					<c:if test="${not empty sessionScope.user_id}">
+						<li><a
+							href="${pageContext.request.contextPath}/Controller?command=show_userpage"
+							class="nav-link">Личный кабинет</a></li>
 					</c:if>
+
+
+					<c:if test="${sessionScope.user_role == 'ADMIN'}">
+						<li class="nav-item"><a class="nav-link"
+							href="${pageContext.request.contextPath}/Controller?command=admin_page">Админка</a>
+						</li>
+					</c:if>
+					<li>
+						<form class="form-inline" id="locale-form" action="${pageContext.request.contextPath}/Controller" method="post">
+							<input type="hidden" name="local" value="ru" /> <input
+								type="hidden" name="command" value="change_local" />
+							<button class="btn" type="submit" id="rus_btn"></button>
+						</form>
+
+					</li>
+					<li>
+						<form class="form-inline" id="locale-form" action="${pageContext.request.contextPath}/Controller" method="post">
+							<input type="hidden" name="local" value="en" /> <input
+								type="hidden" name="command" value="change_local" />
+							<button class="btn" type="submit" id="en_btn"></button>
+						</form>
+					</li>
 				</ul>
 				<c:if test="${not empty sessionScope.user_id}">
-					<form id="navlogin" class="form-inline mt-2 mt-md-0"
-						action="Controller" method="post">
-						<input type="hidden" name="command" value="sign_out" /> <a href="${pageContext.request.contextPath}/Controller?command=show_userpage"
-							class="navbar-text">${sessionScope.user_login} </a>
-						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Выйти</button>
+					<form id="login-form"
+						action="${pageContext.request.contextPath}/Controller" method="post">
+						<input type="hidden" name="command" value="sign_out" /> 
+						<a href="#">${sessionScope.user_login} </a>
+						<button type="submit">Выйти</button>
 					</form>
 				</c:if>
-				<form class="form-inline mt-2 mt-md-0" action="Controller"
-					method="post">
-					<input type="hidden" name="local" value="ru" /> <input
-						type="hidden" name="command" value="change_local" />
-					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">${ru_button}</button>
-				</form>
-				<form class="form-inline mt-2 mt-md-0" action="Controller"
-					method="post">
-					<input type="hidden" name="local" value="en" /> <input
-						type="hidden" name="command" value="change_local" />
-					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">${en_button}</button>
-				</form>
 			</div>
 		</nav>
 	</div>

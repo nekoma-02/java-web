@@ -26,6 +26,16 @@ public class Specialty implements Serializable {
 
 
 
+	public Specialty(int id, String name, TypeStudy typeStudy, Faculty faculty) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.typeStudy = typeStudy;
+		this.faculty = faculty;
+	}
+
+
+
 	public Specialty(int id, String name, int plan, int year, TypeStudy typeStudy, Faculty faculty) {
 		super();
 		this.id = id;

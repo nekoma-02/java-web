@@ -10,7 +10,10 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="resources/css/style.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="text/javascript"></script>
+<script src="resources/js/ajax-request.js" type="text/javascript"></script>
 
 <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="local/local" var="loc" />
@@ -19,7 +22,60 @@
 </head>
 <body>
 	<jsp:include page="part/header_nav.jsp"></jsp:include>
-
+	<div class="container-fluid" id="admin-content">
+		<div class="row">
+			<jsp:include page="part/admin_nav.jsp"></jsp:include>
+			<div class="col-10">
+				<div> 
+				
+				<div class="btn-group" role="group" aria-label="Basic example" style="margin-left: 25%; padding-bottom: 10px;">
+					<button type="button" class="btn btn-secondary" id="show-app" value="all">Заявления</button>
+					<button type="button" class="btn btn-secondary" id="show-faculty" value="all">Факультеты</button>
+					<button type="button" class="btn btn-secondary">Специальности</button>
+					<button type="button" class="btn btn-secondary">Формы обучения</button>
+					<button type="button" class="btn btn-secondary">Привилегии</button>
+					<button type="button" class="btn btn-secondary">Учреждения</button>
+				</div>
+				
+					<div class="table-filters">
+						<label class="radio-inline"><input type="radio" name="optradio" checked value="all" class="radio-filter">Показать все</label>
+						<label class="radio-inline"><input type="radio" name="optradio" value="confirmed" class="radio-filter"> Показать подтвержденные</label>
+						<label class="radio-inline"><input type="radio" name="optradio" value="unconfirmed" class="radio-filter">Показать не подтвержденные</label>
+					</div>
+					<div>
+					<caption>Название таблицы</caption>
+					</div>
+					<table class="table table-hover">
+						<caption>Название таблицы</caption>
+						<thead class="thead-dark" id="table-caption">
+							<tr>
+								<th scope="col">ФИО</th>
+								<th scope="col">Адрес</th>
+								<th scope="col">Специальность</th>
+								<th scope="col">Факультет</th>
+								<th scope="col">Форма обучения</th>
+								<th scope="col">Подтверждение</th>
+								<th scope="col">Кабинет пользователя</th>
+							</tr>
+						</thead>
+						<tbody id="table-list">
+							<c:forEach items="${application}" var="app">
+								<tr>
+									<td>${app.user.secondName} ${app.user.name} ${app.user.lastName}</td>
+									<td>${app.adress}</td>
+									<td>${app.specialties.name}</td>
+									<td>${app.specialties.faculty.name}</td>
+									<td>${app.specialties.typeStudy.typeName}</td>
+									<td>${app.confirmation}</td>
+									<td>Посмотреть</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 	<script

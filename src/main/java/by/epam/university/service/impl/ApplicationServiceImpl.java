@@ -10,9 +10,11 @@ import by.epam.university.dao.SQLSchoolDao;
 import by.epam.university.dao.SQLSpecialtyDao;
 import by.epam.university.dao.exception.DAOException;
 import by.epam.university.entity.Application;
+import by.epam.university.entity.Faculty;
 import by.epam.university.entity.Privilege;
 import by.epam.university.entity.School;
 import by.epam.university.entity.Specialty;
+import by.epam.university.entity.TypeStudy;
 import by.epam.university.service.ApplicationService;
 import by.epam.university.service.exception.ServiceException;
 
@@ -97,5 +99,76 @@ public class ApplicationServiceImpl implements ApplicationService {
 			throw new ServiceException(e);
 		}
 		
+	}
+
+	@Override
+	public boolean updateApplication(Application application) throws ServiceException {
+		SQLApplicationDao appDao = DAOFactory.getInstance().getApplicationDAO();
+		
+		try {
+			return appDao.updateApplication(application);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public School getSchoolById(int id) throws ServiceException {
+		SQLSchoolDao schoolDao = DAOFactory.getInstance().getSchoolDAO();
+		try {
+			return schoolDao.getById(id);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public Privilege getPrivilegeById(int id) throws ServiceException {
+		SQLPrivilegeDao privDao = DAOFactory.getInstance().getPrivilegeDAO();
+		try {
+			return privDao.getById(id);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public Specialty getSpecialtyById(int id) throws ServiceException {
+		SQLSpecialtyDao specDao = DAOFactory.getInstance().getSpecialtyDAO();
+		try {
+			return specDao.getSpecialtyById(id);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public List<Specialty> getSpecialtyByTypeStudyAndFaculty(int idTypeStudy, int idFaculty) throws ServiceException {
+		SQLSpecialtyDao specDao = DAOFactory.getInstance().getSpecialtyDAO();
+		try {
+			return specDao.getSpecialty(idTypeStudy, idFaculty);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public List<Faculty> getAllFaculties() throws ServiceException {
+		SQLSpecialtyDao specDao = DAOFactory.getInstance().getSpecialtyDAO();
+		try {
+			return specDao.getAllFaculty();
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public List<TypeStudy> getAllTypesStudy() throws ServiceException {
+		SQLSpecialtyDao specDao = DAOFactory.getInstance().getSpecialtyDAO();
+		try {
+			return specDao.getAllTypeStudy();
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
 	}
 }

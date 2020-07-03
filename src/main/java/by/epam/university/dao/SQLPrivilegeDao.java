@@ -10,4 +10,8 @@ public interface SQLPrivilegeDao {
 	List<Privilege> getAll() throws DAOException;
 
 	Privilege getByName(String name) throws DAOException;
+	
+	Privilege getById(int id) throws DAOException;
+	
+	boolean insert(Privilege privilege) throws DAOException;
 }

@@ -16,5 +16,7 @@ public interface SQLUserDao {
 	User getUserById(int id) throws DAOException;
 	
 	List<User> getAll() throws DAOException;
+	
+	boolean updateUser(User user) throws DAOException;
 
 }

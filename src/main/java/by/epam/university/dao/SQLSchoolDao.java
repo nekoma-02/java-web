@@ -10,4 +10,9 @@ public interface SQLSchoolDao {
 	List<School> getAll() throws DAOException;
 
 	School getByName(String name) throws DAOException;
+	
+	School getById(int id) throws DAOException;
+	
+	boolean insert(School school) throws DAOException;
+	
 }

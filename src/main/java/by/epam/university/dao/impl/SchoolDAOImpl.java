@@ -28,6 +28,8 @@ public class SchoolDAOImpl implements SQLSchoolDao {
 	
 	private static final String SELECT_ALL_SCHOOLS = "select * from schools";
 	private static final String SELECT_SCHOOL_BY_NAME = "select * from schools where name = ?";
+	private static final String SELECT_SCHOOL_BY_ID = "select * from schools where idschool = ?";
+	private static final String INSERT_SCHOOL = "insert into schools(name,level,institution) values (?,?,?)";
 
 	
 	@Override
@@ -39,6 +41,8 @@ public class SchoolDAOImpl implements SQLSchoolDao {
 
 		int idInt = 1;
 		int nameInt = 2;
+		int levelInt = 3;
+		int institutionInt = 4;
 
 
 		try {
@@ -48,16 +52,14 @@ public class SchoolDAOImpl implements SQLSchoolDao {
 			rs = st.executeQuery(SELECT_ALL_SCHOOLS);
 
 			while (rs.next()) {
-				listSchools.add(new School(rs.getInt(idInt), rs.getString(nameInt)));
+				listSchools.add(new School(rs.getInt(idInt), rs.getString(nameInt),rs.getString(levelInt),rs.getString(institutionInt)));
 			}
 
 			return listSchools;
 
 		} catch (ConnectionPoolException e) {
-			logger.log(Level.ERROR, e);
 			throw new DAOConnectionPoolException(e);
 		} catch (SQLException e) {
-			logger.log(Level.ERROR, e);
 			throw new DAOSQLException(e);
 		} finally {
 			closeConnection(connection, st, rs);
@@ -73,6 +75,8 @@ public class SchoolDAOImpl implements SQLSchoolDao {
 
 		int idInt = 1;
 		int nameInt = 2;
+		int levelInt = 3;
+		int institutionInt = 4;
 
 
 		try {
@@ -83,16 +87,14 @@ public class SchoolDAOImpl implements SQLSchoolDao {
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
-				school = new School(rs.getInt(idInt), rs.getString(nameInt));
+				school = new School(rs.getInt(idInt), rs.getString(nameInt),rs.getString(levelInt),rs.getString(institutionInt));
 			}
 
 			return school;
 
 		} catch (ConnectionPoolException e) {
-			logger.log(Level.ERROR, e);
 			throw new DAOConnectionPoolException(e);
 		} catch (SQLException e) {
-			logger.log(Level.ERROR, e);
 			throw new DAOSQLException(e);
 		} finally {
 			closeConnection(connection, ps, rs);
@@ -123,6 +125,86 @@ public class SchoolDAOImpl implements SQLSchoolDao {
 			logger.log(Level.ERROR, "Statement isn't closed.");
 		}
 
+	}
+
+	@Override
+	public School getById(int id) throws DAOException {
+		School school = null;
+		Connection connection = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		int idInt = 1;
+		int nameInt = 2;
+		int levelInt = 3;
+		int institutionInt = 4;
+
+
+		try {
+			connection = connectionPool.takeConnection();
+			
+			ps = connection.prepareStatement(SELECT_SCHOOL_BY_ID);
+			ps.setInt(1,id);
+			rs = ps.executeQuery();
+
+			if (rs.next()) {
+				school = new School(rs.getInt(idInt), rs.getString(nameInt),rs.getString(levelInt),rs.getString(institutionInt));
+			}
+
+			return school;
+
+		} catch (ConnectionPoolException e) {
+			throw new DAOConnectionPoolException(e);
+		} catch (SQLException e) {
+			throw new DAOSQLException(e);
+		} finally {
+			closeConnection(connection, ps, rs);
+		}
+	}
+	
+	private void closeConnection(Connection con, Statement st) {
+		try {
+			if (con != null) {
+				con.close();
+			}
+
+		} catch (SQLException e) {
+			logger.log(Level.ERROR, "Connection isn't closed.");
+		}
+		try {
+			if (st != null) {
+				st.close();
+			}
+		} catch (SQLException e) {
+			logger.log(Level.ERROR, "Statement isn't closed.");
+		}
+
+	}
+
+	@Override
+	public boolean insert(School school) throws DAOException {
+		Connection connection = null;
+		PreparedStatement ps = null;
+
+
+		try {
+			connection = connectionPool.takeConnection();
+			ps = connection.prepareStatement(INSERT_SCHOOL);
+
+			ps.setString(1, school.getName());
+			ps.setString(2, school.getLevel());
+			ps.setString(3, school.getInstitution());
+
+			return ps.executeUpdate() == 1;
+
+		} catch (ConnectionPoolException e) {
+			logger.log(Level.ERROR, e);
+			throw new DAOConnectionPoolException(e);
+		} catch (SQLException e) {
+			throw new DAOSQLException(e);
+		} finally {
+			closeConnection(connection, ps);
+		}
 	}
 
 }

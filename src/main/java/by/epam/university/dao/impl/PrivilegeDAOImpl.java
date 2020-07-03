@@ -27,6 +27,8 @@ public class PrivilegeDAOImpl implements SQLPrivilegeDao {
 	private ConnectionPool connectionPool = ConnectionPoolManager.getInstance().getConnectionPool();
 	private static final String SELECT_ALL_PRIVILEGES = "select * from stud_privileges";
 	private static final String SELECT_PRIVILEGE_BY_NAME = "select * from stud_privileges where name = ?";
+	private static final String SELECT_PRIVILEGE_BY_ID = "select * from stud_privileges where idprivilege = ?";
+	private static final String INSERT_PRIVILEGE = "insert into stud_privileges(name) values (?)";
 	
 	@Override
 	public List<Privilege> getAll() throws DAOException {
@@ -55,7 +57,6 @@ public class PrivilegeDAOImpl implements SQLPrivilegeDao {
 			logger.log(Level.ERROR, e);
 			throw new DAOConnectionPoolException(e);
 		} catch (SQLException e) {
-			logger.log(Level.ERROR, e);
 			throw new DAOSQLException(e);
 		} finally {
 			closeConnection(connection, st, rs);
@@ -90,7 +91,6 @@ public class PrivilegeDAOImpl implements SQLPrivilegeDao {
 			logger.log(Level.ERROR, e);
 			throw new DAOConnectionPoolException(e);
 		} catch (SQLException e) {
-			logger.log(Level.ERROR, e);
 			throw new DAOSQLException(e);
 		} finally {
 			closeConnection(connection, ps, rs);
@@ -121,6 +121,84 @@ public class PrivilegeDAOImpl implements SQLPrivilegeDao {
 			logger.log(Level.ERROR, "Statement isn't closed.");
 		}
 
+	}
+
+	@Override
+	public Privilege getById(int id) throws DAOException {
+		Privilege privilege = null;
+		Connection connection = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		int idInt = 1;
+		int nameInt = 2;
+
+
+		try {
+			connection = connectionPool.takeConnection();
+			
+			ps = connection.prepareStatement(SELECT_PRIVILEGE_BY_ID);
+			ps.setInt(1,id);
+			rs = ps.executeQuery();
+
+			if (rs.next()) {
+				privilege = new Privilege(rs.getInt(idInt), rs.getString(nameInt));
+			}
+
+			return privilege;
+
+		} catch (ConnectionPoolException e) {
+			logger.log(Level.ERROR, e);
+			throw new DAOConnectionPoolException(e);
+		} catch (SQLException e) {
+			logger.log(Level.ERROR, e);
+			throw new DAOSQLException(e);
+		} finally {
+			closeConnection(connection, ps, rs);
+		}
+	}
+
+	private void closeConnection(Connection con, Statement st) {
+		try {
+			if (con != null) {
+				con.close();
+			}
+
+		} catch (SQLException e) {
+			logger.log(Level.ERROR, "Connection isn't closed.");
+		}
+		try {
+			if (st != null) {
+				st.close();
+			}
+		} catch (SQLException e) {
+			logger.log(Level.ERROR, "Statement isn't closed.");
+		}
+
+	}
+	
+	@Override
+	public boolean insert(Privilege privilege) throws DAOException {
+		Connection connection = null;
+		PreparedStatement ps = null;
+
+
+		try {
+			connection = connectionPool.takeConnection();
+			ps = connection.prepareStatement(INSERT_PRIVILEGE);
+
+			ps.setString(1, privilege.getName());
+
+			return ps.executeUpdate() == 1;
+
+		} catch (ConnectionPoolException e) {
+			logger.log(Level.ERROR, e);
+			throw new DAOConnectionPoolException(e);
+		} catch (SQLException e) {
+			throw new DAOSQLException(e);
+		} finally {
+			closeConnection(connection, ps);
+		}
 	}
 
 }

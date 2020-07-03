@@ -10,70 +10,144 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="resources/css/style.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
 
 <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="local/local" var="loc" />
+<fmt:message bundle="${loc}" key="local.invalid_message.invalid_login" var="loc_invalid_login" />
+<fmt:message bundle="${loc}" key="local.invalid_message.invalid_password" var="loc_invalid_password" />
+<fmt:message bundle="${loc}" key="local.invalid_message.invalid_first_name" var="loc_invalid_first_name" />
+<fmt:message bundle="${loc}" key="local.invalid_message.invalid_second_name" var="loc_invalid_second_name" />
+<fmt:message bundle="${loc}" key="local.invalid_message.invalid_last_name" var="loc_invalid_last_name" />
+<fmt:message bundle="${loc}" key="local.invalid_message.invalid_email" var="loc_invalid_email" />
 
 <title>Регистрация</title>
 </head>
 <body>
 	<jsp:include page="../WEB-INF/jsp/part/header_nav.jsp"></jsp:include>
 
+
+
 	<div>
 
-		<h1 id="reg_text">Регистрация</h1>
+		<h2 style="margin-left: 10%;">Личный кабинет абитуриента БГУА</h2>
 
 		<c:if test="${not empty message}">
 			<div class="alert alert-warning" role="alert" id="alert">
 				<c:out value="${message}"></c:out>
 			</div>
 		</c:if>
+		
+		<c:if test="${not empty invalid_login}">
+			<div class="alert alert-warning" role="alert" id="alert">
+				<c:out value="${loc_invalid_login}"></c:out>
+			</div>
+		</c:if>
+		
+		<c:if test="${not empty invalid_password}">
+			<div class="alert alert-warning" role="alert" id="alert">
+				<c:out value="${loc_invalid_password}"></c:out>
+			</div>
+		</c:if>
+		
+		<c:if test="${not empty invalid_first_name}">
+			<div class="alert alert-warning" role="alert" id="alert">
+				<c:out value="${loc_invalid_first_name}"></c:out>
+			</div>
+		</c:if>
+		
+		<c:if test="${not empty invalid_second_name}">
+			<div class="alert alert-warning" role="alert" id="alert">
+				<c:out value="${loc_invalid_second_name}"></c:out>
+			</div>
+		</c:if>
+		
+		<c:if test="${not empty invalid_last_name}">
+			<div class="alert alert-warning" role="alert" id="alert">
+				<c:out value="${loc_invalid_last_name}"></c:out>
+			</div>
+		</c:if>
+		
+		<c:if test="${not empty invalid_email}">
+			<div class="alert alert-warning" role="alert" id="alert">
+				<c:out value="${loc_invalid_email}"></c:out>
+			</div>
+		</c:if>
 
-		<form action="Controller" method="post" class="reg_form">
+		<form action="${pageContext.request.contextPath}/Controller" method="post" class="registration-form">
 
-			<input type="hidden" name="command" value="registration">
-			<input type="hidden" name="user_role" value="user">
+			<legend>Регистрация в системе</legend>
+			<input type="hidden" name="command" value="registration"> <input
+				type="hidden" name="user_role" value="user">
 
+			<div class="form-group row">
+				<label for="formGroupExampleInput" class="col-sm-2 col-form-label">Логин</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="formGroupExampleInput"
+						placeholder="Введите логин" name="login">
+				</div>
 
-
-			<div class="form-group">
-				<label for="formGroupExampleInput">Логин</label> <input type="text"
-					class="form-control" id="formGroupExampleInput" placeholder="Login"
-					name="login">
 			</div>
 
-			<div class="form-group">
-				<label for="exampleInputPassword1">Пароль</label> <input
-					type="password" class="form-control" id="exampleInputPassword1"
-					placeholder="Password" name="password">
+			<div class="form-group row">
+				<label for="formGroupExampleInput" class="col-sm-2 col-form-label">Фамилия</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="formGroupExampleInput"
+						placeholder="Введите фамилию" name="secondname"
+						title="Ваша фамилия (на русском или белорусском языке), как она указана в Вашем паспорте (документе, удостоверяющем личность).">
+				</div>
 			</div>
 
-			<div class="form-group">
-				<label for="formGroupExampleInput">Имя</label> <input type="text"
-					class="form-control" id="formGroupExampleInput" placeholder="Name"
-					name="name">
+			<div class="form-group row">
+
+				<label for="formGroupExampleInput" class="col-sm-2 col-form-label">Имя</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="formGroupExampleInput"
+						placeholder="Введите имя" name="name"
+						title="Ваше имя (на русском или белорусском языке), как она указана в Вашем паспорте (документе, удостоверяющем личность).">
+				</div>
 			</div>
 
-			<div class="form-group">
-				<label for="formGroupExampleInput">Фамилия</label> <input
-					type="text" class="form-control" id="formGroupExampleInput"
-					placeholder="second name" name="secondname">
+			<div class="form-group row">
+
+				<label for="formGroupExampleInput" class="col-sm-2 col-form-label">Отчество</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="formGroupExampleInput"
+						placeholder="Введите отчество" name="lastname"
+						title="Ваше отчество (на русском или белорусском языке), как она указана в Вашем паспорте (документе, удостоверяющем личность).">
+				</div>
 			</div>
 
-			<div class="form-group">
-				<label for="formGroupExampleInput">Отчество</label> <input
-					type="text" class="form-control" id="formGroupExampleInput"
-					placeholder="last name" name="lastname">
+			<div class="form-group row">
+
+				<label for="exampleInputEmail1" class="col-sm-2 col-form-label">Почтовый
+					ящик</label>
+				<div class="col-sm-10">
+					<input type="email" class="form-control" id="exampleInputEmail1"
+						placeholder="Введите почтовый ящик" name="email">
+				</div>
 			</div>
 
-			<div class="form-group">
-				<label for="exampleInputEmail1">Почтовый ящик</label> <input
-					type="email" class="form-control" id="exampleInputEmail1"
-					placeholder="Enter email" name="email">
+			<div class="form-group row">
+				<label for="exampleInputPassword1" class="col-sm-2 col-form-label">Пароль</label>
+				<div class="col-sm-10">
+					<input type="password" class="form-control"
+						id="exampleInputPassword1" placeholder="Придумайте пароль"
+						name="password">
+				</div>
 			</div>
 
-			<button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+			<div class="form-group row">
+				<label for="exampleInputPassword1" class="col-sm-2 col-form-label">Подтверждение
+					пароля</label>
+				<div class="col-sm-10">
+					<input type="password" class="form-control"
+						id="exampleInputPassword1" placeholder="Подтвердите пароль"
+						name="repeat_password">
+				</div>
+			</div>
+
+			<button type="submit" class="btn btn-primary">Регистрация</button>
 
 		</form>
 

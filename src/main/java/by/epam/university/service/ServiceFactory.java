@@ -1,9 +1,11 @@
 package by.epam.university.service;
 
+import by.epam.university.service.impl.AdminServiceImpl;
 import by.epam.university.service.impl.ApplicationServiceImpl;
 import by.epam.university.service.impl.UserServiceImpl;
 
 public class ServiceFactory {
+	
 	private static final ServiceFactory instance = new ServiceFactory();
 
 	public static ServiceFactory getInstance() {
@@ -16,5 +18,9 @@ public class ServiceFactory {
 
 	public ApplicationService getApplicationService() {
 		return new ApplicationServiceImpl();
+	}
+	
+	public AdminService getAdminService() {
+		return new AdminServiceImpl();
 	}
 }
