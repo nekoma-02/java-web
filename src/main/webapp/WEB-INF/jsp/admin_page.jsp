@@ -31,10 +31,10 @@
 				<div class="btn-group" role="group" aria-label="Basic example" style="margin-left: 25%; padding-bottom: 10px;">
 					<button type="button" class="btn btn-secondary" id="show-app" value="all">Заявления</button>
 					<button type="button" class="btn btn-secondary" id="show-faculty" value="all">Факультеты</button>
-					<button type="button" class="btn btn-secondary">Специальности</button>
-					<button type="button" class="btn btn-secondary">Формы обучения</button>
-					<button type="button" class="btn btn-secondary">Привилегии</button>
-					<button type="button" class="btn btn-secondary">Учреждения</button>
+					<button type="button" class="btn btn-secondary" id="show-specialty" value="all">Специальности</button>
+					<button type="button" class="btn btn-secondary" id="show-type-study" value="all">Формы обучения</button>
+					<button type="button" class="btn btn-secondary" id="show-privilege" value="all">Привилегии</button>
+					<button type="button" class="btn btn-secondary" id="show-school" value="all">Учреждения</button>
 				</div>
 				
 					<div class="table-filters">
@@ -43,12 +43,12 @@
 						<label class="radio-inline"><input type="radio" name="optradio" value="unconfirmed" class="radio-filter">Показать не подтвержденные</label>
 					</div>
 					<div>
-					<caption>Название таблицы</caption>
+					<h4>Название таблицы</h4>
 					</div>
 					<table class="table table-hover">
 						<caption>Название таблицы</caption>
 						<thead class="thead-dark" id="table-caption">
-							<tr>
+							<tr id="Application-caption" style="visibility: visible;">
 								<th scope="col">ФИО</th>
 								<th scope="col">Адрес</th>
 								<th scope="col">Специальность</th>
@@ -56,6 +56,32 @@
 								<th scope="col">Форма обучения</th>
 								<th scope="col">Подтверждение</th>
 								<th scope="col">Кабинет пользователя</th>
+							</tr>
+							<tr id="Specialty-caption" style="display: none;">
+								<th scope="col">Специальность</th>
+								<th scope="col">План</th>
+								<th scope="col">Год</th>
+								<th scope="col">Факультет</th>
+								<th scope="col">Форма обучения</th>
+								<th scope="col">Изменить</th>
+							</tr>
+							<tr id="School-caption" style="display: none;">
+								<th scope="col">Название</th>
+								<th scope="col">Уровень</th>
+								<th scope="col">Учреждение</th>
+								<th scope="col">Изменить</th>
+							</tr>
+							<tr id="Faculty-caption" style="display: none;">
+								<th scope="col">Факультет</th>
+								<th scope="col">Изменить</th>
+							</tr>
+							<tr id="TypeStudy-caption" style="display: none;">
+								<th scope="col">Форма обучения</th>
+								<th scope="col">Изменить</th>
+							</tr>
+							<tr id="Privilege-caption" style="display: none;">
+								<th scope="col">Льгота</th>
+								<th scope="col">Изменить</th>
 							</tr>
 						</thead>
 						<tbody id="table-list">
@@ -67,7 +93,7 @@
 									<td>${app.specialties.faculty.name}</td>
 									<td>${app.specialties.typeStudy.typeName}</td>
 									<td>${app.confirmation}</td>
-									<td>Посмотреть</td>
+									<td><a href="${pageContext.request.contextPath}/Controller?command=show_userpage&user_id=${app.user.id}">CLICK</a></td>
 								</tr>
 							</c:forEach>
 						</tbody>

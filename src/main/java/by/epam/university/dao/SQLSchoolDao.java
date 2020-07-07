@@ -15,4 +15,6 @@ public interface SQLSchoolDao {
 	
 	boolean insert(School school) throws DAOException;
 	
+	boolean update(School school) throws DAOException;
+	
 }

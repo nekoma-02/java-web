@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.epam.university.controller.command.front.Command;
+import by.epam.university.controller.command.front.ForwardException;
 import by.epam.university.controller.parameter.JSPPageName;
 import by.epam.university.controller.parameter.RequestParameterName;
 import by.epam.university.entity.Privilege;
@@ -31,9 +32,15 @@ private static Logger logger = LogManager.getLogger();
 		Privilege privilege = new Privilege(0, name);
 		
 		try {
-			adminService.insertPrivilege(privilege);
-			response.sendRedirect(request.getContextPath());
-		} catch (ServiceException e) {
+			boolean isInsert = adminService.insertPrivilege(privilege); 
+			if (isInsert) {
+				response.sendRedirect(JSPPageName.ADD_PRIVILEGE);
+			} else {
+				request.setAttribute(RequestParameterName.RESULT_INFO, "wrong added");
+				forwardTo(request, response, JSPPageName.ADD_PRIVILEGE);
+			}
+			
+		} catch (ServiceException | ForwardException e) {
 			logger.log(Level.ERROR, e);
 			response.sendRedirect(JSPPageName.ERROR_PAGE);
 		}

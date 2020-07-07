@@ -3,6 +3,7 @@ package by.epam.university.controller.parameter;
 public class RequestParameterName {
 	
 	public static final String COMMAND = "command";
+	public static final String USER_ID = "user_id";
 	public static final String LOGIN = "login";
     public static final String PASSWORD = "password";
     public static final String NAME = "name";
@@ -27,6 +28,7 @@ public class RequestParameterName {
     public static final String PRIVILEGE = "privilege";
     public static final String PRIVILEGE_NAME = "privilege_name";
     public static final String FACULTY = "faculty";
+    public static final String FACULTIES = "faculties";
     public static final String FACULTY_NAME = "faculty_name";
     public static final String TYPE_DOCUMENT = "type_document";
     public static final String ID_DOCUMENT = "id_document";
@@ -40,4 +42,12 @@ public class RequestParameterName {
     public static final String MARITAL_STATUS = "marital_status";
     public static final String PLACE_OF_BIRTH = "place_of_birth";
     public static final String APPLICATION = "application";
+    public static final String FACULTY_ID = "faculty_id";
+    public static final String SCHOOL_ID = "school_id";
+    public static final String TYPE_STUDY_ID = "type_study_id";
+    public static final String PRIVILEGE_ID = "privilege_id";
+    public static final String SPECIALTY_ID = "specialty_id";
+    public static final String SPECIALTY_PLAN = "specialty_plan";
+    public static final String SPECIALTY_YEAR = "specialty_year";
+    public static final String SUBJECTS = "subjects";
 }

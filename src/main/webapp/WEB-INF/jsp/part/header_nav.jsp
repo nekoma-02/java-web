@@ -42,10 +42,12 @@
 					<li class="nav-item"><a class="nav-link" href="#">${contactpage}</a>
 					</li>
 
-					<c:if test="${not empty sessionScope.user_id}">
-						<li><a
-							href="${pageContext.request.contextPath}/Controller?command=show_userpage"
-							class="nav-link">Личный кабинет</a></li>
+					<c:if test="${not empty sessionScope.application_id}">
+						<c:if test="${sessionScope.user_role != 'ADMIN'}">
+							<li><a
+								href="${pageContext.request.contextPath}/Controller?command=show_userpage"
+								class="nav-link">Личный кабинет</a></li>
+						</c:if>
 					</c:if>
 
 

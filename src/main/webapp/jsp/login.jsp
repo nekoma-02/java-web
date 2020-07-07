@@ -44,12 +44,12 @@
 					<div class="form-group">
 						<label for="formGroupExampleInput">Логин</label> <input
 							type="text" class="form-control" id="formGroupExampleInput"
-							placeholder="Введите логин" name="login">
+							placeholder="Введите логин"  required name="login">
 					</div>
 					<div class="form-group">
 						<label for="exampleInputPassword1">Пароль</label> <input
 							type="password" class="form-control" id="exampleInputPassword1"
-							placeholder="Введите пароль" name="password">
+							placeholder="Введите пароль" required name="password">
 					</div>
 					<button type="submit" class="btn btn-primary">Войти</button>
 

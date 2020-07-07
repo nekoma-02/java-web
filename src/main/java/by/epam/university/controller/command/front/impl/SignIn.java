@@ -52,8 +52,6 @@ public class SignIn implements Command {
 				session.setAttribute(SessionParameterName.USER_ID, user.getId());
 				session.setAttribute(SessionParameterName.USER_ROLE, user.getRole());
 				session.setAttribute(SessionParameterName.USER_LOGIN, user.getLogin());
-				System.out.println(request.getServletPath());
-				System.out.println(request.getContextPath());
 				
 				response.sendRedirect(JSPPageName.INDEX_PAGE);
 				

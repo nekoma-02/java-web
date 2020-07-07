@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.epam.university.controller.command.front.Command;
+import by.epam.university.controller.command.front.ForwardException;
 import by.epam.university.controller.parameter.JSPPageName;
 import by.epam.university.controller.parameter.RequestParameterName;
 import by.epam.university.entity.Faculty;
@@ -30,12 +31,18 @@ private static Logger logger = LogManager.getLogger();
 		Faculty faculty = new Faculty(0, name);
 		
 		try {
-			adminService.insertFaculty(faculty);
-			response.sendRedirect(request.getContextPath());
-		} catch (ServiceException e) {
+			boolean isInsert = adminService.insertFaculty(faculty); 
+			if (isInsert) {
+				response.sendRedirect(JSPPageName.ADD_FACULTY);
+			} else {
+				request.setAttribute(RequestParameterName.RESULT_INFO, "wrong added");
+				forwardTo(request, response, JSPPageName.ADD_FACULTY);
+			}
+			
+		} catch (ServiceException | ForwardException e) {
 			logger.log(Level.ERROR, e);
 			response.sendRedirect(JSPPageName.ERROR_PAGE);
-		}
+		} 
 		
 		
 	}

@@ -47,13 +47,24 @@
 					</c:if>
 
 					<c:if test="${empty sessionScope.application_id}">
-						<div class="row">
-							<div class="col">
-								<a class="btn btn-lg btn-success"
-									href="${pageContext.request.contextPath}/Controller?command=show_addapplication_page"
-									style="width: 100%;">Перейти к заполнению кабинета</a>
+						<c:if test="${sessionScope.user_role == 'ADMIN'}">
+							<div class="row">
+								<div class="col">
+									<a class="btn btn-lg btn-success"
+										href="${pageContext.request.contextPath}/Controller?command=admin_page"
+										style="width: 100%;">Админка</a>
+								</div>
 							</div>
-						</div>
+						</c:if>
+						<c:if test="${sessionScope.user_role != 'ADMIN'}">
+							<div class="row">
+								<div class="col">
+									<a class="btn btn-lg btn-success"
+										href="${pageContext.request.contextPath}/Controller?command=show_addapplication_page"
+										style="width: 100%;">Перейти к заполнению кабинета</a>
+								</div>
+							</div>
+						</c:if>
 					</c:if>
 
 				</c:if>

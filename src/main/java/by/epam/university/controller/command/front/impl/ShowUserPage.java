@@ -18,6 +18,7 @@ import by.epam.university.controller.parameter.RequestParameterName;
 import by.epam.university.controller.parameter.SessionParameterName;
 import by.epam.university.entity.Application;
 import by.epam.university.entity.Privilege;
+import by.epam.university.entity.Role;
 import by.epam.university.entity.School;
 import by.epam.university.entity.Specialty;
 import by.epam.university.entity.User;
@@ -36,7 +37,20 @@ public class ShowUserPage implements Command {
 		ApplicationService appService = ServiceFactory.getInstance().getApplicationService();
 		
 		HttpSession session = request.getSession();
-		int userId = (Integer) session.getAttribute(SessionParameterName.USER_ID);
+		int userId = 0;
+		Role role = (Role) session.getAttribute(SessionParameterName.USER_ROLE);
+		System.out.println(role);
+		
+		if (role == Role.USER) {
+			userId = (Integer) session.getAttribute(SessionParameterName.USER_ID);
+		} 
+		
+		if (role == Role.ADMIN) {
+			userId = Integer.parseInt(request.getParameter("user_id"));
+			session.setAttribute(SessionParameterName.USER_ID_EDIT, userId);
+		}
+		
+		System.out.println(userId);
 
 		try {
 			User user = userService.userById(userId);

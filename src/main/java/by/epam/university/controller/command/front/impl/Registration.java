@@ -41,12 +41,11 @@ public class Registration implements Command {
 		String email = request.getParameter(RequestParameterName.EMAIL);
 		Role role = Role.valueOf(request.getParameter(RequestParameterName.USER_ROLE).toUpperCase());
 
-		UserValidator validator = ValidatorFactory.getInstance().getUserValidator();
-		List<String> validation = validator.validate(name, secondName, lastName, email);
-		validation.addAll(validator.validate(login, password));
-		
-
 		try {
+			
+			UserValidator validator = ValidatorFactory.getInstance().getUserValidator();
+			List<String> validation = validator.validate(name, secondName, lastName, email);
+			validation.addAll(validator.validate(login, password));
 		
 			if (validation.size() == 0 || validation == null) {
 				
@@ -70,6 +69,8 @@ public class Registration implements Command {
 
 		} catch (UserExistsException e) {
 			request.setAttribute(RequestParameterName.RESULT_INFO, "such user already exist! ");
+			request.getRequestDispatcher(JSPPageName.REGISTRATION_PAGE).forward(request, response);
+			
 		}
 
 	}

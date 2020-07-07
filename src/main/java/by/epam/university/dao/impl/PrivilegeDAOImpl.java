@@ -29,6 +29,7 @@ public class PrivilegeDAOImpl implements SQLPrivilegeDao {
 	private static final String SELECT_PRIVILEGE_BY_NAME = "select * from stud_privileges where name = ?";
 	private static final String SELECT_PRIVILEGE_BY_ID = "select * from stud_privileges where idprivilege = ?";
 	private static final String INSERT_PRIVILEGE = "insert into stud_privileges(name) values (?)";
+	private static final String UPDATE_PRIVILEGE = "update stud_privileges set name = ? where idprivilege = ? ";
 	
 	@Override
 	public List<Privilege> getAll() throws DAOException {
@@ -193,6 +194,30 @@ public class PrivilegeDAOImpl implements SQLPrivilegeDao {
 
 		} catch (ConnectionPoolException e) {
 			logger.log(Level.ERROR, e);
+			throw new DAOConnectionPoolException(e);
+		} catch (SQLException e) {
+			throw new DAOSQLException(e);
+		} finally {
+			closeConnection(connection, ps);
+		}
+	}
+
+	@Override
+	public boolean update(Privilege privilege) throws DAOException {
+		Connection connection = null;
+		PreparedStatement ps = null;
+
+		try {
+			connection = connectionPool.takeConnection();
+			ps = connection.prepareStatement(UPDATE_PRIVILEGE);
+
+			ps.setString(1, privilege.getName());
+			ps.setInt(2, privilege.getId());
+			
+
+			return ps.executeUpdate() == 1;
+
+		} catch (ConnectionPoolException e) {
 			throw new DAOConnectionPoolException(e);
 		} catch (SQLException e) {
 			throw new DAOSQLException(e);

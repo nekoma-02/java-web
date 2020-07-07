@@ -11,9 +11,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.epam.university.controller.command.front.Command;
+import by.epam.university.controller.command.front.ForwardException;
 import by.epam.university.controller.parameter.JSPPageName;
 import by.epam.university.controller.parameter.RequestParameterName;
-import by.epam.university.entity.School;
 import by.epam.university.entity.TypeStudy;
 import by.epam.university.service.AdminService;
 import by.epam.university.service.ServiceFactory;
@@ -31,9 +31,16 @@ public class AddTypeStudy implements Command {
 		TypeStudy typeStudy = new TypeStudy(0, name);
 
 		try {
-			adminService.insertTypeStudy(typeStudy);
-			response.sendRedirect(request.getContextPath());
-		} catch (ServiceException e) {
+			boolean isInsert = adminService.insertTypeStudy(typeStudy);
+
+			if (isInsert) {
+				response.sendRedirect(JSPPageName.ADD_TYPE_STUDY);
+			} else {
+				request.setAttribute(RequestParameterName.RESULT_INFO, "wrong added");
+				forwardTo(request, response, JSPPageName.ADD_TYPE_STUDY);
+			}
+
+		} catch (ServiceException | ForwardException e) {
 			logger.log(Level.ERROR, e);
 			response.sendRedirect(JSPPageName.ERROR_PAGE);
 		}

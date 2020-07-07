@@ -26,6 +26,7 @@
 <body>
 	<div class="col-2 bg-dark" id="admin-nav">
 				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/Controller?command=admin_page">Просмотр</a></li>
 					<li class="nav-item"><a class="nav-link"
 						data-toggle="collapse" href="#collapseExample" role="button"
 						aria-expanded="false" aria-controls="collapseExample">Добавление</a>
@@ -39,13 +40,12 @@
 									<li class="nav-item"><a class="nav-link"
 										href="${pageContext.request.contextPath}/jsp/admin/add_typeStudy.jsp">Форма обучения</a></li>
 									<li class="nav-item"><a class="nav-link"
-										href="${pageContext.request.contextPath}/jsp/admin/add_specialty.jsp">Специальность</a></li>
+										href="${pageContext.request.contextPath}/Controller?command=SHOW_ADD_SPECIALTY_PAGE">Специальность</a></li>
 									<li class="nav-item"><a class="nav-link"
 										href="${pageContext.request.contextPath}/jsp/admin/add_privilege.jsp">Привилегия</a></li>
 								</ul>
 							</div>
 						</div></li>
-					<li class="nav-item"><a class="nav-link" href="#">li-2</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">li-3</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">li-4</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">li-5</a></li>

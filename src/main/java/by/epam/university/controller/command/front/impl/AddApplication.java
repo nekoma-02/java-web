@@ -3,6 +3,7 @@ package by.epam.university.controller.command.front.impl;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +28,12 @@ import by.epam.university.service.ApplicationService;
 import by.epam.university.service.ServiceFactory;
 import by.epam.university.service.UserService;
 import by.epam.university.service.exception.ServiceException;
+import by.epam.university.service.validator.ApplicationValidator;
+import by.epam.university.service.validator.PrivilegeValidator;
+import by.epam.university.service.validator.SchoolValidator;
+import by.epam.university.service.validator.SpecialtyValidator;
+import by.epam.university.service.validator.UserValidator;
+import by.epam.university.service.validator.factory.ValidatorFactory;
 
 public class AddApplication implements Command {
 
@@ -65,25 +72,44 @@ public class AddApplication implements Command {
 
 		
 		try {
-			Application application = new Application(0, adres, Integer.parseInt(certificate), new Privilege(Integer.parseInt(idPrivilege)), new User(idUser), new School(Integer.parseInt(idSchool)), new Specialty(Integer.parseInt(idSpecialty)), false, typeDocument, idDocument, seriesPassport, Integer.parseInt(numberPassport), issuedBy, convert(endStudyDate));
-			User user = new User(idUser,name,secondName,lastName,email,gender,maritalStatus, placeOfBirth, convert(dateOfBirth));
+			UserValidator userValidator = ValidatorFactory.getInstance().getUserValidator();
+			ApplicationValidator appValidator = ValidatorFactory.getInstance().getApplicationValidator();
+			SpecialtyValidator specValidator = ValidatorFactory.getInstance().getSpecialtyValidator();
+			PrivilegeValidator privValidator = ValidatorFactory.getInstance().getPrivilegeValidator();
+			SchoolValidator schoolValidator = ValidatorFactory.getInstance().getSchoolValidator();
+			
+			List<String> validation = userValidator.validate(name, secondName, lastName, email, gender, maritalStatus, placeOfBirth);
+			validation.addAll(appValidator.validate(adres, certificate, typeDocument, idDocument, seriesPassport, numberPassport, issuedBy, endStudyDate));
+			validation.addAll(specValidator.validate(idSpecialty));
+			validation.addAll(privValidator.validate(idPrivilege,"false"));
+			validation.addAll(schoolValidator.validate(idSchool));
+			
+			if (validation.size() == 0 || validation == null) {
+				
+				Application application = new Application(0, adres, Integer.parseInt(certificate), new Privilege(Integer.parseInt(idPrivilege)), new User(idUser), new School(Integer.parseInt(idSchool)), new Specialty(Integer.parseInt(idSpecialty)), false, typeDocument, idDocument, seriesPassport, Integer.parseInt(numberPassport), issuedBy, convert(endStudyDate));
+				User user = new User(idUser,name,secondName,lastName,email,gender,maritalStatus, placeOfBirth, convert(dateOfBirth));
 
-			boolean isUpdateUser = userService.updateUser(user);
-			boolean isAddedApplication = false;
-			
-			if (idApplication == null) {
-				isAddedApplication = appService.createApplication(application);
-			} else {
-				isAddedApplication = appService.updateApplication(application);
-			}
-			
-			if (isUpdateUser && isAddedApplication) {
+				userService.updateUser(user);
+				
+				if (idApplication == null) {
+					appService.createApplication(application);
+				} else {
+					appService.updateApplication(application);
+				}
+				
 				session.setAttribute(SessionParameterName.APPLICATION_ID, appService.ApplicationByUserId(idUser).getId());
 				response.sendRedirect(request.getContextPath()+USER_PAGE);
+				
 			} else {
-				request.setAttribute(RequestParameterName.RESULT_INFO, "Не верно введены данные");
+				
+				for (String item : validation) {
+					request.setAttribute(item.toLowerCase(), item);
+				}
+				
 				forwardTo(request, response, JSPPageName.ADD_APPLICATION_PAGE);
+		 
 			}
+			
 			session.setAttribute(SessionParameterName.QUERY_STRING,request.getQueryString());
 			
 		} catch (ServiceException | ParseException | ForwardException e ) {

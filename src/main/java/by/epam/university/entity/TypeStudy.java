@@ -12,6 +12,11 @@ public class TypeStudy implements Serializable {
 	public TypeStudy() {
 	}
 	
+	public TypeStudy(int id) {
+		super();
+		this.id = id;
+	}
+
 	public TypeStudy(int id, String typeName) {
 		super();
 		this.id = id;

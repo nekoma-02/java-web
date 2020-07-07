@@ -84,7 +84,7 @@
 				<label for="formGroupExampleInput" class="col-sm-2 col-form-label">Логин</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" id="formGroupExampleInput"
-						placeholder="Введите логин" name="login">
+						placeholder="Введите логин"  required name="login">
 				</div>
 
 			</div>
@@ -93,7 +93,7 @@
 				<label for="formGroupExampleInput" class="col-sm-2 col-form-label">Фамилия</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" id="formGroupExampleInput"
-						placeholder="Введите фамилию" name="secondname"
+						placeholder="Введите фамилию" required  name="secondname"
 						title="Ваша фамилия (на русском или белорусском языке), как она указана в Вашем паспорте (документе, удостоверяющем личность).">
 				</div>
 			</div>
@@ -103,7 +103,7 @@
 				<label for="formGroupExampleInput" class="col-sm-2 col-form-label">Имя</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" id="formGroupExampleInput"
-						placeholder="Введите имя" name="name"
+						placeholder="Введите имя"  required name="name"
 						title="Ваше имя (на русском или белорусском языке), как она указана в Вашем паспорте (документе, удостоверяющем личность).">
 				</div>
 			</div>
@@ -113,7 +113,7 @@
 				<label for="formGroupExampleInput" class="col-sm-2 col-form-label">Отчество</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" id="formGroupExampleInput"
-						placeholder="Введите отчество" name="lastname"
+						placeholder="Введите отчество"  required name="lastname"
 						title="Ваше отчество (на русском или белорусском языке), как она указана в Вашем паспорте (документе, удостоверяющем личность).">
 				</div>
 			</div>
@@ -124,7 +124,7 @@
 					ящик</label>
 				<div class="col-sm-10">
 					<input type="email" class="form-control" id="exampleInputEmail1"
-						placeholder="Введите почтовый ящик" name="email">
+						placeholder="Введите почтовый ящик"  required name="email">
 				</div>
 			</div>
 
@@ -133,7 +133,7 @@
 				<div class="col-sm-10">
 					<input type="password" class="form-control"
 						id="exampleInputPassword1" placeholder="Придумайте пароль"
-						name="password">
+						 required name="password">
 				</div>
 			</div>
 
@@ -143,7 +143,7 @@
 				<div class="col-sm-10">
 					<input type="password" class="form-control"
 						id="exampleInputPassword1" placeholder="Подтвердите пароль"
-						name="repeat_password">
+						 required name="repeat_password">
 				</div>
 			</div>
 

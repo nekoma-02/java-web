@@ -48,6 +48,7 @@ public class ShowAddApplicationPage implements Command {
 			
 			Application app = null;
 			
+			
 			if (idApplication != null) {
 				app = appService.ApplicationByUserId(userId);
 				Specialty spec = appService.getSpecialtyById(app.getSpecialties().getId());
@@ -61,16 +62,16 @@ public class ShowAddApplicationPage implements Command {
 			} else {
 				List<School> schools = appService.getAllSchools();
 				List<Privilege> privileges = appService.getAllPrivileges();
-				List<Faculty> faculties = appService.getAllFaculties();
-				List<TypeStudy> typesStudy = appService.getAllTypesStudy();
-
 				
 				request.setAttribute(RequestParameterName.SCHOOLS, schools);
 				request.setAttribute(RequestParameterName.PRIVILEGES, privileges);
-				request.setAttribute(RequestParameterName.FACULTY, faculties);
-				request.setAttribute(RequestParameterName.TYPE_STUDY, typesStudy);
+				
 			}
 			
+			List<Faculty> faculties = appService.getAllFaculties();
+			List<TypeStudy> typesStudy = appService.getAllTypesStudy();
+			request.setAttribute(RequestParameterName.FACULTY, faculties);
+			request.setAttribute(RequestParameterName.TYPE_STUDY, typesStudy);
 			
 			session.setAttribute(SessionParameterName.QUERY_STRING,request.getQueryString());
 			forwardTo(request, response, JSPPageName.ADD_APPLICATION_PAGE);

@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.epam.university.controller.command.front.Command;
+import by.epam.university.controller.command.front.ForwardException;
 import by.epam.university.controller.parameter.JSPPageName;
 import by.epam.university.controller.parameter.RequestParameterName;
 import by.epam.university.entity.School;
@@ -32,9 +33,14 @@ public class AddSchool implements Command {
 		School school = new School(0, name, level, institution);
 		
 		try {
-			adminService.insertSchool(school);
-			response.sendRedirect(request.getContextPath());
-		} catch (ServiceException e) {
+			boolean isInsert = adminService.insertSchool(school);
+			if (isInsert) {
+				response.sendRedirect(JSPPageName.ADD_SCHOOL);
+			} else {
+				request.setAttribute(RequestParameterName.RESULT_INFO, "wrong added");
+				forwardTo(request, response, JSPPageName.ADD_SCHOOL);
+			}
+		} catch (ServiceException | ForwardException  e) {
 			logger.log(Level.ERROR, e);
 			response.sendRedirect(JSPPageName.ERROR_PAGE);
 		}

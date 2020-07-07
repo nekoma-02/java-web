@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import by.epam.university.service.validator.UserValidator;
+import by.epam.university.service.validator.ValidatorParameters;
 
 public class UserValidatorImpl implements UserValidator {
 
@@ -20,42 +21,31 @@ public class UserValidatorImpl implements UserValidator {
 		return email.matches(EMAIL_PATTERN);
 	}
 	
-	/**
-	 * login c ограничением 5-15 символов, которыми могут быть буквы и цифры, символ
-	 * подчеркивания, дефис.
-	 */
 
 	private boolean validateLogin(String login) {
 		return login.matches(LOGIN_PATTERN);
 	}
 
-	/**
-	 * password с ограничением 6-18 символов, которыми могут быть буквы и цифры,
-	 * символ подчеркивания, дефис.
-	 */
+
 	private boolean validatePassword(String password) {
 		return password.matches(PASSWORD_PATTERN);
 	}
 
-	/**
-	 * name с ограничением 2-25 символов, которыми могут быть только буквы и дефис.
-	 */
 	private boolean validateName(String name) {
 		return name.matches(NAME_PATTERN);
 	}
 
-	
 
 	@Override
 	public List<String> validate(String login, String password) {
 		List<String> validation = new ArrayList<String>();
 		
 		if (login == null || !validateLogin(login)) {
-			validation.add("invalid_login");
+			validation.add(ValidatorParameters.INVALID_LOGIN);
 		}
 		
 		if (password == null || !validatePassword(password)) {
-			validation.add("invalid_password");
+			validation.add(ValidatorParameters.INVALID_PASSWORD);
 		}
 		
 		return validation;
@@ -66,19 +56,19 @@ public class UserValidatorImpl implements UserValidator {
 		List<String> validation = new ArrayList<String>();
 		
 		if (name == null || !validateName(name)) {
-			validation.add("invalid_first_name");
+			validation.add(ValidatorParameters.INVALID_FIRST_NAME);
 		}
 		
 		if (secondName == null || !validateName(secondName)) {
-			validation.add("invalid_second_name");
+			validation.add(ValidatorParameters.INVALID_SECOND_NAME);
 		}
 		
 		if (lastName == null || !validateName(lastName)) {
-			validation.add("invalid_last_name");
+			validation.add(ValidatorParameters.INVALID_LAST_NAME);
 		}
 		
 		if (email == null || !validateEmail(email)) {
-			validation.add("invalid_email");
+			validation.add(ValidatorParameters.INVALID_EMAIL);
 		}
 		
 		return validation;
@@ -89,6 +79,18 @@ public class UserValidatorImpl implements UserValidator {
 	public List<String> validate(String name, String secondName, String lastName, String email, String gender,
 			String maritalStatus, String placeOfBirth) {
 		List<String> validation = validate(name, secondName, lastName, email);
+		if (gender == null ) {
+			validation.add(ValidatorParameters.INVALID_GENDER);
+		}
+		
+		if (maritalStatus == null) {
+			validation.add(ValidatorParameters.INVALID_MARITAL_STATUS);
+		}
+		
+		if (placeOfBirth == null) {
+			validation.add(ValidatorParameters.INVALID_PLACE_OF_BIRTH);
+		}
+		
 		return validation;
 	}
 

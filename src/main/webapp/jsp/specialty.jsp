@@ -9,7 +9,8 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/style.css" />
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
 
 <fmt:setLocale value="${sessionScope.local}" />
@@ -24,27 +25,32 @@
 	<c:if test="${not empty specialties}">
 		<div class="content">
 			<table class="table table-hover">
-			<caption>Список специальностей</caption>
+				<caption>Список специальностей</caption>
 				<thead class="thead-dark">
 					<tr>
-						<th scope="col">Имя специальности</th>
+						<th scope="col">Факультет</th>
+						<th scope="col">Форма обучения</th>
 						<th scope="col">План</th>
 						<th scope="col">Год</th>
-						<th scope="col">Форма обучения</th>
-						<th scope="col">Факультет</th>
+						<th scope="col">Специальность</th>
+						<th scope="col">Подробнее</th>
 
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach items="${specialties}" var="spec">
 						<tr>
-							<td>${spec.getName()}</td>
-							<td>${spec.getPlan()}</td>
-							<td>${spec.getYear()}</td>
-							<td>${spec.getTypeStudy().getTypeName()}</td>
-							<td>${spec.getFaculty().getName()}</td>
+							<td>${spec.faculty.name}</td>
+							<td>${spec.typeStudy.typeName}</td>
+							<td>${spec.plan}</td>
+							<td>${spec.year}</td>
+							<td>${spec.name}</td>
+							<td><a href="${pageContext.request.contextPath}/Controller?command=show_specialty_detail&specialty_id=${spec.id}">CLICK</a></td>
+
 						</tr>
 					</c:forEach>
+
+
 				</tbody>
 			</table>
 		</div>

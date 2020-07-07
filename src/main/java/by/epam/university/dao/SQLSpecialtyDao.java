@@ -5,6 +5,7 @@ import java.util.List;
 import by.epam.university.dao.exception.DAOException;
 import by.epam.university.entity.Faculty;
 import by.epam.university.entity.Specialty;
+import by.epam.university.entity.Subject;
 import by.epam.university.entity.TypeStudy;
 
 public interface SQLSpecialtyDao {
@@ -26,5 +27,17 @@ public interface SQLSpecialtyDao {
 	boolean insertFaculty(Faculty faculty) throws DAOException;
 	
 	boolean insertTypeStudy(TypeStudy typeStudy) throws DAOException;
+	
+	boolean updateFaculty(Faculty faculty) throws DAOException;
+	
+	boolean updateTypeStudy(TypeStudy typeStudy) throws DAOException;
+	
+	Faculty getFacultyById(int id) throws DAOException;
+	
+	TypeStudy getTypeStudyById(int id) throws DAOException;
+	
+	boolean updateSpecialty(Specialty specialty) throws DAOException;
+	
+	List<Subject> subjectBySpecialtyID(int id) throws DAOException;
 	
 }

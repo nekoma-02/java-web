@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import by.epam.university.controller.command.ajax.AjaxCommand;
+import by.epam.university.controller.command.ajax.FilterParameterName;
 import by.epam.university.entity.Faculty;
 import by.epam.university.service.ApplicationService;
 import by.epam.university.service.ServiceFactory;
@@ -18,7 +19,7 @@ public class GetFaculty implements AjaxCommand {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		
-		String filter = request.getParameter("faculty_filter");
+		String filter = request.getParameter(FilterParameterName.FILTER_FACULTY);
 		
 		String answer = null;
 		
@@ -30,7 +31,7 @@ public class GetFaculty implements AjaxCommand {
 		
 		try {
 			
-			if (filter.equals("all")) {
+			if (filter.equals(FilterParameterName.FILTER_ALL)) {
 				facultyList = appService.getAllFaculties();
 			}
 			

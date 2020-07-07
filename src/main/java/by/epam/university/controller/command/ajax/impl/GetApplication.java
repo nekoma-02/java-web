@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import by.epam.university.controller.command.ajax.AjaxCommand;
+import by.epam.university.controller.command.ajax.FilterParameterName;
 import by.epam.university.entity.Application;
 import by.epam.university.service.AdminService;
 import by.epam.university.service.ServiceFactory;
@@ -17,7 +18,7 @@ public class GetApplication implements AjaxCommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		String filter = request.getParameter("application_filter");
+		String filter = request.getParameter(FilterParameterName.FILTER_APPLICATION);
 		
 		String answer = null;
 		
@@ -29,15 +30,15 @@ public class GetApplication implements AjaxCommand {
 		
 		try {
 			
-			if (filter.equals("all")) {
+			if (filter.equals(FilterParameterName.FILTER_ALL)) {
 				listApp = adminService.getAllApplication();
 			}
 			
-			if (filter.equals("confirmed")) {
+			if (filter.equals(FilterParameterName.FILTER_CONFIRMED)) {
 				listApp = adminService.getAllConfirmedApplication();
 			}
 			
-			if (filter.equals("unconfirmed")) {
+			if (filter.equals(FilterParameterName.FILTER_UNCONFIRMED)) {
 				listApp = adminService.getAllUnconfirmedApplication();
 			}
 			
