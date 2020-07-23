@@ -47,29 +47,29 @@ public class ShowAddApplicationPage implements Command {
 			request.setAttribute(RequestParameterName.USER_INFO, user);
 			
 			Application app = null;
-			
+			School school = null;
 			
 			if (idApplication != null) {
 				app = appService.ApplicationByUserId(userId);
 				Specialty spec = appService.getSpecialtyById(app.getSpecialties().getId());
-				School school = appService.getSchoolById(app.getSchool().getId());
+				school = appService.getSchoolById(app.getSchool().getId());
 				Privilege privilege = appService.getPrivilegeById(app.getPrivilege().getId());
 				
 				request.setAttribute(RequestParameterName.APPLICATION, app);
 				request.setAttribute(RequestParameterName.PRIVILEGE, privilege);
-				request.setAttribute(RequestParameterName.SPECIALTY, spec);
 				request.setAttribute(RequestParameterName.SCHOOL, school);
-			} else {
-				List<School> schools = appService.getAllSchools();
-				List<Privilege> privileges = appService.getAllPrivileges();
-				
-				request.setAttribute(RequestParameterName.SCHOOLS, schools);
-				request.setAttribute(RequestParameterName.PRIVILEGES, privileges);
+				request.setAttribute(RequestParameterName.SPECIALTY, spec);
 				
 			}
 			
 			List<Faculty> faculties = appService.getAllFaculties();
 			List<TypeStudy> typesStudy = appService.getAllTypesStudy();
+			List<School> schools = appService.getAllSchools();
+			List<Privilege> privileges = appService.getAllPrivileges();
+			
+			request.setAttribute(RequestParameterName.SCHOOLS, schools);
+			
+			request.setAttribute(RequestParameterName.PRIVILEGES, privileges);
 			request.setAttribute(RequestParameterName.FACULTY, faculties);
 			request.setAttribute(RequestParameterName.TYPE_STUDY, typesStudy);
 			

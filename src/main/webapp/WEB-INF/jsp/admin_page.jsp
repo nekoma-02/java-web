@@ -10,9 +10,12 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/style.css" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="text/javascript"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"
+	type="text/javascript"></script>
 <script src="resources/js/ajax-request.js" type="text/javascript"></script>
 
 <fmt:setLocale value="${sessionScope.local}" />
@@ -26,24 +29,37 @@
 		<div class="row">
 			<jsp:include page="part/admin_nav.jsp"></jsp:include>
 			<div class="col-10">
-				<div> 
-				
-				<div class="btn-group" role="group" aria-label="Basic example" style="margin-left: 25%; padding-bottom: 10px;">
-					<button type="button" class="btn btn-secondary" id="show-app" value="all">Заявления</button>
-					<button type="button" class="btn btn-secondary" id="show-faculty" value="all">Факультеты</button>
-					<button type="button" class="btn btn-secondary" id="show-specialty" value="all">Специальности</button>
-					<button type="button" class="btn btn-secondary" id="show-type-study" value="all">Формы обучения</button>
-					<button type="button" class="btn btn-secondary" id="show-privilege" value="all">Привилегии</button>
-					<button type="button" class="btn btn-secondary" id="show-school" value="all">Учреждения</button>
-				</div>
-				
+				<div>
+
+					<div class="btn-group" role="group" aria-label="Basic example"
+						style="margin-left: 25%; padding-bottom: 10px;">
+						<button type="button" class="btn btn-secondary" id="show-app"
+							value="all">Заявления</button>
+						<button type="button" class="btn btn-secondary" id="show-faculty"
+							value="all">Факультеты</button>
+						<button type="button" class="btn btn-secondary"
+							id="show-specialty" value="all">Специальности</button>
+						<button type="button" class="btn btn-secondary"
+							id="show-type-study" value="all">Формы обучения</button>
+						<button type="button" class="btn btn-secondary"
+							id="show-privilege" value="all">Привилегии</button>
+						<button type="button" class="btn btn-secondary" id="show-school"
+							value="all">Учреждения</button>
+						<button type="button" class="btn btn-secondary" id="show-subject"
+							value="all">Предметы</button>
+					</div>
+
 					<div class="table-filters">
-						<label class="radio-inline"><input type="radio" name="optradio" checked value="all" class="radio-filter">Показать все</label>
-						<label class="radio-inline"><input type="radio" name="optradio" value="confirmed" class="radio-filter"> Показать подтвержденные</label>
-						<label class="radio-inline"><input type="radio" name="optradio" value="unconfirmed" class="radio-filter">Показать не подтвержденные</label>
+						<label class="radio-inline"><input type="radio"
+							name="optradio" checked value="all" class="radio-filter">Показать
+							все</label> <label class="radio-inline"><input type="radio"
+							name="optradio" value="confirmed" class="radio-filter">
+							Показать подтвержденные</label> <label class="radio-inline"><input
+							type="radio" name="optradio" value="unconfirmed"
+							class="radio-filter">Показать не подтвержденные</label>
 					</div>
 					<div>
-					<h4>Название таблицы</h4>
+						<h4>Название таблицы</h4>
 					</div>
 					<table class="table table-hover">
 						<caption>Название таблицы</caption>
@@ -63,6 +79,11 @@
 								<th scope="col">Год</th>
 								<th scope="col">Факультет</th>
 								<th scope="col">Форма обучения</th>
+								<th scope="col">Изменить</th>
+								<th scope="col">Заявления</th>
+							</tr>
+							<tr id="Subject-caption" style="display: none;">
+								<th scope="col">Предмет</th>
 								<th scope="col">Изменить</th>
 							</tr>
 							<tr id="School-caption" style="display: none;">
@@ -87,13 +108,15 @@
 						<tbody id="table-list">
 							<c:forEach items="${application}" var="app">
 								<tr>
-									<td>${app.user.secondName} ${app.user.name} ${app.user.lastName}</td>
+									<td>${app.user.secondName}${app.user.name}
+										${app.user.lastName}</td>
 									<td>${app.adress}</td>
 									<td>${app.specialties.name}</td>
 									<td>${app.specialties.faculty.name}</td>
 									<td>${app.specialties.typeStudy.typeName}</td>
 									<td>${app.confirmation}</td>
-									<td><a href="${pageContext.request.contextPath}/Controller?command=show_userpage&user_id=${app.user.id}">CLICK</a></td>
+									<td><a
+										href="${pageContext.request.contextPath}/Controller?command=show_userpage&user_id=${app.user.id}&application_id=${app.id}">CLICK</a></td>
 								</tr>
 							</c:forEach>
 						</tbody>

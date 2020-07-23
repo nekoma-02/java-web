@@ -17,6 +17,11 @@ public class TypeStudy implements Serializable {
 		this.id = id;
 	}
 
+	public TypeStudy(String typeName) {
+		super();
+		this.typeName = typeName;
+	}
+
 	public TypeStudy(int id, String typeName) {
 		super();
 		this.id = id;
@@ -49,9 +54,6 @@ public class TypeStudy implements Serializable {
 			return false;
 		}
 		TypeStudy other = (TypeStudy) obj;
-		if (id != other.id) {
-			return false;
-		}
 		if (typeName == null) {
 			if (other.typeName != null) {
 				return false;

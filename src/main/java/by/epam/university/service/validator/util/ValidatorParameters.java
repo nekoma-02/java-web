@@ -1,4 +1,4 @@
-package by.epam.university.service.validator;
+package by.epam.university.service.validator.util;
 
 public class ValidatorParameters {
 
@@ -31,6 +31,8 @@ public class ValidatorParameters {
 	public static final String INVALID_NUMBER_PASSPORT = "invalid_number_passport";
 	public static final String INVALID_ISSUED_BY = "invalid_issued_by";
 	public static final String INVALID_END_STUDY_DATE = "invalid_end_study_date";
+	public static final String INVALID_SUBJECT_NAME = "invalid_subject_name";
+	
 
 	
 }

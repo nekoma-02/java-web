@@ -10,16 +10,26 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/style.css" />
 
 <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="local/local" var="loc" />
-<fmt:message bundle="${loc}" key="local.invalid_message.invalid_login" var="loc_invalid_login" />
-<fmt:message bundle="${loc}" key="local.invalid_message.invalid_password" var="loc_invalid_password" />
-<fmt:message bundle="${loc}" key="local.invalid_message.invalid_first_name" var="loc_invalid_first_name" />
-<fmt:message bundle="${loc}" key="local.invalid_message.invalid_second_name" var="loc_invalid_second_name" />
-<fmt:message bundle="${loc}" key="local.invalid_message.invalid_last_name" var="loc_invalid_last_name" />
-<fmt:message bundle="${loc}" key="local.invalid_message.invalid_email" var="loc_invalid_email" />
+<fmt:message bundle="${loc}" key="local.invalid_message.invalid_login"
+	var="loc_invalid_login" />
+<fmt:message bundle="${loc}"
+	key="local.invalid_message.invalid_password" var="loc_invalid_password" />
+<fmt:message bundle="${loc}"
+	key="local.invalid_message.invalid_first_name"
+	var="loc_invalid_first_name" />
+<fmt:message bundle="${loc}"
+	key="local.invalid_message.invalid_second_name"
+	var="loc_invalid_second_name" />
+<fmt:message bundle="${loc}"
+	key="local.invalid_message.invalid_last_name"
+	var="loc_invalid_last_name" />
+<fmt:message bundle="${loc}" key="local.invalid_message.invalid_email"
+	var="loc_invalid_email" />
 
 <title>Регистрация</title>
 </head>
@@ -37,44 +47,45 @@
 				<c:out value="${message}"></c:out>
 			</div>
 		</c:if>
-		
+
 		<c:if test="${not empty invalid_login}">
 			<div class="alert alert-warning" role="alert" id="alert">
 				<c:out value="${loc_invalid_login}"></c:out>
 			</div>
 		</c:if>
-		
+
 		<c:if test="${not empty invalid_password}">
 			<div class="alert alert-warning" role="alert" id="alert">
 				<c:out value="${loc_invalid_password}"></c:out>
 			</div>
 		</c:if>
-		
+
 		<c:if test="${not empty invalid_first_name}">
 			<div class="alert alert-warning" role="alert" id="alert">
 				<c:out value="${loc_invalid_first_name}"></c:out>
 			</div>
 		</c:if>
-		
+
 		<c:if test="${not empty invalid_second_name}">
 			<div class="alert alert-warning" role="alert" id="alert">
 				<c:out value="${loc_invalid_second_name}"></c:out>
 			</div>
 		</c:if>
-		
+
 		<c:if test="${not empty invalid_last_name}">
 			<div class="alert alert-warning" role="alert" id="alert">
 				<c:out value="${loc_invalid_last_name}"></c:out>
 			</div>
 		</c:if>
-		
+
 		<c:if test="${not empty invalid_email}">
 			<div class="alert alert-warning" role="alert" id="alert">
 				<c:out value="${loc_invalid_email}"></c:out>
 			</div>
 		</c:if>
 
-		<form action="${pageContext.request.contextPath}/Controller" method="post" class="registration-form">
+		<form action="${pageContext.request.contextPath}/Controller"
+			method="post" class="registration-form">
 
 			<legend>Регистрация в системе</legend>
 			<input type="hidden" name="command" value="registration"> <input
@@ -84,7 +95,7 @@
 				<label for="formGroupExampleInput" class="col-sm-2 col-form-label">Логин</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" id="formGroupExampleInput"
-						placeholder="Введите логин"  required name="login">
+						placeholder="Введите логин" required name="login">
 				</div>
 
 			</div>
@@ -93,7 +104,7 @@
 				<label for="formGroupExampleInput" class="col-sm-2 col-form-label">Фамилия</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" id="formGroupExampleInput"
-						placeholder="Введите фамилию" required  name="secondname"
+						placeholder="Введите фамилию" required name="secondname"
 						title="Ваша фамилия (на русском или белорусском языке), как она указана в Вашем паспорте (документе, удостоверяющем личность).">
 				</div>
 			</div>
@@ -103,7 +114,7 @@
 				<label for="formGroupExampleInput" class="col-sm-2 col-form-label">Имя</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" id="formGroupExampleInput"
-						placeholder="Введите имя"  required name="name"
+						placeholder="Введите имя" required name="name"
 						title="Ваше имя (на русском или белорусском языке), как она указана в Вашем паспорте (документе, удостоверяющем личность).">
 				</div>
 			</div>
@@ -113,7 +124,7 @@
 				<label for="formGroupExampleInput" class="col-sm-2 col-form-label">Отчество</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" id="formGroupExampleInput"
-						placeholder="Введите отчество"  required name="lastname"
+						placeholder="Введите отчество" required name="lastname"
 						title="Ваше отчество (на русском или белорусском языке), как она указана в Вашем паспорте (документе, удостоверяющем личность).">
 				</div>
 			</div>
@@ -124,7 +135,7 @@
 					ящик</label>
 				<div class="col-sm-10">
 					<input type="email" class="form-control" id="exampleInputEmail1"
-						placeholder="Введите почтовый ящик"  required name="email">
+						placeholder="Введите почтовый ящик" required name="email">
 				</div>
 			</div>
 
@@ -133,7 +144,7 @@
 				<div class="col-sm-10">
 					<input type="password" class="form-control"
 						id="exampleInputPassword1" placeholder="Придумайте пароль"
-						 required name="password">
+						required name="password">
 				</div>
 			</div>
 
@@ -143,7 +154,7 @@
 				<div class="col-sm-10">
 					<input type="password" class="form-control"
 						id="exampleInputPassword1" placeholder="Подтвердите пароль"
-						 required name="repeat_password">
+						required name="repeat_password">
 				</div>
 			</div>
 

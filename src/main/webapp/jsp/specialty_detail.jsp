@@ -26,35 +26,50 @@
 		<div class="row">
 			<div class="col">
 				<div class="form-group">
-						<label for="input1" class=" col-form-label">Специальность:</label>
-						<input type="text" readonly class="form-control-plaintext" id="input1" name="name" value="${requestScope.specialty.name}">
+					<label for="input1" class=" col-form-label"><b>Специальность:</b></label>
+					<input type="text" readonly class="form-control-plaintext"
+						id="input1" name="name" value="${requestScope.specialty.name}"
+						style="border: 2px solid black">
 				</div>
 				<div class="form-group">
-						<label for="input1" class=" col-form-label">Факультет:</label>
-						<input type="text" readonly class="form-control-plaintext" id="input1" name="name" value="${requestScope.specialty.faculty.name}">
+					<label for="input1" class=" col-form-label"><b>Факультет:</b></label>
+					<input type="text" readonly class="form-control-plaintext"
+						id="input1" name="name"
+						value="${requestScope.specialty.faculty.name}"
+						style="border: 2px solid black">
 				</div>
 				<div class="form-group">
-						<label for="input1" class=" col-form-label">План набора:</label>
-						<input type="text" readonly class="form-control-plaintext" id="input1" name="name" value="${requestScope.specialty.plan}">
+					<label for="input1" class=" col-form-label"><b>План
+							набора:</b></label> <input type="text" readonly
+						class="form-control-plaintext" id="input1" name="name"
+						value="${requestScope.specialty.plan}"
+						style="border: 2px solid black">
 				</div>
 				<div class="form-group">
-						<label for="input1" class=" col-form-label">Год:</label>
-						<input type="text" readonly class="form-control-plaintext" id="input1" name="name" value="${requestScope.specialty.year}">
+					<label for="input1" class=" col-form-label"><b>Год:</b></label> <input
+						type="text" readonly class="form-control-plaintext" id="input1"
+						name="name" value="${requestScope.specialty.year}"
+						style="border: 2px solid black">
 				</div>
-				
-				
+
+
 				<div class="form-group">
-					<label for="input1" class=" col-form-label">Форма обучения:</label>
-						<input type="text" readonly class="form-control-plaintext" id="input1" name="name" value="${requestScope.specialty.typeStudy.typeName}">
+					<label for="input1" class=" col-form-label"><b>Форма
+							обучения:</b></label> <input type="text" readonly
+						class="form-control-plaintext" id="input1" name="name"
+						value="${requestScope.specialty.typeStudy.typeName}"
+						style="border: 2px solid black">
 				</div>
-				
-				<label for="input1" class=" col-form-label">Предметы:</label>
+			</div>
+			<div class="col">
+				<label for="input1" class=" col-form-label"><b>Предметы:</b></label>
 				<c:forEach items="${subjects}" var="sub">
-				<div class="form-group">
-						<input type="text" readonly class="form-control-plaintext" id="input1" name="name" value="${sub.name}">
-				</div>
+					<div class="form-group">
+						<input type="text" readonly class="form-control-plaintext"
+							id="input1" name="name" value="${sub.name}"
+							style="border: 2px solid black">
+					</div>
 				</c:forEach>
-			
 			</div>
 		</div>
 	</div>

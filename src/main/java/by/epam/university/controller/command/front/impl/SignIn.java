@@ -38,13 +38,18 @@ public class SignIn implements Command {
 
 		HttpSession session = request.getSession();
 
+		
+		
 		try {
-			boolean isAuth = service.signIn(login, password);
-
-			if (isAuth) {
+			
+			boolean isSignIn = service.signIn(login, password);
+				
+			if (isSignIn) {
+				
 				User user = service.userByLogin(login);
 				
 				Application app = appService.ApplicationByUserId(user.getId());
+				
 				if (app != null) {
 					session.setAttribute(SessionParameterName.APPLICATION_ID, app.getId());
 				}
@@ -53,12 +58,13 @@ public class SignIn implements Command {
 				session.setAttribute(SessionParameterName.USER_ROLE, user.getRole());
 				session.setAttribute(SessionParameterName.USER_LOGIN, user.getLogin());
 				
-				response.sendRedirect(JSPPageName.INDEX_PAGE);
+				response.sendRedirect(JSPPageName.INDEX_PAGE); 
 				
 			} else {
-				request.setAttribute(RequestParameterName.RESULT_INFO, "Не верные данные");
+				request.setAttribute(RequestParameterName.RESULT_INFO, "invalid authorization data");
 				forwardTo(request, response, JSPPageName.LOGIN_PAGE);
 			}
+				
 			
 		} catch (ServiceException | ForwardException e) {
 

@@ -9,8 +9,10 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/navbar.css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/style.css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/navbar.css" />
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
 
 <fmt:setLocale value="${sessionScope.local}" />
@@ -34,7 +36,8 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarCollapse">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/index.jsp">${mainpage}</a>
+					<li class="nav-item"><a class="nav-link"
+						href="${pageContext.request.contextPath}/index.jsp">${mainpage}</a>
 					</li>
 					<li class="nav-item"><a class="nav-link"
 						href="${pageContext.request.contextPath}/Controller?command=show_specialties">${infopage}</a>
@@ -57,7 +60,9 @@
 						</li>
 					</c:if>
 					<li>
-						<form class="form-inline" id="locale-form" action="${pageContext.request.contextPath}/Controller" method="post">
+						<form class="form-inline" id="locale-form"
+							action="${pageContext.request.contextPath}/Controller"
+							method="post">
 							<input type="hidden" name="local" value="ru" /> <input
 								type="hidden" name="command" value="change_local" />
 							<button class="btn" type="submit" id="rus_btn"></button>
@@ -65,7 +70,9 @@
 
 					</li>
 					<li>
-						<form class="form-inline" id="locale-form" action="${pageContext.request.contextPath}/Controller" method="post">
+						<form class="form-inline" id="locale-form"
+							action="${pageContext.request.contextPath}/Controller"
+							method="post">
 							<input type="hidden" name="local" value="en" /> <input
 								type="hidden" name="command" value="change_local" />
 							<button class="btn" type="submit" id="en_btn"></button>
@@ -74,9 +81,10 @@
 				</ul>
 				<c:if test="${not empty sessionScope.user_id}">
 					<form id="login-form"
-						action="${pageContext.request.contextPath}/Controller" method="post">
-						<input type="hidden" name="command" value="sign_out" /> 
-						<a href="#">${sessionScope.user_login} </a>
+						action="${pageContext.request.contextPath}/Controller"
+						method="post">
+						<input type="hidden" name="command" value="sign_out" /> <a
+							href="#">${sessionScope.user_login} </a>
 						<button type="submit">Выйти</button>
 					</form>
 				</c:if>

@@ -10,6 +10,7 @@ import by.epam.university.controller.command.ajax.impl.GetFaculty;
 import by.epam.university.controller.command.ajax.impl.GetPrivilege;
 import by.epam.university.controller.command.ajax.impl.GetSchool;
 import by.epam.university.controller.command.ajax.impl.GetSpecialty;
+import by.epam.university.controller.command.ajax.impl.GetSubject;
 import by.epam.university.controller.command.ajax.impl.GetTypeStudy;
 import by.epam.university.controller.command.front.Command;
 import by.epam.university.controller.command.front.CommandName;
@@ -18,9 +19,11 @@ import by.epam.university.controller.command.front.impl.AddFaculty;
 import by.epam.university.controller.command.front.impl.AddPrivilege;
 import by.epam.university.controller.command.front.impl.AddSchool;
 import by.epam.university.controller.command.front.impl.AddSpecialty;
+import by.epam.university.controller.command.front.impl.AddSubject;
 import by.epam.university.controller.command.front.impl.AddTypeStudy;
 import by.epam.university.controller.command.front.impl.AdminPage;
 import by.epam.university.controller.command.front.impl.ChangeLocal;
+import by.epam.university.controller.command.front.impl.ConfirmAccount;
 import by.epam.university.controller.command.front.impl.Registration;
 import by.epam.university.controller.command.front.impl.ShowAddApplicationPage;
 import by.epam.university.controller.command.front.impl.ShowAddSpecialtyPage;
@@ -30,14 +33,18 @@ import by.epam.university.controller.command.front.impl.ShowUpdateFacultyPage;
 import by.epam.university.controller.command.front.impl.ShowUpdatePrivilegePage;
 import by.epam.university.controller.command.front.impl.ShowUpdateSchoolPage;
 import by.epam.university.controller.command.front.impl.ShowUpdateSpecialtyPage;
+import by.epam.university.controller.command.front.impl.ShowUpdateSubject;
 import by.epam.university.controller.command.front.impl.ShowUpdateTypeStudyPage;
 import by.epam.university.controller.command.front.impl.ShowUserPage;
 import by.epam.university.controller.command.front.impl.SignIn;
 import by.epam.university.controller.command.front.impl.SignOut;
+import by.epam.university.controller.command.front.impl.SpecialtyApplications;
+import by.epam.university.controller.command.front.impl.UpdateApplication;
 import by.epam.university.controller.command.front.impl.UpdateFaculty;
 import by.epam.university.controller.command.front.impl.UpdatePrivilege;
 import by.epam.university.controller.command.front.impl.UpdateSchool;
 import by.epam.university.controller.command.front.impl.UpdateSpecialty;
+import by.epam.university.controller.command.front.impl.UpdateSubject;
 import by.epam.university.controller.command.front.impl.UpdateTypeStudy;
 
 public class CommandProvided {
@@ -79,6 +86,12 @@ public class CommandProvided {
 		commands.put(CommandName.UPDATE_SPECIALTY, new UpdateSpecialty()); 
 		commands.put(CommandName.SHOW_ADD_SPECIALTY_PAGE, new ShowAddSpecialtyPage()); 
 		commands.put(CommandName.SHOW_SPECIALTY_DETAIL, new ShowSpecialtyDetail());
+		commands.put(CommandName.CONFIRM_ACCOUNT, new ConfirmAccount());
+		commands.put(CommandName.ADD_SUBJECT, new AddSubject());
+		commands.put(CommandName.SHOW_UPDATE_SUBJECT_PAGE, new ShowUpdateSubject());
+		commands.put(CommandName.UPDATE_SUBJECT, new UpdateSubject());
+		commands.put(CommandName.UPDATE_APPLICATION, new UpdateApplication());
+		commands.put(CommandName.APPLICATIONS_SPECIALTY, new SpecialtyApplications());
 		
 		ajaxRepository.put(AjaxCommandName.GET_SPECIALTY, new GetSpecialty());
 		ajaxRepository.put(AjaxCommandName.GET_APPLICATION, new GetApplication());
@@ -86,6 +99,7 @@ public class CommandProvided {
 		ajaxRepository.put(AjaxCommandName.GET_TYPE_STUDY, new GetTypeStudy());
 		ajaxRepository.put(AjaxCommandName.GET_PRIVILEGE, new GetPrivilege());
 		ajaxRepository.put(AjaxCommandName.GET_SCHOOL, new GetSchool());
+		ajaxRepository.put(AjaxCommandName.GET_SUBJECT, new GetSubject());
 
 	}
 			

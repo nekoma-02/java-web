@@ -28,7 +28,7 @@
 	<jsp:include page="../../WEB-INF/jsp/part/header_nav.jsp"></jsp:include>
 	<div class="container-fluid" id="admin-content">
 		<div class="row">
-				<jsp:include page="../../WEB-INF/jsp/part/admin_nav.jsp"></jsp:include>
+			<jsp:include page="../../WEB-INF/jsp/part/admin_nav.jsp"></jsp:include>
 			<div class="col-10">
 				<div>
 					<c:if test="${not empty message}">
@@ -36,7 +36,23 @@
 							<c:out value="${message}"></c:out>
 						</div>
 					</c:if>
-					<form action="${pageContext.request.contextPath}/Controller" method="post">
+					<c:if test="${not empty invalid_school_name}">
+						<div class="alert alert-warning" role="alert" id="alert">
+							<c:out value="${invalid_school_name}"></c:out>
+						</div>
+					</c:if>
+					<c:if test="${not empty invalid_level}">
+						<div class="alert alert-warning" role="alert" id="alert">
+							<c:out value="${invalid_level}"></c:out>
+						</div>
+					</c:if>
+					<c:if test="${not empty invalid_institution}">
+						<div class="alert alert-warning" role="alert" id="alert">
+							<c:out value="${invalid_institution}"></c:out>
+						</div>
+					</c:if>
+					<form action="${pageContext.request.contextPath}/Controller"
+						method="post">
 						<input type="hidden" name="command" value="add_school">
 						<div class="container">
 							<div class="row">

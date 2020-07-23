@@ -1,10 +1,9 @@
 $(document).ready(
 		function($) {
 
-			$(document).on('click', '.specialties', function() {
+			$(document).on('click', '#specialty_list', function() {
 				var idTypeStudy = $("#type_study_list").val();
 				var idFaculty = $("#faculty_list").val();
-				console.log('spec spec');
 
 				$.get('/university-project/AjaxController', {
 					command : 'get_specialty',
@@ -13,6 +12,8 @@ $(document).ready(
 					faculty : idFaculty
 				}, createSpecialty);
 			});
+			
+			
 
 			function createSpecialty(data) {
 
@@ -40,6 +41,18 @@ $(document).ready(
 					command : 'get_application',
 					application_filter : filter
 				}, createApplication);
+			});
+			
+			
+			$(document).on('click', '#show-subject', function() {
+				$(".table-filters").show();
+				createSubjectCaption();
+				var filter = $(this).val();
+
+				$.get('/university-project/AjaxController', {
+					command : 'get_subject',
+					subject_filter : filter
+				}, createSubject);
 			});
 
 			$(document).on('click', '#show-faculty', function() {
@@ -115,6 +128,11 @@ $(document).ready(
 				}, createApplication);
 			});
 
+			
+			
+			
+			
+			
 			function createApplication(data) {
 
 				$('#table-list tr').remove();
@@ -130,7 +148,7 @@ $(document).ready(
 							+ app.specialties.faculty.name + '</td>' + '<td>'
 							+ app.specialties.typeStudy.typeName + '</td>'
 							+ '<td>' + app.confirmation + '</td>'
-							+ '<td> <a href="Controller?command=show_userpage&user_id=' + app.user.id + '"> CLICK </a> </td>' + '</tr>';
+							+ '<td> <a href="Controller?command=show_userpage&user_id=' + app.user.id + '&application_id=' + app.id + '"> CLICK </a> </td>' + '</tr>';
 
 				});
 
@@ -153,6 +171,7 @@ $(document).ready(
 							+ '<td>' + spec.faculty.name + '</td>' 
 							+ '<td>' + spec.typeStudy.typeName + '</td>'
 							+ '<td> <a href="Controller?command=show_update_specialty_page&specialty_id=' + spec.id + '"> CLICK </a> </td>'
+							+ '<td> <a href="Controller?command=APPLICATIONS_SPECIALTY&specialty_id=' + spec.id + '"> CLICK </a> </td>'
 							+ '</tr>';
 
 				});
@@ -220,6 +239,24 @@ $(document).ready(
 
 			}
 			
+			function createSubject(data) {
+
+				$('#table-list tr').remove();
+
+				let subj = '';
+
+				$.each(data, function(subject, sub) {
+
+					subj += '<tr>' + '<td>' + sub.name + '</td>'
+					+ '<td> <a href="Controller?command=show_update_subject_page&subject_id=' + sub.id + '"> CLICK </a> </td>'
+							+ '</tr>';
+
+				});
+
+				$('#table-list').append(subj);
+
+			}
+			
 			function createTypeStudy(data) {
 
 				$('#table-list tr').remove();
@@ -246,7 +283,7 @@ $(document).ready(
 				$('#School-caption').hide();
 				$('#Privilege-caption').hide();
 				$('#Application-caption').show();
-
+				$('#Subject-caption').hide();
 
 
 			}
@@ -258,7 +295,7 @@ $(document).ready(
 				$('#School-caption').hide();
 				$('#Privilege-caption').hide();
 				$('#Application-caption').hide();
-
+				$('#Subject-caption').hide();
 
 
 			}
@@ -270,7 +307,7 @@ $(document).ready(
 				$('#School-caption').show();
 				$('#Privilege-caption').hide();
 				$('#Application-caption').hide();
-
+				$('#Subject-caption').hide();
 
 
 			}
@@ -282,7 +319,7 @@ $(document).ready(
 				$('#School-caption').hide();
 				$('#Privilege-caption').hide();
 				$('#Application-caption').hide();
-			
+				$('#Subject-caption').hide();
 
 
 			}
@@ -295,6 +332,21 @@ $(document).ready(
 				$('#School-caption').hide();
 				$('#Privilege-caption').hide();
 				$('#Application-caption').hide();
+				$('#Subject-caption').hide();
+				
+
+
+			}
+			
+			function createSubjectCaption() {
+				
+				$('#Specialty-caption').hide();
+				$('#Faculty-caption').hide();
+				$('#TypeStudy-caption').hide();
+				$('#School-caption').hide();
+				$('#Privilege-caption').hide();
+				$('#Application-caption').hide();
+				$('#Subject-caption').show();
 				
 
 

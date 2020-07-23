@@ -11,5 +11,6 @@ public static final String FILTER_SCHOOL = "school_filter";
 public static final String FILTER_SPECIALTY = "specialty_filter";
 public static final String FILTER_VALUE_SPECIALTY= "specialty";
 public static final String FILTER_TYPE_STUDY = "typestudy_filter";
+public static final String FILTER_SUBJECT= "subject_filter";
 
 }

@@ -3,8 +3,9 @@ package by.epam.university.service.validator.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import by.epam.university.entity.TypeStudy;
 import by.epam.university.service.validator.TypeStudyValidator;
-import by.epam.university.service.validator.ValidatorParameters;
+import by.epam.university.service.validator.util.ValidatorParameters;
 
 public class TypeStudyValidatorImpl implements TypeStudyValidator {
 
@@ -18,6 +19,17 @@ public class TypeStudyValidatorImpl implements TypeStudyValidator {
 
 		
 		return validation;
+	}
+
+	@Override
+	public boolean validateTypeStudy(TypeStudy typeStudy) {
+
+		List<String> validation = validate(typeStudy.getTypeName());
+		boolean isValid = true;
+		if (validation != null || validation.size() != 0) {
+			return false;
+		}
+		return isValid;
 	}
 
 }

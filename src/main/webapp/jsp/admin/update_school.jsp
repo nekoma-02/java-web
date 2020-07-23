@@ -28,7 +28,7 @@
 	<jsp:include page="../../WEB-INF/jsp/part/header_nav.jsp"></jsp:include>
 	<div class="container-fluid" id="admin-content">
 		<div class="row">
-				<jsp:include page="../../WEB-INF/jsp/part/admin_nav.jsp"></jsp:include>
+			<jsp:include page="../../WEB-INF/jsp/part/admin_nav.jsp"></jsp:include>
 			<div class="col-10">
 				<div>
 					<c:if test="${not empty message}">
@@ -36,10 +36,27 @@
 							<c:out value="${message}"></c:out>
 						</div>
 					</c:if>
-					<form action="${pageContext.request.contextPath}/Controller" method="post">
+					<c:if test="${not empty invalid_school_name}">
+						<div class="alert alert-warning" role="alert" id="alert">
+							<c:out value="${invalid_school_name}"></c:out>
+						</div>
+					</c:if>
+					<c:if test="${not empty invalid_level}">
+						<div class="alert alert-warning" role="alert" id="alert">
+							<c:out value="${invalid_level}"></c:out>
+						</div>
+					</c:if>
+					<c:if test="${not empty invalid_institution}">
+						<div class="alert alert-warning" role="alert" id="alert">
+							<c:out value="${invalid_institution}"></c:out>
+						</div>
+					</c:if>
+					<form action="${pageContext.request.contextPath}/Controller"
+						method="post">
 						<input type="hidden" name="command" value="update_school">
-						<input type="hidden" name="school_id" value="${requestScope.school.id}">
-						
+						<input type="hidden" name="school_id"
+							value="${requestScope.school.id}">
+
 						<div class="container">
 							<div class="row">
 								<div class="col">
@@ -47,7 +64,8 @@
 									<div class="form-group">
 										<label for="input1" class="col-form-label">Номер
 											учебного заведения или аббревиатура:</label> <input type="text"
-											class="form-control" id="input1" name="school_name" value="${requestScope.school.name}">
+											class="form-control" id="input1" name="school_name"
+											value="${requestScope.school.name}">
 									</div>
 									<div class="form-group">
 										<label for="input1" class="col-form-label">Уровень:</label> <input
@@ -57,7 +75,8 @@
 									<div class="form-group">
 										<label for="input1" class="col-form-label">Учреждение:</label>
 										<input type="text" class="form-control" id="input1"
-											name="institution_school" value="${requestScope.school.institution}">
+											name="institution_school"
+											value="${requestScope.school.institution}">
 									</div>
 								</div>
 							</div>

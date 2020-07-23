@@ -18,7 +18,9 @@ import by.epam.university.controller.parameter.JSPPageName;
 import by.epam.university.controller.parameter.RequestParameterName;
 import by.epam.university.controller.parameter.SessionParameterName;
 import by.epam.university.entity.Faculty;
+import by.epam.university.entity.Subject;
 import by.epam.university.entity.TypeStudy;
+import by.epam.university.service.AdminService;
 import by.epam.university.service.ApplicationService;
 import by.epam.university.service.ServiceFactory;
 import by.epam.university.service.exception.ServiceException;
@@ -30,15 +32,18 @@ public class ShowAddSpecialtyPage implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ApplicationService service = ServiceFactory.getInstance().getApplicationService();
+		AdminService adminService = ServiceFactory.getInstance().getAdminService();
 		HttpSession session = request.getSession();
 		
 		try {
 			
 			List<Faculty> faculties = service.getAllFaculties();
 			List<TypeStudy> typeStudies = service.getAllTypesStudy();
+			List<Subject> subjects = adminService.getAllSubject();
 
 			request.setAttribute(RequestParameterName.FACULTY, faculties);
 			request.setAttribute(RequestParameterName.TYPE_STUDY, typeStudies);
+			request.setAttribute(RequestParameterName.SUBJECTS, subjects);
 
 			session.setAttribute(SessionParameterName.QUERY_STRING, request.getQueryString());
 			forwardTo(request, response, JSPPageName.ADD_SPECIALTY);

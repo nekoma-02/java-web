@@ -42,6 +42,7 @@ public class RequestParameterName {
     public static final String MARITAL_STATUS = "marital_status";
     public static final String PLACE_OF_BIRTH = "place_of_birth";
     public static final String APPLICATION = "application";
+    public static final String APPLICATION_ID = "application_id";
     public static final String FACULTY_ID = "faculty_id";
     public static final String SCHOOL_ID = "school_id";
     public static final String TYPE_STUDY_ID = "type_study_id";
@@ -50,4 +51,9 @@ public class RequestParameterName {
     public static final String SPECIALTY_PLAN = "specialty_plan";
     public static final String SPECIALTY_YEAR = "specialty_year";
     public static final String SUBJECTS = "subjects";
+    public static final String SUBJECT = "subject";
+    public static final String SUBJECT_NAME = "subject_name";
+    public static final String SUBJECT_ID = "subject_id";
+    public static final String MARK = "mark";
+    public static final String MARKS = "marks";
 }

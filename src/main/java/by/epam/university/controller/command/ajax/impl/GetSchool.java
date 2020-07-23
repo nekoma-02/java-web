@@ -18,7 +18,7 @@ public class GetSchool implements AjaxCommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		String filter = request.getParameter(FilterParameterName.FILTER_SCHOOL);
+		String filter = request.getParameter(FilterParameterName.FILTER_SUBJECT);
 		
 		String answer = null;
 		

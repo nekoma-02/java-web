@@ -3,20 +3,27 @@ package by.epam.university.entity;
 import java.io.Serializable;
 
 public class School implements Serializable {
-	
+
 	private static final long serialVersionUID = 4164757404065407809L;
-	
+
 	private int id;
 	private String name;
 	private String level;
 	private String institution;
-	
+
 	public School() {
 	}
-	
+
 	public School(int id) {
 		super();
 		this.id = id;
+	}
+
+	public School(String name, String level, String institution) {
+		super();
+		this.name = name;
+		this.level = level;
+		this.institution = institution;
 	}
 
 	public School(int id, String name, String level, String institution) {
@@ -83,8 +90,6 @@ public class School implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		School other = (School) obj;
-		if (id != other.id)
-			return false;
 		if (institution == null) {
 			if (other.institution != null)
 				return false;
@@ -102,10 +107,5 @@ public class School implements Serializable {
 			return false;
 		return true;
 	}
-
-	
-
-	
-	
 
 }

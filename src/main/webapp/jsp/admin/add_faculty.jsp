@@ -39,7 +39,13 @@
 							<c:out value="${message}"></c:out>
 						</div>
 					</c:if>
-					<form action="${pageContext.request.contextPath}/Controller" method="post">
+					<c:if test="${not empty invalid_faculty_name }">
+					<div class="alert alert-warning" role="alert" id="alert">
+						<c:out value="${invalid_faculty_name}"></c:out>
+					</div>
+					</c:if>
+					<form action="${pageContext.request.contextPath}/Controller"
+						method="post">
 						<input type="hidden" name="command" value="add_faculty">
 						<div class="container">
 							<div class="row">

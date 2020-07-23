@@ -17,8 +17,10 @@ public class SignOut implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
         session.removeAttribute(SessionParameterName.USER_ID);
+        session.removeAttribute(SessionParameterName.USER_ID_EDIT);
         session.removeAttribute(SessionParameterName.USER_LOGIN);
         session.removeAttribute(SessionParameterName.USER_ROLE);
+        session.removeAttribute(SessionParameterName.APPLICATION_ID);
         response.sendRedirect(JSPPageName.INDEX_PAGE);
 		
 	}

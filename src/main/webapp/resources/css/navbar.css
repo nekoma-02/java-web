@@ -10,7 +10,6 @@
 	background-size: contain;
 	width: 30px;
 	height: 30px;
-	
 }
 
 #locale-form {
@@ -22,14 +21,14 @@
 	height: 20px;
 }
 
-#login-form a{
+#login-form a {
 	color: #D3D3D3;
 	text-decoration: none;
 }
 
 #login-form button {
-  color: #D3D3D3;
-  background-image: none; 
-  background: transparent;
-  background-color: transparent;
+	color: #D3D3D3;
+	background-image: none;
+	background: transparent;
+	background-color: transparent;
 }

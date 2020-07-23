@@ -15,6 +15,7 @@ import by.epam.university.entity.Privilege;
 import by.epam.university.entity.School;
 import by.epam.university.entity.Specialty;
 import by.epam.university.entity.TypeStudy;
+import by.epam.university.entity.User;
 import by.epam.university.service.ApplicationService;
 import by.epam.university.service.exception.ServiceException;
 
@@ -33,13 +34,12 @@ public class ApplicationServiceImpl implements ApplicationService {
 	}
 
 	@Override
-	public boolean createApplication(Application application) throws ServiceException {
+	public boolean createApplication(Application application, User user) throws ServiceException {
 		SQLApplicationDao dao = DAOFactory.getInstance().getApplicationDAO();
-		boolean isInsert = false;
 		
 		try {
-			isInsert = dao.insertApplication(application);
-			return isInsert;
+			dao.insertApplication(application, user);
+			return true;
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
@@ -102,11 +102,12 @@ public class ApplicationServiceImpl implements ApplicationService {
 	}
 
 	@Override
-	public boolean updateApplication(Application application) throws ServiceException {
+	public boolean updateApplication(Application application, User user) throws ServiceException {
 		SQLApplicationDao appDao = DAOFactory.getInstance().getApplicationDAO();
 		
 		try {
-			return appDao.updateApplication(application);
+			appDao.updateApplication(application,user);
+			return true;
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
@@ -167,6 +168,16 @@ public class ApplicationServiceImpl implements ApplicationService {
 		SQLSpecialtyDao specDao = DAOFactory.getInstance().getSpecialtyDAO();
 		try {
 			return specDao.getAllTypeStudy();
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public boolean getConfirmation(int idApplication) throws ServiceException {
+		SQLApplicationDao dao = DAOFactory.getInstance().getApplicationDAO();
+		try {
+			return dao.getConfirmation(idApplication);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}

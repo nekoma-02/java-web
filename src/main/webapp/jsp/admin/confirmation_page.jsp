@@ -24,77 +24,89 @@
 
 	<div>
 		<form>
-		<input type="hidden" name="command" value="add_application">
+			<input type="hidden" name="command" value="add_application">
 			<div class="container">
 				<div class="row">
 					<div class="col">
 						<legend>1.ФИО</legend>
 						<div class="form-group">
-							<label for="input1" class=" col-form-label">Фамилия:</label>
-								<input type="text" readonly class="form-control-plaintext" id="input1" name="secondname" value="${requestScope.user_info.secondName}">
+							<label for="input1" class=" col-form-label">Фамилия:</label> <input
+								type="text" readonly class="form-control-plaintext" id="input1"
+								name="secondname" value="${requestScope.user_info.secondName}">
 						</div>
 						<div class="form-group">
-							<label for="input1" class=" col-form-label">Имя:</label>
-						
-								<input type="text" readonly class="form-control-plaintext" id="input1" name="name" value="${requestScope.user_info.name}">
-	
+							<label for="input1" class=" col-form-label">Имя:</label> <input
+								type="text" readonly class="form-control-plaintext" id="input1"
+								name="name" value="${requestScope.user_info.name}">
+
 						</div>
 						<div class="form-group">
-							<label for="input1" class=" col-form-label">Отчество:</label>
-						
-								<input type="text" readonly class="form-control-plaintext" id="input1" name="lastname" value="${requestScope.user_info.lastName}">
-							
-						</div>
- 						<div class="form-group">
-    						<label for="inputDate" class=" col-form-label">Дата рождения:</label>
-    						
-    							<input type="text" readonly class="form-control-plaintext" id="inputDate" name="date_of_birth" value="${requestScope.user_info.dateOfBirth}">
-    					
+							<label for="input1" class=" col-form-label">Отчество:</label> <input
+								type="text" readonly class="form-control-plaintext" id="input1"
+								name="lastname" value="${requestScope.user_info.lastName}">
+
 						</div>
 						<div class="form-group">
-    						<label class=" col-form-label" for="inlineFormCustomSelect">Пол:</label>
-    					
-    							<input type="text" readonly class="form-control-plaintext" id="inputDate" name="gender" value="${requestScope.user_info.gender}">
-    						
+							<label for="inputDate" class=" col-form-label">Дата
+								рождения:</label> <input type="text" readonly
+								class="form-control-plaintext" id="inputDate"
+								name="date_of_birth"
+								value="${requestScope.user_info.dateOfBirth}">
+
 						</div>
 						<div class="form-group">
-    						<label class="col-sm-5 col-form-label" for="inlineFormCustomSelect">Семейное положение:</label>
-    					
-    						    <input type="text" readonly class="form-control-plaintext" id="inputDate" name="marital_status" value="${requestScope.user_info.maritalStatus}">
-    					
+							<label class=" col-form-label" for="inlineFormCustomSelect">Пол:</label>
+
+							<input type="text" readonly class="form-control-plaintext"
+								id="inputDate" name="gender"
+								value="${requestScope.user_info.gender}">
+
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 col-form-label"
+								for="inlineFormCustomSelect">Семейное положение:</label> <input
+								type="text" readonly class="form-control-plaintext"
+								id="inputDate" name="marital_status"
+								value="${requestScope.user_info.maritalStatus}">
+
 						</div>
 					</div>
 					<div class="col">
-					<legend>2.Документ удостоверяющий личность</legend>
-					<div class="form-group">
-    						<label class=" col-form-label text-right" for="inlineFormCustomSelect">Тип документа:</label>
-    					
-    							<input type="text" readonly class="form-control-plaintext" id="inputDate" name="type_document" value="${requestScope.application.typeDocument}">
-    						
+						<legend>2.Документ удостоверяющий личность</legend>
+						<div class="form-group">
+							<label class=" col-form-label text-right"
+								for="inlineFormCustomSelect">Тип документа:</label> <input
+								type="text" readonly class="form-control-plaintext"
+								id="inputDate" name="type_document"
+								value="${requestScope.application.typeDocument}">
+
 						</div>
 						<div class="form-group">
-							<label for="input1" class=" col-form-label">Ид. номер:</label>
-							
-								<input type="text" readonly class="form-control-plaintext" id="input1" name="id_document" value="${requestScope.application.idDocument}">
-						
+							<label for="input1" class=" col-form-label">Ид. номер:</label> <input
+								type="text" readonly class="form-control-plaintext" id="input1"
+								name="id_document"
+								value="${requestScope.application.idDocument}">
+
 						</div>
 						<div class="form-group">
-							<label for="input1" class=" col-form-label">Серия:</label>
-						
-								<input type="text" readonly class="form-control-plaintext" id="input1" name="series_passport" value="${requestScope.application.seriesPassport}">
-						
+							<label for="input1" class=" col-form-label">Серия:</label> <input
+								type="text" readonly class="form-control-plaintext" id="input1"
+								name="series_passport"
+								value="${requestScope.application.seriesPassport}">
+
 						</div>
 						<div class="form-group">
-							<label for="input1" class=" col-form-label">Номер:</label>
-					
-								<input type="text" readonly class="form-control-plaintext" id="input1" name="number_passport" value="${requestScope.application.numberPassport}">
-						
+							<label for="input1" class=" col-form-label">Номер:</label> <input
+								type="text" readonly class="form-control-plaintext" id="input1"
+								name="number_passport"
+								value="${requestScope.application.numberPassport}">
+
 						</div>
 						<div class="form-group">
-							<label for="input1" class=" col-form-label">Кем выдан:</label>
-							
-								<input type="text" readonly class="form-control-plaintext" id="input1" name="issued_by" value="${requestScope.application.issuedBy}">
-							
+							<label for="input1" class=" col-form-label">Кем выдан:</label> <input
+								type="text" readonly class="form-control-plaintext" id="input1"
+								name="issued_by" value="${requestScope.application.issuedBy}">
+
 						</div>
 					</div>
 				</div>
@@ -102,78 +114,88 @@
 					<div class="col">
 						<legend>3.Образование</legend>
 						<div class="form-group">
-    						<label class=" col-form-label" for="inlineFormCustomSelect">Учебное учреждение:</label>
-    						
-    							<input type="text" readonly class="form-control-plaintext" id="inputDate" name="school" value="${requestScope.school.name}">
-    				
+							<label class=" col-form-label" for="inlineFormCustomSelect">Учебное
+								учреждение:</label> <input type="text" readonly
+								class="form-control-plaintext" id="inputDate" name="school"
+								value="${requestScope.school.name}">
+
 						</div>
 						<div class="form-group">
-    						<label for="inputDate" class=" col-form-label">Дата окончания:</label>
-    						
-    							<input type="text" readonly class="form-control-plaintext" id="inputDate" name="end_study_date" value="${requestScope.application.endStudyDate}">
-    							
+							<label for="inputDate" class=" col-form-label">Дата
+								окончания:</label> <input type="text" readonly
+								class="form-control-plaintext" id="inputDate"
+								name="end_study_date"
+								value="${requestScope.application.endStudyDate}">
+
 						</div>
 						<div class="form-group">
-							<label for="input1" class=" col-form-label">Ср. балл:</label>
-							
-								<input type="text" readonly class="form-control-plaintext" id="input1" name="certificate" value="${requestScope.application.certificate}">
-							
+							<label for="input1" class=" col-form-label">Ср. балл:</label> <input
+								type="text" readonly class="form-control-plaintext" id="input1"
+								name="certificate"
+								value="${requestScope.application.certificate}">
+
 						</div>
 					</div>
 					<div class="col">
-					<legend>4.Адрес</legend>
-					<div class="form-group">
-						<label for="input1" class=" col-form-label">Адрес:</label>
-						
-							<input type="text" readonly class="form-control-plaintext" id="input1" name="adres" value="${requestScope.application.adress}">
-						
-					</div>
-					<div class="form-group">
-						<label for="input1" class=" col-form-label">Место рождения:</label>
-						
-							<input type="text" readonly class="form-control-plaintext" id="input1" name="place_of_birth" value="${requestScope.user_info.placeOfBirth}">
-					
-					</div>
+						<legend>4.Адрес</legend>
+						<div class="form-group">
+							<label for="input1" class=" col-form-label">Адрес:</label> <input
+								type="text" readonly class="form-control-plaintext" id="input1"
+								name="adres" value="${requestScope.application.adress}">
+
+						</div>
+						<div class="form-group">
+							<label for="input1" class=" col-form-label">Место
+								рождения:</label> <input type="text" readonly
+								class="form-control-plaintext" id="input1" name="place_of_birth"
+								value="${requestScope.user_info.placeOfBirth}">
+
+						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col">
-					<legend>5.Специальность</legend>
-					<div class="form-group">
-    					<label class=" col-form-label" for="inlineFormCustomSelect">Форма обучения:</label>
-    					
-							<input type="text" readonly class="form-control-plaintext" id="input1" name="specialty" value="${requestScope.specialty.typeStudy.typeName}">
-    						
-					</div>
-					<div class="form-group">
-    					<label class=" col-form-label" for="inlineFormCustomSelect">Выбранная специальность:</label>
-    					
-							<input type="text" readonly class="form-control-plaintext" id="input1" name="specialty" value="${requestScope.specialty.name}">
-    					
-					</div>
+						<legend>5.Специальность</legend>
+						<div class="form-group">
+							<label class=" col-form-label" for="inlineFormCustomSelect">Форма
+								обучения:</label> <input type="text" readonly
+								class="form-control-plaintext" id="input1" name="specialty"
+								value="${requestScope.specialty.typeStudy.typeName}">
+
+						</div>
+						<div class="form-group">
+							<label class=" col-form-label" for="inlineFormCustomSelect">Выбранная
+								специальность:</label> <input type="text" readonly
+								class="form-control-plaintext" id="input1" name="specialty"
+								value="${requestScope.specialty.name}">
+
+						</div>
 					</div>
 					<div class="col">
-					<legend>6.Прочее</legend>
-					<div class="form-group">
-						<label for="input1" class=" col-form-label">Почтовый ящик:</label>
-						
-							<input type="text" readonly class="form-control-plaintext" id="input1" name="email" value="${requestScope.user_info.email}">
-						
-					</div>
-					<div class="form-group">
-    						<label class=" col-form-label" for="inlineFormCustomSelect">Привилегия:</label>
-    					
-    							<input type="text" readonly class="form-control-plaintext" id="input1" name="privilege" value="${requestScope.privilege.name}">
-    						
+						<legend>6.Прочее</legend>
+						<div class="form-group">
+							<label for="input1" class=" col-form-label">Почтовый
+								ящик:</label> <input type="text" readonly class="form-control-plaintext"
+								id="input1" name="email" value="${requestScope.user_info.email}">
+
+						</div>
+						<div class="form-group">
+							<label class=" col-form-label" for="inlineFormCustomSelect">Привилегия:</label>
+
+							<input type="text" readonly class="form-control-plaintext"
+								id="input1" name="privilege"
+								value="${requestScope.privilege.name}">
+
 						</div>
 					</div>
 				</div>
 				<div class="row">
-				<legend>7.Экзамены</legend>
+					<legend>7.Экзамены</legend>
 				</div>
 				<div class="row">
 					<div class="col-sm-6">
-						<a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/Controller?command=show_addapplication_page">Редактировать</a>
+						<a class="btn btn-lg btn-success"
+							href="${pageContext.request.contextPath}/Controller?command=show_addapplication_page">Редактировать</a>
 					</div>
 				</div>
 			</div>

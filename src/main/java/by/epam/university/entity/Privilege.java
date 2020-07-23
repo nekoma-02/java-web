@@ -14,6 +14,13 @@ public class Privilege implements Serializable {
 	
 	
 
+	public Privilege(String name) {
+		super();
+		this.name = name;
+	}
+
+
+
 	public Privilege(int id) {
 		super();
 		this.id = id;
@@ -75,9 +82,6 @@ public class Privilege implements Serializable {
 			return false;
 		}
 		Privilege other = (Privilege) obj;
-		if (id != other.id) {
-			return false;
-		}
 		if (name == null) {
 			if (other.name != null) {
 				return false;

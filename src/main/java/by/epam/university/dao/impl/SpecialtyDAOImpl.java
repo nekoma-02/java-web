@@ -43,7 +43,16 @@ public class SpecialtyDAOImpl implements SQLSpecialtyDao {
 	private static final String SELECT_FACULTY_BY_ID = "select * from faculties where idfaculty = ?";
 	private static final String SELECT_TYPE_STUDY_BY_ID = "select * from types_study where idtype_study = ?";
 	private static final String UPDATE_SPECIALTY = "update specialties set specialty_name = ?,plan = ?,year = ?,idtype_study = ?,faculties_idfaculty = ? where idspecialty = ?";
-	private static final String SUBJECT_BY_SPECIALTY_ID = "select s.subject_name from specialties_has_subjects shs inner join subjects s on shs.subjects_idsubject = s.idsubject where specialties_idspecialty = ?";
+	private static final String SUBJECT_BY_SPECIALTY_ID = "select s.idsubject, s.subject_name from specialties_has_subjects shs inner join subjects s on shs.subjects_idsubject = s.idsubject where specialties_idspecialty = ?";
+	private static final String SELECT_ID_SPEC_HAS_SUBJ = "select id from specialties_has_subjects where subjects_idsubject = ? and specialties_idspecialty = ?";
+	private static final String SELECT_ALL_SUBJECT = "select * from subjects";
+	private static final String UPDATE_SUBJECT = "update subjects set subject_name = ? where idsubject = ?";
+	private static final String INSERT_SUBJECT = "insert into subjects(subject_name) value (?)";
+	private static final String INSERT_SUBJECT_BY_SPECIALTY = "insert into specialties_has_subjects(subjects_idsubject,specialties_idspecialty) value (?,?)";
+	private static final String UPDATE_SUBJECT_BY_SPECIALTY = "update specialties_has_subjects set subjects_idsubject = ? where specialties_idspecialty = ?";
+	private static final String SELECT_SUBJECT_BY_ID = "select * from subjects where idsubject = ?";
+	private static final String REMOVE_SUBJECT_BY_SPECIALTY = "delete from specialties_has_subjects where subjects_idsubject = ? and specialties_idspecialty = ?";
+	
 	
 	@Override
 	public boolean insert(Specialty specialty) throws DAOException {
@@ -545,7 +554,7 @@ public class SpecialtyDAOImpl implements SQLSpecialtyDao {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				subjects.add(new Subject(rs.getString(1)));
+				subjects.add(new Subject(rs.getInt(1),rs.getString(2)));
 			}
 
 			return subjects;
@@ -558,6 +567,304 @@ public class SpecialtyDAOImpl implements SQLSpecialtyDao {
 		} finally {
 			closeConnection(connection, ps, rs);
 		}
+	}
+
+	@Override
+	public int getIdbySubjectAndSpecialty(int idSubject, int idSpecialty) throws DAOException {
+		int id = 0;
+		Connection connection = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			connection = connectionPool.takeConnection();
+			
+			ps = connection.prepareStatement(SELECT_ID_SPEC_HAS_SUBJ);
+			ps.setInt(1,idSubject);
+			ps.setInt(2,idSpecialty);
+			
+
+			rs = ps.executeQuery();
+
+			if (rs.next()) {
+				id =rs.getInt(1);
+			}
+
+			return id;
+
+		} catch (ConnectionPoolException e) {
+			throw new DAOConnectionPoolException(e);
+		} catch (SQLException e) {
+			throw new DAOSQLException(e);
+		} finally {
+			closeConnection(connection, ps, rs);
+		}
+	}
+
+	@Override
+	public List<Subject> getAllSubject() throws DAOException {
+		List<Subject> subjects = new ArrayList<Subject>();
+		Connection connection = null;
+		Statement st = null;
+		ResultSet rs = null;
+
+		try {
+			connection = connectionPool.takeConnection();
+			st = connection.createStatement();
+
+			rs = st.executeQuery(SELECT_ALL_SUBJECT);
+
+			while (rs.next()) {
+				subjects.add(new Subject(rs.getInt(1), rs.getString(2)));
+			}
+
+			return subjects;
+
+		} catch (ConnectionPoolException e) {
+			throw new DAOConnectionPoolException(e);
+		} catch (SQLException e) {
+			throw new DAOSQLException(e);
+		} finally {
+			closeConnection(connection, st, rs);
+		}
+	}
+
+	@Override
+	public boolean updateSubject(Subject subject) throws DAOException {
+		Connection connection = null;
+		PreparedStatement ps = null;
+
+		try {
+			connection = connectionPool.takeConnection();
+			ps = connection.prepareStatement(UPDATE_SUBJECT);
+
+			ps.setString(1, subject.getName());
+			ps.setInt(2, subject.getId());
+			
+			return ps.executeUpdate() == 1;
+
+		} catch (ConnectionPoolException e) {
+			throw new DAOConnectionPoolException(e);
+		} catch (SQLException e) {
+			throw new DAOSQLException(e);
+		} finally {
+			closeConnection(connection, ps);
+		}
+	}
+
+	@Override
+	public boolean addSubject(Subject subject) throws DAOException {
+		Connection connection = null;
+		PreparedStatement ps = null;
+
+		try {
+			connection = connectionPool.takeConnection();
+			ps = connection.prepareStatement(INSERT_SUBJECT);
+
+			ps.setString(1, subject.getName());
+			
+			return ps.executeUpdate() == 1;
+
+		} catch (ConnectionPoolException e) {
+			throw new DAOConnectionPoolException(e);
+		} catch (SQLException e) {
+			throw new DAOSQLException(e);
+		} finally {
+			closeConnection(connection, ps);
+		}
+	}
+
+	@Override
+	public boolean addSubjectBySpecialty(int idSpecialty, int idSubject) throws DAOException {
+		Connection connection = null;
+		PreparedStatement ps = null;
+
+		try {
+			connection = connectionPool.takeConnection();
+			ps = connection.prepareStatement(INSERT_SUBJECT_BY_SPECIALTY);
+
+			ps.setInt(1, idSubject);
+			ps.setInt(2, idSpecialty);
+			
+			return ps.executeUpdate() == 1;
+
+		} catch (ConnectionPoolException e) {
+			throw new DAOConnectionPoolException(e);
+		} catch (SQLException e) {
+			throw new DAOSQLException(e);
+		} finally {
+			closeConnection(connection, ps);
+		}
+	}
+
+	@Override
+	public boolean updateSubjectBySpecialty(int idSpecialty, int idSubject) throws DAOException {
+		Connection connection = null;
+		PreparedStatement ps = null;
+
+		try {
+			connection = connectionPool.takeConnection();
+			ps = connection.prepareStatement(UPDATE_SUBJECT_BY_SPECIALTY);
+
+			ps.setInt(1, idSubject);
+			ps.setInt(2, idSpecialty);
+			
+			return ps.executeUpdate() == 1;
+
+		} catch (ConnectionPoolException e) {
+			throw new DAOConnectionPoolException(e);
+		} catch (SQLException e) {
+			throw new DAOSQLException(e);
+		} finally {
+			closeConnection(connection, ps);
+		}
+	}
+
+	@Override
+	public Subject getSubjectById(int idSubject) throws DAOException {
+		Subject subject = null;
+		Connection connection = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			connection = connectionPool.takeConnection();
+			
+			ps = connection.prepareStatement(SELECT_SUBJECT_BY_ID);
+			ps.setInt(1, idSubject);
+
+			rs = ps.executeQuery();
+
+			if (rs.next()) {
+				subject = new Subject(rs.getInt(1),rs.getString(2));
+			}
+
+			return subject;
+
+		} catch (ConnectionPoolException e) {
+			throw new DAOConnectionPoolException(e);
+		} catch (SQLException e) {
+			throw new DAOSQLException(e);
+		} finally {
+			closeConnection(connection, ps, rs);
+		}
+	}
+
+	@Override
+	public boolean removeSubjectBySpecialty(int idSpecialty, int idSubject) throws DAOException {
+		Connection connection = null;
+		PreparedStatement ps = null;
+
+		try {
+			connection = connectionPool.takeConnection();
+			ps = connection.prepareStatement(REMOVE_SUBJECT_BY_SPECIALTY);
+
+			ps.setInt(1, idSubject);
+			ps.setInt(2, idSpecialty);
+			
+			return ps.executeUpdate() == 1;
+
+		} catch (ConnectionPoolException e) {
+			throw new DAOConnectionPoolException(e);
+		} catch (SQLException e) {
+			throw new DAOSQLException(e);
+		} finally {
+			closeConnection(connection, ps);
+		}
+	}
+
+	@Override
+	public void insertSpecialtyAndSubject(Specialty specialty, int... idSubject) throws DAOException {
+		Connection connection = null;
+		PreparedStatement ps = null;
+
+		try {
+			connection = connectionPool.takeConnection();
+			connection.setAutoCommit(false);
+			ps = connection.prepareStatement(INSERT_SPECIALTY);
+
+			ps.setString(1, specialty.getName());
+			ps.setInt(2, specialty.getPlan());
+			ps.setInt(3, specialty.getYear());
+			ps.setInt(4, specialty.getTypeStudy().getId());
+			ps.setInt(5, specialty.getFaculty().getId());
+
+			ps.executeUpdate();
+			
+			
+
+			for (int i : idSubject) {
+				ps = connection.prepareStatement(INSERT_SUBJECT_BY_SPECIALTY);
+				ps.setInt(1, i);
+				ps.setInt(2, specialty.getId());
+				ps.executeUpdate();
+			}
+			
+			
+			connection.commit();
+
+		} catch (ConnectionPoolException e) {
+			logger.log(Level.ERROR, e);
+			throw new DAOConnectionPoolException(e);
+		} catch (SQLException e) {
+			try {
+				connection.rollback();
+			} catch (SQLException ex) {
+				logger.log(Level.ERROR, "Rollback SpecialtyDAOImpl method insertSpecialtyAndSubject", e);
+				throw new DAOSQLException(ex);
+			}
+
+			throw new DAOSQLException(e);
+		} finally {
+			closeConnection(connection, ps);
+		}
+		
+	}
+
+	@Override
+	public void updateSpecialtyAndSubject(Specialty specialty, int... idSubject) throws DAOException {
+		Connection connection = null;
+		PreparedStatement ps = null;
+
+		try {
+			connection = connectionPool.takeConnection();
+			connection.setAutoCommit(false);
+			ps = connection.prepareStatement(UPDATE_SPECIALTY);
+
+			ps.setString(1, specialty.getName());
+			ps.setInt(2, specialty.getPlan());
+			ps.setInt(3, specialty.getYear());
+			ps.setInt(4, specialty.getTypeStudy().getId());
+			ps.setInt(5, specialty.getFaculty().getId());
+			ps.setInt(6, specialty.getId());
+
+			ps.executeUpdate();
+			
+			for (int i : idSubject) {
+				ps = connection.prepareStatement(INSERT_SUBJECT_BY_SPECIALTY);
+				ps.setInt(1, i);
+				ps.setInt(2, specialty.getId());
+				ps.executeUpdate();
+			}
+			
+			connection.commit();
+
+		} catch (ConnectionPoolException e) {
+			logger.log(Level.ERROR, e);
+			throw new DAOConnectionPoolException(e);
+		} catch (SQLException e) {
+			try {
+				connection.rollback();
+			} catch (SQLException ex) {
+				logger.log(Level.ERROR, "Rollback SpecialtyDAOImpl method updateSpecialtyAndSubject", e);
+				throw new DAOSQLException(ex);
+			}
+
+			throw new DAOSQLException(e);
+		} finally {
+			closeConnection(connection, ps);
+		}
+		
 	}
 
 }

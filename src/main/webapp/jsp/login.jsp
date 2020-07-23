@@ -12,7 +12,8 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/style.css" />
 
 <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="local/local" var="loc" />
@@ -31,20 +32,30 @@
 						<c:out value="${message}"></c:out>
 					</div>
 				</c:if>
+				<c:if test="${not empty invalid_login }">
+					<div class="alert alert-warning" role="alert" id="alert">
+						<c:out value="${invalid_login}"></c:out>
+					</div>
+				</c:if>
+				<c:if test="${not empty invalid_password }">
+					<div class="alert alert-warning" role="alert" id="alert">
+						<c:out value="${invalid_password}"></c:out>
+					</div>
+				</c:if>
 
-				<form action="${pageContext.request.contextPath}/Controller" method="post" class="authorization_form">
+				<form action="${pageContext.request.contextPath}/Controller"
+					method="post" class="authorization_form">
 					<input type="hidden" name="command" value="sign_in">
 					<legend>Вход в систему</legend>
 
-					<label>Чтобы получить
-						доступ к вашему личному кабинету, пожалуйста, введите логин и
-						текущий пароль. <br /> Обратите внимание, что пароль чувствителен
-						к регистру.
+					<label>Чтобы получить доступ к вашему личному кабинету,
+						пожалуйста, введите логин и текущий пароль. <br /> Обратите
+						внимание, что пароль чувствителен к регистру.
 					</label>
 					<div class="form-group">
 						<label for="formGroupExampleInput">Логин</label> <input
 							type="text" class="form-control" id="formGroupExampleInput"
-							placeholder="Введите логин"  required name="login">
+							placeholder="Введите логин" required name="login">
 					</div>
 					<div class="form-group">
 						<label for="exampleInputPassword1">Пароль</label> <input

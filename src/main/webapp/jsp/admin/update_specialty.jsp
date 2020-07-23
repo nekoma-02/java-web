@@ -17,6 +17,8 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"
 	type="text/javascript"></script>
 <script src="resources/js/ajax-request.js" type="text/javascript"></script>
+<script src="resources/js/create-remove-element.js"
+	type="text/javascript"></script>
 
 <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="local/local" var="loc" />
@@ -30,17 +32,29 @@
 		<div class="row">
 			<jsp:include page="../../WEB-INF/jsp/part/admin_nav.jsp"></jsp:include>
 			<div class="col-10">
-				<div>
 					<c:if test="${not empty message}">
 						<div class="alert alert-warning" role="alert" id="alert">
 							<c:out value="${message}"></c:out>
 						</div>
 					</c:if>
-					<form action="${pageContext.request.contextPath}/Controller"
-						method="post">
-						<input type="hidden" name="command" value="update_specialty"> <input
-							type="hidden" name="specialty_id"
-							value="${requestScope.specialty.id}">
+					<c:if test="${not empty invalid_plan}">
+						<div class="alert alert-warning" role="alert" id="alert">
+							<c:out value="${invalid_plan}"></c:out>
+						</div>
+					</c:if>
+					<c:if test="${not empty invalid_year}">
+						<div class="alert alert-warning" role="alert" id="alert">
+							<c:out value="${invalid_year}"></c:out>
+						</div>
+					</c:if>
+					<c:if test="${not empty invalid_specialty_name}">
+						<div class="alert alert-warning" role="alert" id="alert">
+							<c:out value="${invalid_specialty_name}"></c:out>
+						</div>
+					</c:if>
+					<form action="${pageContext.request.contextPath}/Controller" method="post">
+						<input type="hidden" name="command" value="update_specialty">
+						<input type="hidden" name="specialty_id" value="${requestScope.specialty.id}">
 						<div class="container">
 							<div class="row">
 								<div class="col">
@@ -86,22 +100,36 @@
 											type="text" class="form-control" id="input1" required
 											name="specialty_plan" value="${requestScope.specialty.plan}">
 									</div>
-									
+
+								</div>
+								<div class="col">
+									<legend>2.Добавление предмета к специальность</legend>
+									<label class=" col-form-label" for="sub_List">Выберете
+										предмет:</label>
+									<c:forEach items="${requestScope.subject_spec}" var="spec">
+										<div class="subject_json_plus">
+											<select class="form-control subject-list" id="sub_List"
+												required name="subject" aria-describedby="inputMutedtext">
+												<option value="${spec.id}">${spec.name}</option>
+												<c:forEach items="${requestScope.subjects}" var="item">
+													<option value="${item.id}">${item.name}</option>
+												</c:forEach>
+										</div>
+									</c:forEach>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<button type="submit" class="btn btn-primary btn-block">Сохранить</button>
 								</div>
 							</div>
 						</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-6">
-						<button type="submit" class="btn btn-primary btn-block">Сохранить</button>
-					</div>
-				</div>
+					</form>
+
 			</div>
-			</form>
 		</div>
 	</div>
-	</div>
-	</div>
+
 
 
 
@@ -120,4 +148,4 @@
 
 </body>
 </html>
-ml>
+

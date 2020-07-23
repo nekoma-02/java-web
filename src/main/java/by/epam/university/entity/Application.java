@@ -27,11 +27,11 @@ public class Application implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Application(int id, String adress, int certificate, Privilege privilege, User user, School school,
+	
+	public Application(String adress, int certificate, Privilege privilege, User user, School school,
 			Specialty specialties, boolean confirmation, String typeDocument, String idDocument, String seriesPassport,
 			int numberPassport, String issuedBy, Date endStudyDate) {
 		super();
-		this.id = id;
 		this.adress = adress;
 		this.certificate = certificate;
 		this.privilege = privilege;
@@ -45,6 +45,13 @@ public class Application implements Serializable {
 		this.numberPassport = numberPassport;
 		this.issuedBy = issuedBy;
 		this.endStudyDate = endStudyDate;
+	}
+	
+	public Application(int id, String adress, int certificate, Privilege privilege, User user, School school,
+			Specialty specialties, boolean confirmation, String typeDocument, String idDocument, String seriesPassport,
+			int numberPassport, String issuedBy, Date endStudyDate) {
+		this(adress, certificate, privilege, user, school, specialties, confirmation, typeDocument, idDocument, seriesPassport, numberPassport, issuedBy, endStudyDate);
+		this.id = id;
 	}
 
 	public final int getId() {

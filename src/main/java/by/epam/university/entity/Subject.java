@@ -5,14 +5,34 @@ import java.io.Serializable;
 public class Subject implements Serializable {
 
 	private static final long serialVersionUID = 8475003062498699908L;
-	
+
+	private int id;
 	private String name;
+
+	public final int getId() {
+		return id;
+	}
+
+	public final void setId(int id) {
+		this.id = id;
+	}
 
 	public Subject(String name) {
 		super();
 		this.name = name;
 	}
 
+	public Subject(int id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+
+	public Subject(int id) {
+		super();
+		this.id = id;
+	}
+	
 	public Subject() {
 		super();
 	}
@@ -29,7 +49,8 @@ public class Subject implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + id + ((name == null) ? 0 : name.hashCode());
+	
 		return result;
 	}
 

@@ -39,9 +39,16 @@
 							<c:out value="${message}"></c:out>
 						</div>
 					</c:if>
-					<form action="${pageContext.request.contextPath}/Controller" method="post">
+					<c:if test="${not empty invalid_faculty_name }">
+					<div class="alert alert-warning" role="alert" id="alert">
+						<c:out value="${invalid_faculty_name}"></c:out>
+					</div>
+					</c:if>
+					<form action="${pageContext.request.contextPath}/Controller"
+						method="post">
 						<input type="hidden" name="command" value="update_faculty">
-						<input type="hidden" name="faculty_id" value="${requestScope.faculty_id}">
+						<input type="hidden" name="faculty_id"
+							value="${requestScope.faculty_id}">
 						<div class="container">
 							<div class="row">
 								<div class="col">
@@ -49,7 +56,8 @@
 									<div class="form-group">
 										<label for="input1" class="col-form-label">Название
 											факультета:</label> <input type="text" class="form-control"
-											id="input1" name="faculty_name" value="${requestScope.faculty_name}">
+											id="input1" name="faculty_name"
+											value="${requestScope.faculty_name}">
 									</div>
 								</div>
 							</div>

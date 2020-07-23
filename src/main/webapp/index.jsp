@@ -36,7 +36,8 @@
 
 				<c:if test="${not empty sessionScope.user_id}">
 
-					<c:if test="${not empty sessionScope.application_id}">
+					<c:if
+						test="${not empty sessionScope.application_id && sessionScope.user_role != 'ADMIN'}">
 						<div class="row">
 							<div class="col">
 								<a class="btn btn-lg btn-success"
@@ -45,17 +46,17 @@
 							</div>
 						</div>
 					</c:if>
-
-					<c:if test="${empty sessionScope.application_id}">
-						<c:if test="${sessionScope.user_role == 'ADMIN'}">
-							<div class="row">
-								<div class="col">
-									<a class="btn btn-lg btn-success"
-										href="${pageContext.request.contextPath}/Controller?command=admin_page"
-										style="width: 100%;">Админка</a>
-								</div>
+					<c:if test="${sessionScope.user_role == 'ADMIN'}">
+						<div class="row">
+							<div class="col">
+								<a class="btn btn-lg btn-success"
+									href="${pageContext.request.contextPath}/Controller?command=admin_page"
+									style="width: 100%;">Админка</a>
 							</div>
-						</c:if>
+						</div>
+					</c:if>
+					<c:if test="${empty sessionScope.application_id}">
+
 						<c:if test="${sessionScope.user_role != 'ADMIN'}">
 							<div class="row">
 								<div class="col">
@@ -82,15 +83,13 @@
 					<div class="row">
 						<div class="col">
 							<div>
-								<a class="btn btn-lg btn-primary"
-									href="jsp/registration.jsp"
+								<a class="btn btn-lg btn-primary" href="jsp/registration.jsp"
 									style="width: 100%;">${sign_up}</a>
 							</div>
 						</div>
 						<div class="col">
 							<div>
-								<a class="btn btn-lg btn-success"
-									href="jsp/login.jsp"
+								<a class="btn btn-lg btn-success" href="jsp/login.jsp"
 									style="width: 100%;">${sign_in}</a>
 							</div>
 						</div>

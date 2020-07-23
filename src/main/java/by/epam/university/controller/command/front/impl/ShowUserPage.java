@@ -1,6 +1,7 @@
 package by.epam.university.controller.command.front.impl;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,11 +18,14 @@ import by.epam.university.controller.parameter.JSPPageName;
 import by.epam.university.controller.parameter.RequestParameterName;
 import by.epam.university.controller.parameter.SessionParameterName;
 import by.epam.university.entity.Application;
+import by.epam.university.entity.ExamMark;
 import by.epam.university.entity.Privilege;
 import by.epam.university.entity.Role;
 import by.epam.university.entity.School;
 import by.epam.university.entity.Specialty;
+import by.epam.university.entity.Subject;
 import by.epam.university.entity.User;
+import by.epam.university.service.AdminService;
 import by.epam.university.service.ApplicationService;
 import by.epam.university.service.ServiceFactory;
 import by.epam.university.service.UserService;
@@ -35,22 +39,24 @@ public class ShowUserPage implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UserService userService = ServiceFactory.getInstance().getUserService();
 		ApplicationService appService = ServiceFactory.getInstance().getApplicationService();
+		AdminService adminService = ServiceFactory.getInstance().getAdminService();
 		
 		HttpSession session = request.getSession();
 		int userId = 0;
+		int idApplication = 0;
 		Role role = (Role) session.getAttribute(SessionParameterName.USER_ROLE);
-		System.out.println(role);
 		
 		if (role == Role.USER) {
 			userId = (Integer) session.getAttribute(SessionParameterName.USER_ID);
 		} 
 		
 		if (role == Role.ADMIN) {
-			userId = Integer.parseInt(request.getParameter("user_id"));
+			
+			userId = Integer.parseInt(request.getParameter(RequestParameterName.USER_ID));
 			session.setAttribute(SessionParameterName.USER_ID_EDIT, userId);
+			idApplication = Integer.parseInt(request.getParameter(RequestParameterName.APPLICATION_ID));
+			session.setAttribute(SessionParameterName.APPLICATION_ID, idApplication);
 		}
-		
-		System.out.println(userId);
 
 		try {
 			User user = userService.userById(userId);
@@ -64,6 +70,13 @@ public class ShowUserPage implements Command {
 			request.setAttribute(RequestParameterName.SPECIALTY, spec);
 			request.setAttribute(RequestParameterName.SCHOOL, school);
 			request.setAttribute(RequestParameterName.USER_INFO, user);
+			
+			if (role == Role.ADMIN | app.isConfirmation() == true) {
+			List<Subject> subjects = adminService.getSubjectBySpecialtyId(app.getSpecialties().getId());
+			List<ExamMark> examMarks = adminService.getAllMarksByApplication(app.getId());
+			request.setAttribute(RequestParameterName.SUBJECTS, subjects); 
+			request.setAttribute(RequestParameterName.MARKS, examMarks); 
+			}
 			
 			session.setAttribute(SessionParameterName.QUERY_STRING,request.getQueryString());
 			

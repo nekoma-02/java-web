@@ -21,6 +21,13 @@ public class Faculty implements Serializable{
 
 
 
+	public Faculty(String name) {
+		super();
+		this.name = name;
+	}
+
+
+
 	public Faculty(int id, String name) {
 		super();
 		this.id = id;
@@ -53,9 +60,6 @@ public class Faculty implements Serializable{
 			return false;
 		}
 		Faculty other = (Faculty) obj;
-		if (id != other.id) {
-			return false;
-		}
 		if (name == null) {
 			if (other.name != null) {
 				return false;

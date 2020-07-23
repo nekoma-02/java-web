@@ -40,4 +40,26 @@ public interface SQLSpecialtyDao {
 	
 	List<Subject> subjectBySpecialtyID(int id) throws DAOException;
 	
+	int getIdbySubjectAndSpecialty(int idSubject, int idSpecialty) throws DAOException;
+	
+	List<Subject> getAllSubject() throws DAOException;
+	
+	boolean updateSubject(Subject subject) throws DAOException;
+	
+	boolean addSubject(Subject subject) throws DAOException;
+	
+	boolean addSubjectBySpecialty(int idSpecialty, int idSubject) throws DAOException;
+	
+	boolean updateSubjectBySpecialty(int idSpecialty, int idSubject) throws DAOException;
+	
+	boolean removeSubjectBySpecialty(int idSpecialty, int idSubject) throws DAOException;
+	
+	Subject getSubjectById(int idSubject) throws DAOException;
+	
+	void insertSpecialtyAndSubject(Specialty specialty, int... idSubject) throws DAOException;
+	
+	void updateSpecialtyAndSubject(Specialty specialty, int... idSubject) throws DAOException;
+	
+	
+	
 }

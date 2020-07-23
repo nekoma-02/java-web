@@ -45,7 +45,8 @@
 							<td>${spec.plan}</td>
 							<td>${spec.year}</td>
 							<td>${spec.name}</td>
-							<td><a href="${pageContext.request.contextPath}/Controller?command=show_specialty_detail&specialty_id=${spec.id}">CLICK</a></td>
+							<td><a
+								href="${pageContext.request.contextPath}/Controller?command=show_specialty_detail&specialty_id=${spec.id}">CLICK</a></td>
 
 						</tr>
 					</c:forEach>

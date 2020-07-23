@@ -7,6 +7,8 @@ public class JSPPageName {
 	public static final String UPDATE_SPECIALTY = "jsp/admin/update_specialty.jsp";
 	public static final String UPDATE_PRIVILEGE = "jsp/admin/update_privilege.jsp";
 	public static final String UPDATE_TYPE_STUDY = "jsp/admin/update_typeStudy.jsp";
+	public static final String UPDATE_SUBJECT = "jsp/admin/update_subject.jsp";
+	
 	public static final String ERROR_PAGE = "error.jsp";
 	public static final String INDEX_PAGE = "index.jsp";
 	public static final String REGISTRATION_PAGE = "jsp/registration.jsp";
@@ -21,4 +23,8 @@ public class JSPPageName {
 	public static final String ADD_SPECIALTY = "jsp/admin/add_specialty.jsp";
 	public static final String ADD_PRIVILEGE = "jsp/admin/add_privilege.jsp";
 	public static final String ADD_TYPE_STUDY = "jsp/admin/add_typeStudy.jsp";
+	public static final String ADD_SUBJECT = "jsp/admin/add_subject.jsp";
+	
+	public static final String APPLICATIONS_SPECIALTY = "jsp/admin/applications_specialty.jsp";
 }
+

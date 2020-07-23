@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class Specialty implements Serializable {
 
+	
+
 	private static final long serialVersionUID = 6299088859721507637L;
 	
 	private int id;
@@ -24,7 +26,14 @@ public class Specialty implements Serializable {
 		this.id = id;
 	}
 
-
+	public Specialty(String name, int plan, int year, TypeStudy typeStudy, Faculty faculty) {
+		super();
+		this.name = name;
+		this.plan = plan;
+		this.year = year;
+		this.typeStudy = typeStudy;
+		this.faculty = faculty;
+	}
 
 	public Specialty(int id, String name, TypeStudy typeStudy, Faculty faculty) {
 		super();
@@ -128,9 +137,6 @@ public class Specialty implements Serializable {
 		} else if (!faculty.equals(other.faculty)) {
 			return false;
 		}
-		if (id != other.id) {
-			return false;
-		}
 		if (name == null) {
 			if (other.name != null) {
 				return false;
@@ -138,9 +144,7 @@ public class Specialty implements Serializable {
 		} else if (!name.equals(other.name)) {
 			return false;
 		}
-		if (plan != other.plan) {
-			return false;
-		}
+	
 		if (typeStudy == null) {
 			if (other.typeStudy != null) {
 				return false;
@@ -149,6 +153,14 @@ public class Specialty implements Serializable {
 			return false;
 		}
 		if (year != other.year) {
+			return false;
+		}
+		
+		if (typeStudy.getId() != other.getTypeStudy().getId()) {
+			return false;
+		}
+		
+		if (faculty.getId() != other.getFaculty().getId()) {
 			return false;
 		}
 		return true;

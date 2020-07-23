@@ -46,10 +46,10 @@ public class Registration implements Command {
 			UserValidator validator = ValidatorFactory.getInstance().getUserValidator();
 			List<String> validation = validator.validate(name, secondName, lastName, email);
 			validation.addAll(validator.validate(login, password));
-		
+
 			if (validation.size() == 0 || validation == null) {
 				
-				User user = new User(0, name, secondName, lastName, login, password, email, role);
+				User user = new User(name, secondName, lastName, login, password, email, role);
 				service.registration(user);
 				response.sendRedirect(JSPPageName.INDEX_PAGE);
 				
@@ -69,7 +69,12 @@ public class Registration implements Command {
 
 		} catch (UserExistsException e) {
 			request.setAttribute(RequestParameterName.RESULT_INFO, "such user already exist! ");
-			request.getRequestDispatcher(JSPPageName.REGISTRATION_PAGE).forward(request, response);
+			try {
+				forwardTo(request, response, JSPPageName.REGISTRATION_PAGE);
+			} catch (ForwardException ex) {
+				logger.log(Level.ERROR, ex);
+				response.sendRedirect(JSPPageName.ERROR_PAGE);
+			}
 			
 		}
 

@@ -28,7 +28,7 @@
 	<jsp:include page="../../WEB-INF/jsp/part/header_nav.jsp"></jsp:include>nclude>
 	<div class="container-fluid" id="admin-content">
 		<div class="row">
-				<jsp:include page="../../WEB-INF/jsp/part/admin_nav.jsp"></jsp:include>
+			<jsp:include page="../../WEB-INF/jsp/part/admin_nav.jsp"></jsp:include>
 			<div class="col-10">
 				<div>
 					<c:if test="${not empty message}">
@@ -36,7 +36,13 @@
 							<c:out value="${message}"></c:out>
 						</div>
 					</c:if>
-					<form action="${pageContext.request.contextPath}/Controller" method="post">
+					<c:if test="${not empty invalid_privilege_name}">
+						<div class="alert alert-warning" role="alert" id="alert">
+							<c:out value="${invalid_privilege_name}"></c:out>
+						</div>
+					</c:if>
+					<form action="${pageContext.request.contextPath}/Controller"
+						method="post">
 						<input type="hidden" name="command" value="add_privilege">
 						<div class="container">
 							<div class="row">
