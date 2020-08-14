@@ -84,9 +84,9 @@
 								рождения:</label> <input type="date" class="form-control" id="inputDate"
 								required name="date_of_birth" aria-describedby="inputMutedtext"
 								value="${requestScope.user_info.dateOfBirth}">
-							<c:if test="${not empty message}">
+							<c:if test="${not empty invalid_date_of_birth}">
 								<small id="inputMutedtext" class="form-text text-muted">
-									<c:out value="${message}"></c:out>
+									<c:out value="${nvalid_date_of_birth}"></c:out>
 								</small>
 							</c:if>
 

@@ -10,6 +10,8 @@ import by.epam.university.entity.User;
 public interface SQLApplicationDao {
 
 	Application applicationByUserId(int userId) throws DAOException;
+	
+	Application applicationById(int id) throws DAOException;
 
 	void insertApplication(Application application, User user) throws DAOException;
 
@@ -35,6 +37,10 @@ public interface SQLApplicationDao {
 	
 	int getNumberOfFreePlaces(int idSpecialty) throws DAOException;
 	
-	boolean acceptStudent(int idApplication) throws DAOException;
+	boolean acceptStudent(int totalScore, boolean isAccepted, int idApplication) throws DAOException;
+	
+	boolean getAcceptStudent(int idApplication) throws DAOException;
+	
+	void createResult(int idApplication) throws DAOException;
 	
 }

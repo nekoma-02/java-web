@@ -31,11 +31,11 @@
 			<div class="col-10">
 				<div>
 					<div>
-						<H2>Название специальности</H2>
-						<h4>Название таблицы</h4>
+						<H2>${application.get(0).getSpecialties().getName()}</H2>
+						<h4>Заявления по специальности</h4>
 					</div>
 					<table class="table table-hover">
-						<caption>Название таблицы</caption>
+						<caption>${application.get(0).getSpecialties().getName()}</caption>
 						<thead class="thead-dark" id="table-caption">
 							<tr id="Application-caption">
 								<th scope="col">ФИО</th>
@@ -50,8 +50,7 @@
 						<tbody id="table-list">
 							<c:forEach items="${application}" var="app">
 								<tr>
-									<td>${app.user.secondName}${app.user.name}
-										${app.user.lastName}</td>
+									<td>${app.user.secondName} ${app.user.name} ${app.user.lastName}</td>
 									<td>${app.adress}</td>
 									<td>${app.specialties.name}</td>
 									<td>${app.specialties.faculty.name}</td>

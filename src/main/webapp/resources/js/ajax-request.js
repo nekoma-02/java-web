@@ -1,7 +1,7 @@
 $(document).ready(
 		function($) {
 
-			$(document).on('click', '#specialty_list', function() {
+			$(document).on('change', '#faculty_list', function() {
 				var idTypeStudy = $("#type_study_list").val();
 				var idFaculty = $("#faculty_list").val();
 
@@ -13,7 +13,17 @@ $(document).ready(
 				}, createSpecialty);
 			});
 			
-			
+			$(document).on('change', '#type_study_list', function() {
+				var idTypeStudy = $("#type_study_list").val();
+				var idFaculty = $("#faculty_list").val();
+
+				$.get('/university-project/AjaxController', {
+					command : 'get_specialty',
+					specialty_filter: 'specialty',
+					type_study : idTypeStudy,
+					faculty : idFaculty
+				}, createSpecialty);
+			});
 
 			function createSpecialty(data) {
 
@@ -276,6 +286,7 @@ $(document).ready(
 			}
 
 			function createApplicationCaption() {
+				$('#table-caption').text('Application');
 				
 				$('#Specialty-caption').hide();
 				$('#Faculty-caption').hide();
@@ -289,6 +300,7 @@ $(document).ready(
 			}
 			
 			function createSpecialtyCaption() {
+				$('#table-caption').text('Specialty');
 				$('#Specialty-caption').show();
 				$('#Faculty-caption').hide();
 				$('#TypeStudy-caption').hide();
@@ -301,6 +313,7 @@ $(document).ready(
 			}
 			
 			function createSchoolCaption() {
+				$('#table-caption').text('School');
 				$('#Specialty-caption').hide();
 				$('#Faculty-caption').hide();
 				$('#TypeStudy-caption').hide();
@@ -313,6 +326,7 @@ $(document).ready(
 			}
 
 			function createFacultyCaption() {
+				$('#table-caption').text('Faculty');
 				$('#Specialty-caption').hide();
 				$('#Faculty-caption').show();
 				$('#TypeStudy-caption').hide();
@@ -325,7 +339,7 @@ $(document).ready(
 			}
 			
 			function createTypeStudyCaption() {
-				
+				$('#table-caption').text('Type Study');
 				$('#Specialty-caption').hide();
 				$('#Faculty-caption').hide();
 				$('#TypeStudy-caption').show();
@@ -339,7 +353,7 @@ $(document).ready(
 			}
 			
 			function createSubjectCaption() {
-				
+				$('#table-caption').text('Subject');
 				$('#Specialty-caption').hide();
 				$('#Faculty-caption').hide();
 				$('#TypeStudy-caption').hide();
@@ -353,7 +367,7 @@ $(document).ready(
 			}
 			
 			function createPrivilegeCaption() {
-				
+				$('#table-caption').text('Privilege');
 				$('#Specialty-caption').hide();
 				$('#Faculty-caption').hide();
 				$('#TypeStudy-caption').hide();

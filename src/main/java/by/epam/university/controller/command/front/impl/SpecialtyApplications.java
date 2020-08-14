@@ -35,7 +35,7 @@ public class SpecialtyApplications implements Command {
 		try {
 
 			List<Application> appList = service.getAllAplicationBySpecialty(idSpecialty);
-
+			
 			request.setAttribute(RequestParameterName.APPLICATION, appList);
 
 			session.setAttribute(SessionParameterName.QUERY_STRING, request.getQueryString());

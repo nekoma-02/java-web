@@ -9,11 +9,14 @@ import by.epam.university.entity.School;
 import by.epam.university.entity.Specialty;
 import by.epam.university.entity.TypeStudy;
 import by.epam.university.entity.User;
+import by.epam.university.service.exception.ApplicationExistsException;
 import by.epam.university.service.exception.ServiceException;
 
 public interface ApplicationService {
 
 	Application ApplicationByUserId(int id) throws ServiceException;
+	
+	Application applicationById(int id) throws ServiceException;
 	
 	School getSchoolById(int id) throws ServiceException;
 	
@@ -21,7 +24,7 @@ public interface ApplicationService {
 	
 	Specialty getSpecialtyById(int id) throws ServiceException;
 
-	boolean createApplication(Application application, User user) throws ServiceException;
+	boolean createApplication(Application application, User user) throws ServiceException, ApplicationExistsException;
 	
 	boolean isExistUserApplication(int userId) throws ServiceException;
 	

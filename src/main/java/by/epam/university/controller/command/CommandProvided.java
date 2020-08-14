@@ -14,6 +14,7 @@ import by.epam.university.controller.command.ajax.impl.GetSubject;
 import by.epam.university.controller.command.ajax.impl.GetTypeStudy;
 import by.epam.university.controller.command.front.Command;
 import by.epam.university.controller.command.front.CommandName;
+import by.epam.university.controller.command.front.impl.AcceptStudent;
 import by.epam.university.controller.command.front.impl.AddApplication;
 import by.epam.university.controller.command.front.impl.AddFaculty;
 import by.epam.university.controller.command.front.impl.AddPrivilege;
@@ -92,6 +93,7 @@ public class CommandProvided {
 		commands.put(CommandName.UPDATE_SUBJECT, new UpdateSubject());
 		commands.put(CommandName.UPDATE_APPLICATION, new UpdateApplication());
 		commands.put(CommandName.APPLICATIONS_SPECIALTY, new SpecialtyApplications());
+		commands.put(CommandName.ACCEPT_STUDENT, new AcceptStudent());
 		
 		ajaxRepository.put(AjaxCommandName.GET_SPECIALTY, new GetSpecialty());
 		ajaxRepository.put(AjaxCommandName.GET_APPLICATION, new GetApplication());

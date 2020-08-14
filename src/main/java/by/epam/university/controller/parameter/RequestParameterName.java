@@ -56,4 +56,6 @@ public class RequestParameterName {
     public static final String SUBJECT_ID = "subject_id";
     public static final String MARK = "mark";
     public static final String MARKS = "marks";
+    public static final String TOTAL_SCORE = "total_score";
+    public static final String ACCEPT = "accept";
 }

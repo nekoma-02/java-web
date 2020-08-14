@@ -2,6 +2,8 @@ package by.epam.university.service.impl;
 
 import java.util.List;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import by.epam.university.dao.DAOFactory;
 import by.epam.university.dao.SQLUserDao;
 import by.epam.university.dao.exception.DAOException;
@@ -13,9 +15,6 @@ import by.epam.university.service.validator.UserValidator;
 import by.epam.university.service.validator.factory.ValidatorFactory;
 import by.epam.university.service.validator.util.TypeUserValidate;
 
-
-
-
 public class UserServiceImpl implements UserService {
 
 	@Override
@@ -23,12 +22,12 @@ public class UserServiceImpl implements UserService {
 		SQLUserDao dao = DAOFactory.getInstance().getUserDAO();
 
 		User user = null;
-		
-		try {
-		
-		user = dao.getUserByLoginPassword(login, password); 
 
-			return user != null ? true : false;
+		try {
+
+			user = dao.getUserByLogin(login);
+
+			return user != null && BCrypt.checkpw(password, user.getPassword()) ? true : false;
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
@@ -40,13 +39,12 @@ public class UserServiceImpl implements UserService {
 		SQLUserDao dao = DAOFactory.getInstance().getUserDAO();
 		UserValidator validator = ValidatorFactory.getInstance().getUserValidator();
 		try {
-			
+
 			boolean isValid = validator.validate(user, TypeUserValidate.SIGN_UP);
-			
-			if (isValid) { 
+
+			if (isValid) {
 				return false;
 			}
-			
 
 			User userByLogin = dao.getUserByLogin(user.getLogin());
 			boolean isInsert;
@@ -113,13 +111,13 @@ public class UserServiceImpl implements UserService {
 		SQLUserDao dao = DAOFactory.getInstance().getUserDAO();
 		UserValidator validator = ValidatorFactory.getInstance().getUserValidator();
 		try {
-			
+
 			boolean isValid = validator.validate(user, TypeUserValidate.FULL);
-			
-			if (isValid) { 
+
+			if (isValid) {
 				return false;
 			}
-			
+
 			return dao.updateUser(user);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
@@ -127,5 +125,3 @@ public class UserServiceImpl implements UserService {
 	}
 
 }
-
-

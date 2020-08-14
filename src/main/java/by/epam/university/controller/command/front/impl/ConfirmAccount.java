@@ -9,26 +9,40 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.epam.university.controller.command.front.Command;
 import by.epam.university.controller.command.front.ForwardException;
 import by.epam.university.controller.parameter.JSPPageName;
 import by.epam.university.controller.parameter.RequestParameterName;
 import by.epam.university.controller.parameter.SessionParameterName;
+import by.epam.university.entity.Application;
 import by.epam.university.entity.ExamMark;
+import by.epam.university.entity.User;
 import by.epam.university.service.AdminService;
+import by.epam.university.service.ApplicationService;
 import by.epam.university.service.ServiceFactory;
+import by.epam.university.service.UserService;
 import by.epam.university.service.exception.ServiceException;
+import by.epam.university.service.mail.MailSender;
 
 public class ConfirmAccount implements Command {
 
+	private static Logger logger = LogManager.getLogger();
 	private static final String ADMIN_PAGE = "/Controller?command=admin_page";
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		AdminService adminService = ServiceFactory.getInstance().getAdminService();
+		UserService userService = ServiceFactory.getInstance().getUserService();
+		ApplicationService appService = ServiceFactory.getInstance().getApplicationService();
 		HttpSession session = request.getSession();
+		MailSender mail = MailSender.getInstance();
 
 		int idApplication = (Integer) session.getAttribute(SessionParameterName.APPLICATION_ID);
+		
 		int idSpecialty = Integer.parseInt(request.getParameter(RequestParameterName.SPECIALTY_ID));
 
 		String[] idSubjectArray = request.getParameterValues(RequestParameterName.SUBJECT_ID);
@@ -51,7 +65,9 @@ public class ConfirmAccount implements Command {
 			}
 
 			boolean isAddMark = false;
+			
 			List<ExamMark> isExistMark = adminService.getAllMarksByApplication(idApplication);
+			
 			for (ExamMark item : examMark) {
 				
 				if (isExistMark == null || isExistMark.size() == 0) {
@@ -59,17 +75,28 @@ public class ConfirmAccount implements Command {
 				} else {
 					isAddMark = adminService.updateMark(idApplication, item.getMark(), item.getIdSubject());
 				}
-				
-				if (!isAddMark) {
-					request.setAttribute(RequestParameterName.RESULT_INFO, "failed to add mark");
-					forwardTo(request, response, JSPPageName.USER_PAGE);
-				}
 			}
+			
+			if (!isAddMark) {
+				request.setAttribute(RequestParameterName.RESULT_INFO, "failed to add mark");
+				forwardTo(request, response, JSPPageName.USER_PAGE);
+			}
+			
+			Application app = appService.applicationById(idApplication);
+			User user = userService.userById(app.getUser().getId());
 
-			adminService.confirmApplication(idApplication);
-			response.sendRedirect(request.getContextPath()+ADMIN_PAGE);
+			boolean isConfirm = adminService.confirmApplication(idApplication);
+			
+			if (isConfirm) {
+				mail.sendMail(user, "Здарствуй, "+ user.getName() + ". Ваше заявление было подтвержденно");
+				response.sendRedirect(request.getContextPath()+ADMIN_PAGE);
+			} else {
+				request.setAttribute(RequestParameterName.RESULT_INFO, "failed to confirm");
+				forwardTo(request, response, JSPPageName.USER_PAGE);
+			}
 			
 		} catch (ServiceException | ForwardException e) {
+			logger.log(Level.ERROR, e);
 			response.sendRedirect(JSPPageName.ERROR_PAGE);
 		}
 

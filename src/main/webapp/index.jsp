@@ -2,6 +2,7 @@
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="/WEB-INF/tld/taglib.tld" prefix="mytag"%>
 <%@ page isELIgnored="false"%>
 <html>
 <head>
@@ -152,16 +153,9 @@
 
 
 
+	<mytag:footer-tag/>
 
-	<!-- Footer -->
-	<footer class="page-footer font-small black">
 
-		<div class="footer-copyright text-center py-3">
-			© 2020 Copyright: <a href="/"> MDBootstrap.com</a>
-		</div>
-
-	</footer>
-	<!-- Footer -->
 
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"

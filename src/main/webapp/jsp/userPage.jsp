@@ -187,7 +187,8 @@
 					</div>
 				</div>
 			</div>
-			<c:if test="${sessionScope.user_role == 'USER' && requestScope.application.confirmation == false}">
+			<c:if
+				test="${sessionScope.user_role == 'USER' && requestScope.application.confirmation == false}">
 				<div class="row">
 					<div class="col-sm-6">
 						<a class="btn btn-lg btn-success"
@@ -195,31 +196,46 @@
 					</div>
 				</div>
 			</c:if>
-			
-			<c:if test="${sessionScope.user_role == 'USER' && requestScope.application.confirmation == true}">
+
+			<c:if
+				test="${sessionScope.user_role == 'USER' && requestScope.application.confirmation == true}">
 				<div class="row">
 					<div class="col-sm-6">
 						<legend>7.Предметы</legend>
-							<c:forEach items="${subjects}" var="sub">
-							<div class="form-group">
-								<label for="input1" class=" col-form-label">${sub.name}:</label>
-									<c:if test="${not empty marks}">
-										<c:forEach items="${marks}" var="marks">
-											<c:if test="${marks.idSubject == sub.id}">
-											
-												<input type="text" readonly class="form-control-plaintext"
-													id="input1" name="mark" value="${marks.mark}">
-													
-											</c:if>
-										</c:forEach>
-									</c:if>
-									</div>
-							</c:forEach>
+						<c:forEach items="${subjects}" var="sub">
+							<label for="input1" class=" col-form-label">${sub.name}:</label>
+							<c:choose>
+								<c:when test="${not empty marks}">
+									<c:forEach items="${marks}" var="marks">
+										<c:if test="${marks.idSubject == sub.id}">
+											<input type="text" required class="form-control-plaintext"
+												id="input1" name="mark" value="${marks.mark}">
+										</c:if>
+									</c:forEach>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+
+					</div>
+					<div class="col-sm-6">
+						<legend>8.Результат</legend>
+						<div class="form-group">
+							<label class=" col-form-label" for="inlineFormCustomSelect">Общий
+								балл:</label> <input type="text" readonly class="form-control-plaintext"
+								id="input1" name="total_score"
+								value="${requestScope.total_score}">
+						</div>
+						<div class="form-group">
+							<label class=" col-form-label" for="inlineFormCustomSelect">Общий
+								балл:</label> <input type="text" readonly class="form-control-plaintext"
+								id="input1" name="total_score"
+								value="${requestScope.total_score}">
+						</div>
+
 					</div>
 				</div>
 			</c:if>
-			
-			
+
 			<c:if test="${sessionScope.user_role == 'ADMIN'}">
 				<div class="row">
 					<div class="col-sm-6">
@@ -248,6 +264,34 @@
 								</c:choose>
 							</c:forEach>
 							<button type="submit" class="btn btn-primary">Подтвердить</button>
+						</form>
+					</div>
+					<div class="col-sm-6">
+						<legend>7.Зачисление</legend>
+						<form action="${pageContext.request.contextPath}/Controller"
+							method="post">
+							<input type="hidden" name="command" value="accept_account">
+							<div class="form-group">
+							<label class=" col-form-label" for="inlineFormCustomSelect">Общий
+								балл:</label> <input type="text" readonly class="form-control-plaintext"
+								id="input1" name="total_score"
+								value="${requestScope.total_score}">
+							</div>
+							<div class="form-group">
+							<label class=" col-form-label" for="inlineFormCustomSelect">Результат:</label> <input type="text" readonly class="form-control-plaintext"
+								id="input1" name="isAccept"
+								value="${requestScope.accept}">
+							</div>
+							<div class="form-group">
+							<label class=" col-form-label" for="inlineFormCustomSelect">Выберете итог:</label>
+
+							<select class="custom-select mr-sm-2" id="inlineFormCustomSelect"
+								required name="accept" aria-describedby="inputMutedtext">
+								<option value="true">Зачислен</option>
+								<option value="false">Отказ</option>
+							</select>
+						</div>
+							<button type="submit" class="btn btn-primary">Зачислить</button>
 						</form>
 					</div>
 				</div>

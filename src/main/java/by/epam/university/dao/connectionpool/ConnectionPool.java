@@ -96,6 +96,11 @@ public final class ConnectionPool {
 		}
 		return connection;
 	}
+	
+	 public void releaseConnection(Connection connection){
+		 	connectionQueue.remove(connection);
+	        givenAwayConQueue.add(connection);
+	    }
 
 	public void closeConnection(Connection con, Statement st, ResultSet rs) {
 		try {

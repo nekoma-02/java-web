@@ -22,7 +22,7 @@ public class DBListener implements ServletContextListener {
      * @see ServletContextListener#contextDestroyed(ServletContextEvent)
      */
     public void contextDestroyed(ServletContextEvent sce)  { 
-			ConnectionPoolManager.getInstance().getConnectionPool().dispose();;
+			ConnectionPoolManager.getInstance().getConnectionPool().dispose();
 		
     }
 
@@ -33,7 +33,7 @@ public class DBListener implements ServletContextListener {
          try {
 			ConnectionPoolManager.getInstance().getConnectionPool().initPoolData();
 		} catch (ConnectionPoolException e) {
-			logger.log(Level.ERROR,e.getMessage());
+			logger.log(Level.ERROR,e);
 		}
     }
 	

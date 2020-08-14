@@ -17,6 +17,7 @@ import by.epam.university.entity.Specialty;
 import by.epam.university.entity.TypeStudy;
 import by.epam.university.entity.User;
 import by.epam.university.service.ApplicationService;
+import by.epam.university.service.exception.ApplicationExistsException;
 import by.epam.university.service.exception.ServiceException;
 
 public class ApplicationServiceImpl implements ApplicationService {
@@ -34,10 +35,15 @@ public class ApplicationServiceImpl implements ApplicationService {
 	}
 
 	@Override
-	public boolean createApplication(Application application, User user) throws ServiceException {
+	public boolean createApplication(Application application, User user) throws ServiceException, ApplicationExistsException {
 		SQLApplicationDao dao = DAOFactory.getInstance().getApplicationDAO();
 		
 		try {
+			
+			if (!isExistUserApplication(user.getId())) {
+				throw new ApplicationExistsException("that application already exists!");
+			}
+			
 			dao.insertApplication(application, user);
 			return true;
 		} catch (DAOException e) {
@@ -178,6 +184,18 @@ public class ApplicationServiceImpl implements ApplicationService {
 		SQLApplicationDao dao = DAOFactory.getInstance().getApplicationDAO();
 		try {
 			return dao.getConfirmation(idApplication);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public Application applicationById(int id) throws ServiceException {
+SQLApplicationDao dao = DAOFactory.getInstance().getApplicationDAO();
+		
+		try {
+			Application app = dao.applicationById(id);
+			return app;
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}

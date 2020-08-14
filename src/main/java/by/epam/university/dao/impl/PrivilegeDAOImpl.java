@@ -25,6 +25,7 @@ public class PrivilegeDAOImpl implements SQLPrivilegeDao {
 
 	private static Logger logger = LogManager.getLogger();
 	private ConnectionPool connectionPool = ConnectionPoolManager.getInstance().getConnectionPool();
+	
 	private static final String SELECT_ALL_PRIVILEGES = "select * from stud_privileges";
 	private static final String SELECT_PRIVILEGE_BY_NAME = "select * from stud_privileges where name = ?";
 	private static final String SELECT_PRIVILEGE_BY_ID = "select * from stud_privileges where idprivilege = ?";

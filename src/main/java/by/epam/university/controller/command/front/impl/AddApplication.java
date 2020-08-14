@@ -24,8 +24,10 @@ import by.epam.university.entity.Privilege;
 import by.epam.university.entity.School;
 import by.epam.university.entity.Specialty;
 import by.epam.university.entity.User;
+import by.epam.university.service.AdminService;
 import by.epam.university.service.ApplicationService;
 import by.epam.university.service.ServiceFactory;
+import by.epam.university.service.exception.ApplicationExistsException;
 import by.epam.university.service.exception.ServiceException;
 import by.epam.university.service.validator.ApplicationValidator;
 import by.epam.university.service.validator.UserValidator;
@@ -41,6 +43,7 @@ public class AddApplication implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		ApplicationService appService = ServiceFactory.getInstance().getApplicationService();
+		AdminService adminService = ServiceFactory.getInstance().getAdminService();
 		
 		UserValidator userValidator = ValidatorFactory.getInstance().getUserValidator();
 		ApplicationValidator appValidator = ValidatorFactory.getInstance().getApplicationValidator();
@@ -82,8 +85,9 @@ public class AddApplication implements Command {
 				
 				isCreateApp = appService.createApplication(application, user);
 
-				
-				session.setAttribute(SessionParameterName.APPLICATION_ID, appService.ApplicationByUserId(idUser).getId());
+				int idApplication = appService.ApplicationByUserId(idUser).getId();
+				session.setAttribute(SessionParameterName.APPLICATION_ID, idApplication);
+				adminService.createResult(idApplication);
 				response.sendRedirect(request.getContextPath() + USER_PAGE); 
 				
 				if (!isCreateApp) {
@@ -109,6 +113,14 @@ public class AddApplication implements Command {
 			logger.log(Level.ERROR, e);
 			response.sendRedirect(JSPPageName.ERROR_PAGE);
 			
+		} catch (ApplicationExistsException e) {
+			request.setAttribute(RequestParameterName.RESULT_INFO, "such application already exist! ");
+			try {
+				forwardTo(request, response, JSPPageName.ADD_APPLICATION_PAGE );
+			} catch (ForwardException ex) {
+				logger.log(Level.ERROR, ex);
+				response.sendRedirect(JSPPageName.ERROR_PAGE);
+			}
 		}
 
 

@@ -554,4 +554,38 @@ public class AdminServiceImpl implements AdminService {
 		}
 	}
 
+	@Override
+	public boolean acceptStudent(int totalScore, boolean isAccepted, int idApplication) throws ServiceException {
+		SQLApplicationDao dao = DAOFactory.getInstance().getApplicationDAO();
+
+		try {
+			return dao.acceptStudent(totalScore, isAccepted, idApplication);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public boolean getAcceptStudent(int idApplication) throws ServiceException {
+		SQLApplicationDao dao = DAOFactory.getInstance().getApplicationDAO();
+
+		try {
+			return dao.getAcceptStudent(idApplication);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public void createResult(int idApplication) throws ServiceException {
+		SQLApplicationDao dao = DAOFactory.getInstance().getApplicationDAO();
+
+		try {
+			dao.createResult(idApplication);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+		
+	}
+
 }

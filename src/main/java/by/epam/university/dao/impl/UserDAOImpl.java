@@ -11,6 +11,7 @@ import java.util.List;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.mindrot.jbcrypt.BCrypt;
 
 import by.epam.university.dao.SQLUserDao;
 import by.epam.university.dao.connectionpool.ConnectionPool;
@@ -25,14 +26,31 @@ import by.epam.university.entity.User;
 public class UserDAOImpl implements SQLUserDao {
 
 	private static Logger logger = LogManager.getLogger();
+	
+	private final static int LOG_ROUNDS = 12;
 	private ConnectionPool connectionPool = ConnectionPoolManager.getInstance().getConnectionPool();
 
-	private static final String INSER_USER = "insert into users(name,secondName,lastName,login,password,email,roles_id_role) values (?,?,?,?,?,?,?)";
-	private static final String SELECT_USER_BY_PASSWORD_LOGIN = "select id_user,name,secondName,lastName,login,password,email,roles.role_name,gender,marital_status,place_of_birth,date_of_birth from users inner join roles on users.roles_id_role = roles.id_role where login = ? and password = ?";
-	private static final String SELECT_USER_BY_LOGIN = "select id_user,name,secondName,lastName,login,password,email,roles.role_name,gender,marital_status,place_of_birth,date_of_birth from users inner join roles on users.roles_id_role = roles.id_role where login = ?";
-	private static final String SELECT_USER_BY_ID = "select id_user,name,secondName,lastName,login,password,email,roles.role_name,gender,marital_status,place_of_birth,date_of_birth from users inner join roles on users.roles_id_role = roles.id_role where id_user = ?";
-	private static final String SELECT_ALL_USERS = "select id_user,name,secondName,lastName,login,password,email,roles.role_name,gender,marital_status,place_of_birth,date_of_birth from users inner join roles on users.roles_id_role = roles.id_role";
-	private static final String UPDATE_USER_BY_ID = "update users set name = ?,secondName = ?,lastName = ?,email = ?,gender = ?,marital_status = ?,place_of_birth = ?,date_of_birth = ? where id_user = ?";
+	private static final String INSER_USER = "insert into users(name,secondName,lastName,login,password,email,roles_id_role) "
+			+ "values (?,?,?,?,?,?,?)";
+	
+	private static final String SELECT_USER_BY_PASSWORD_LOGIN = "select id_user,name,secondName,lastName,login,password,email,"
+			+ "roles.role_name,gender,marital_status,place_of_birth,date_of_birth from users "
+			+ "inner join roles on users.roles_id_role = roles.id_role where login = ? and password = ?";
+	
+	private static final String SELECT_USER_BY_LOGIN = "select id_user,name,secondName,lastName,login,password,email,"
+			+ "roles.role_name,gender,marital_status,place_of_birth,date_of_birth from users "
+			+ "inner join roles on users.roles_id_role = roles.id_role where login = ?";
+	
+	private static final String SELECT_USER_BY_ID = "select id_user,name,secondName,lastName,login,password,email,"
+			+ "roles.role_name,gender,marital_status,place_of_birth,date_of_birth from users "
+			+ "inner join roles on users.roles_id_role = roles.id_role where id_user = ?";
+	private static final String SELECT_ALL_USERS = "select id_user,name,secondName,lastName,login,password,email,"
+			+ "roles.role_name,gender,marital_status,place_of_birth,date_of_birth from users "
+			+ "inner join roles on users.roles_id_role = roles.id_role";
+	
+	private static final String UPDATE_USER_BY_ID = "update users set name = ?,secondName = ?,lastName = ?,email = ?,"
+			+ "gender = ?,marital_status = ?,place_of_birth = ?,date_of_birth = ? where id_user = ?";
+	
 
 	@Override
 	public boolean insert(User user) throws DAOException {
@@ -55,7 +73,7 @@ public class UserDAOImpl implements SQLUserDao {
 			ps.setString(secondNameInt, user.getSecondName());
 			ps.setString(lastNameInt, user.getLastName());
 			ps.setString(loginInt, user.getLogin());
-			ps.setString(passwordInt, user.getPassword());
+			ps.setString(passwordInt, hashBCryptPassword(user.getPassword()));
 			ps.setString(emailInt, user.getEmail());
 			ps.setInt(roleInt, user.getRole().ordinal()+1);
 
@@ -96,7 +114,7 @@ public class UserDAOImpl implements SQLUserDao {
 			ps = connection.prepareStatement(SELECT_USER_BY_PASSWORD_LOGIN);
 
 			ps.setString(1, login);
-			ps.setString(2, password);
+			ps.setString(2, hashBCryptPassword(password));
 
 			rs = ps.executeQuery();
 
@@ -106,7 +124,7 @@ public class UserDAOImpl implements SQLUserDao {
 						rs.getString(emailInt), Role.valueOf(rs.getString(roleInt).toUpperCase()),
 						rs.getString(genderInt),rs.getString(maritalInt),rs.getString(placeInt),rs.getDate(dateInt));
 			}
-
+			
 			return user;
 
 		} catch (ConnectionPoolException e) {
@@ -343,6 +361,11 @@ public class UserDAOImpl implements SQLUserDao {
 		} finally {
 			closeConnection(connection, ps);
 		}
+	}
+	
+	private String hashBCryptPassword(String password) {
+		String salt = BCrypt.gensalt(LOG_ROUNDS);
+		return BCrypt.hashpw(password, salt);
 	}
 
 }

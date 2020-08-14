@@ -73,6 +73,12 @@ public interface AdminService {
 	boolean insertSpecialtyAndSubject(Specialty specialty, int... idSubject) throws ServiceException, SpecialtyExistsException;
 	
 	boolean updateSpecialtyAndSubject(Specialty specialty, int... idSubject) throws ServiceException, SpecialtyExistsException;
+	
+	boolean acceptStudent(int totalScore, boolean isAccepted, int idApplication) throws ServiceException;
+	
+	boolean getAcceptStudent(int idApplication) throws ServiceException;
+	
+	void createResult(int idApplication) throws ServiceException;
 
 	Faculty getFacultyById(int id) throws ServiceException;
 

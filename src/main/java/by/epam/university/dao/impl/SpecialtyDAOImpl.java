@@ -29,11 +29,33 @@ public class SpecialtyDAOImpl implements SQLSpecialtyDao {
 	private static Logger logger = LogManager.getLogger();
 	private ConnectionPool connectionPool = ConnectionPoolManager.getInstance().getConnectionPool();
 
-	private static final String SELECT_ALL_SPECIALTY = "select specialties.idspecialty,specialties.specialty_name,specialties.plan,specialties.year,types_study.type_name,faculties.faculty_name,types_study.idtype_study,faculties.idfaculty from specialties inner join types_study on specialties.idtype_study = types_study.idtype_study inner join faculties on faculties.idfaculty=specialties.faculties_idfaculty";
-	private static final String SELECT_SPECIALTY_BY_ID = "select specialties.idspecialty,specialties.specialty_name,specialties.plan,specialties.year,types_study.type_name,faculties.faculty_name,types_study.idtype_study,faculties.idfaculty from specialties inner join types_study on specialties.idtype_study = types_study.idtype_study inner join faculties on faculties.idfaculty=specialties.faculties_idfaculty where specialties.idspecialty = ?";
-	private static final String SELECT_SPECIALTY_BY_NAME = "select specialties.idspecialty,specialties.specialty_name,specialties.plan,specialties.year,types_study.type_name,faculties.faculty_name,types_study.idtype_study,faculties.idfaculty from specialties inner join types_study on specialties.idtype_study = types_study.idtype_study inner join faculties on faculties.idfaculty=specialties.faculties_idfaculty where specialties.specialty_name = ?";
-	private static final String INSERT_SPECIALTY = "insert into specialties(specialty_name,plan,year,idtype_study,faculties_idfaculty) values (?,?,?,?,?)";
-	private static final String SELECT_SPECIALTY_BY_TYPESTUDY_FACULTY = "select specialties.idspecialty,specialties.specialty_name,specialties.plan,specialties.year,types_study.type_name,faculties.faculty_name,types_study.idtype_study,faculties.idfaculty from specialties inner join types_study on specialties.idtype_study = types_study.idtype_study inner join faculties on faculties.idfaculty=specialties.faculties_idfaculty where types_study.idtype_study = ? and faculties.idfaculty = ? ";
+	private static final String SELECT_ALL_SPECIALTY = "select specialties.idspecialty,specialties.specialty_name,specialties.plan,"
+			+ "specialties.year,types_study.type_name,faculties.faculty_name,types_study.idtype_study,faculties.idfaculty "
+			+ "from specialties inner join types_study on specialties.idtype_study = types_study.idtype_study "
+			+ "inner join faculties on faculties.idfaculty=specialties.faculties_idfaculty";
+	
+	private static final String SELECT_SPECIALTY_BY_ID = "select specialties.idspecialty,specialties.specialty_name,"
+			+ "specialties.plan,specialties.year,types_study.type_name,faculties.faculty_name,types_study.idtype_study,"
+			+ "faculties.idfaculty from specialties "
+			+ "inner join types_study on specialties.idtype_study = types_study.idtype_study "
+			+ "inner join faculties on faculties.idfaculty=specialties.faculties_idfaculty"
+			+ " where specialties.idspecialty = ?";
+	
+	private static final String SELECT_SPECIALTY_BY_NAME = "select specialties.idspecialty,specialties.specialty_name,specialties.plan,"
+			+ "specialties.year,types_study.type_name,faculties.faculty_name,types_study.idtype_study,faculties.idfaculty "
+			+ "from specialties inner join types_study on specialties.idtype_study = types_study.idtype_study "
+			+ "inner join faculties on faculties.idfaculty=specialties.faculties_idfaculty "
+			+ "where specialties.specialty_name = ?";
+	
+	private static final String INSERT_SPECIALTY = "insert into specialties(specialty_name,plan,year,idtype_study,faculties_idfaculty) "
+			+ "values (?,?,?,?,?)";
+	
+	private static final String SELECT_SPECIALTY_BY_TYPESTUDY_FACULTY = "select specialties.idspecialty,specialties.specialty_name,"
+			+ "specialties.plan,specialties.year,types_study.type_name,faculties.faculty_name,types_study.idtype_study,"
+			+ "faculties.idfaculty from specialties inner join types_study on specialties.idtype_study = types_study.idtype_study "
+			+ "inner join faculties on faculties.idfaculty=specialties.faculties_idfaculty "
+			+ "where types_study.idtype_study = ? and faculties.idfaculty = ? ";
+	
 	private static final String SELECT_ALL_FACULTY = "select idfaculty,faculty_name from faculties";
 	private static final String INSERT_FACULTY = "insert into faculties(faculty_name) values (?)";
 	private static final String UPDATE_FACULTY = "update faculties set faculty_name = ? where idfaculty = ?";
@@ -42,16 +64,30 @@ public class SpecialtyDAOImpl implements SQLSpecialtyDao {
 	private static final String SELECT_ALL_TYPE_STUDY = "select * from types_study";
 	private static final String SELECT_FACULTY_BY_ID = "select * from faculties where idfaculty = ?";
 	private static final String SELECT_TYPE_STUDY_BY_ID = "select * from types_study where idtype_study = ?";
-	private static final String UPDATE_SPECIALTY = "update specialties set specialty_name = ?,plan = ?,year = ?,idtype_study = ?,faculties_idfaculty = ? where idspecialty = ?";
-	private static final String SUBJECT_BY_SPECIALTY_ID = "select s.idsubject, s.subject_name from specialties_has_subjects shs inner join subjects s on shs.subjects_idsubject = s.idsubject where specialties_idspecialty = ?";
-	private static final String SELECT_ID_SPEC_HAS_SUBJ = "select id from specialties_has_subjects where subjects_idsubject = ? and specialties_idspecialty = ?";
+	
+	private static final String UPDATE_SPECIALTY = "update specialties set specialty_name = ?,plan = ?,year = ?,idtype_study = ?,"
+			+ "faculties_idfaculty = ? where idspecialty = ?";
+	
+	private static final String SUBJECT_BY_SPECIALTY_ID = "select s.idsubject, s.subject_name from specialties_has_subjects shs "
+			+ "inner join subjects s on shs.subjects_idsubject = s.idsubject where specialties_idspecialty = ?";
+	
+	private static final String SELECT_ID_SPEC_HAS_SUBJ = "select id from specialties_has_subjects where subjects_idsubject = ? "
+			+ "and specialties_idspecialty = ?";
+	
 	private static final String SELECT_ALL_SUBJECT = "select * from subjects";
 	private static final String UPDATE_SUBJECT = "update subjects set subject_name = ? where idsubject = ?";
 	private static final String INSERT_SUBJECT = "insert into subjects(subject_name) value (?)";
-	private static final String INSERT_SUBJECT_BY_SPECIALTY = "insert into specialties_has_subjects(subjects_idsubject,specialties_idspecialty) value (?,?)";
-	private static final String UPDATE_SUBJECT_BY_SPECIALTY = "update specialties_has_subjects set subjects_idsubject = ? where specialties_idspecialty = ?";
+	
+	private static final String INSERT_SUBJECT_BY_SPECIALTY = "insert into specialties_has_subjects(subjects_idsubject,"
+			+ "specialties_idspecialty) value (?,?)";
+	
+	private static final String UPDATE_SUBJECT_BY_SPECIALTY = "update specialties_has_subjects set subjects_idsubject = ? "
+			+ "where specialties_idspecialty = ?";
+	
 	private static final String SELECT_SUBJECT_BY_ID = "select * from subjects where idsubject = ?";
-	private static final String REMOVE_SUBJECT_BY_SPECIALTY = "delete from specialties_has_subjects where subjects_idsubject = ? and specialties_idspecialty = ?";
+	
+	private static final String REMOVE_SUBJECT_BY_SPECIALTY = "delete from specialties_has_subjects where subjects_idsubject = ? "
+			+ "and specialties_idspecialty = ?";
 	
 	
 	@Override

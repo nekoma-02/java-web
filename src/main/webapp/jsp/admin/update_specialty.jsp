@@ -114,6 +114,7 @@
 												<c:forEach items="${requestScope.subjects}" var="item">
 													<option value="${item.id}">${item.name}</option>
 												</c:forEach>
+												</select>
 										</div>
 									</c:forEach>
 								</div>

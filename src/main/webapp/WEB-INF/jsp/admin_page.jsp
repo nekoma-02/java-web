@@ -32,7 +32,7 @@
 				<div>
 
 					<div class="btn-group" role="group" aria-label="Basic example"
-						style="margin-left: 25%; padding-bottom: 10px;">
+						style="margin-left: 15%; padding-bottom: 10px;">
 						<button type="button" class="btn btn-secondary" id="show-app"
 							value="all">Заявления</button>
 						<button type="button" class="btn btn-secondary" id="show-faculty"
@@ -59,10 +59,10 @@
 							class="radio-filter">Показать не подтвержденные</label>
 					</div>
 					<div>
-						<h4>Название таблицы</h4>
+						<h4 id="table-caption">Application</h4>
 					</div>
 					<table class="table table-hover">
-						<caption>Название таблицы</caption>
+						<caption id="table-caption">Application</caption>
 						<thead class="thead-dark" id="table-caption">
 							<tr id="Application-caption" style="visibility: visible;">
 								<th scope="col">ФИО</th>
@@ -108,8 +108,7 @@
 						<tbody id="table-list">
 							<c:forEach items="${application}" var="app">
 								<tr>
-									<td>${app.user.secondName}${app.user.name}
-										${app.user.lastName}</td>
+									<td>${app.user.secondName} ${app.user.name} ${app.user.lastName}</td>
 									<td>${app.adress}</td>
 									<td>${app.specialties.name}</td>
 									<td>${app.specialties.faculty.name}</td>
