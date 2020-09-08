@@ -14,11 +14,11 @@ import by.epam.university.dao.connectionpool.ConnectionPoolManager;
 
 public class DataBaseCreation {
 
-	private ConnectionPool pool;
-	private Connection connection;
+	private static ConnectionPool pool;
+	private static Connection connection;
 	
 	@BeforeClass
-	public void initConnectionPool() throws ConnectionPoolException, SQLException {
+	public static void initConnectionPool() throws ConnectionPoolException, SQLException {
 		ConnectionPoolManager.getInstance().getConnectionPool().initPoolData();
 		pool = ConnectionPoolManager.getInstance().getConnectionPool();
 		
@@ -38,7 +38,7 @@ public class DataBaseCreation {
 	}
 	
 	@AfterClass
-	public void disposeConnectionPool() throws SQLException {
+	public static void disposeConnectionPool() throws SQLException {
 		pool.dispose();
 	}
 	

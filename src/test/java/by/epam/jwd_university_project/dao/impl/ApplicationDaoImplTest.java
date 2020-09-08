@@ -11,10 +11,19 @@ import by.epam.university.dao.exception.DAOException;
 public class ApplicationDaoImplTest extends DataBaseCreation {
 	
 	@Test
-	public void acceptStudent_whenIdApplicationDoesntExist_thenFalse() throws DAOException {
+	public void acceptStudent_whenIdApplicationDoesntExists_thenFalse() throws DAOException {
 		SQLApplicationDao appDao = DAOFactory.getInstance().getApplicationDAO();
 		boolean actual = appDao.acceptStudent(0, false, 15);
 		boolean expected = false;
+		
+		Assert.assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void acceptStudent_whenIdApplicationExist_thenTrue() throws DAOException {
+		SQLApplicationDao appDao = DAOFactory.getInstance().getApplicationDAO();
+		boolean actual = appDao.acceptStudent(0, false, 1);
+		boolean expected = true;
 		
 		Assert.assertEquals(expected, actual);
 	}
