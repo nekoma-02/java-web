@@ -56,7 +56,7 @@
 					<form action="${pageContext.request.contextPath}/Controller"
 						method="post">
 						<input type="hidden" name="command" value="add_specialty">
-						<div class="container">
+						<div class="container-fluid">
 							<div class="row">
 								<div class="col">
 									<legend>1.Добавление специальности</legend>

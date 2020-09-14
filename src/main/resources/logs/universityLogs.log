@@ -1,0 +1,2 @@
+ERROR 2020-09-13 23:29:25 MailSender - javax.mail.AuthenticationFailedException
+ERROR 2020-09-13 23:29:25 ConfirmAccount - by.epam.university.service.exception.ServiceException: Exception during mail sending

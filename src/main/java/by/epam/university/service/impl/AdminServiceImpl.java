@@ -338,6 +338,9 @@ public class AdminServiceImpl implements AdminService {
 		SQLApplicationDao dao = DAOFactory.getInstance().getApplicationDAO();
 
 		try {
+			if (mark < 0 || mark > 10) {
+				return false;
+			}
 			return dao.addMark(idApplication, mark, idSubject);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
@@ -371,6 +374,9 @@ public class AdminServiceImpl implements AdminService {
 		SQLApplicationDao dao = DAOFactory.getInstance().getApplicationDAO();
 
 		try {
+			if (mark < 0 || mark > 10) {
+				return false;
+			}
 			return dao.updateMark(idApplication, mark, idSubject);
 		} catch (DAOException e) {
 			throw new ServiceException(e);

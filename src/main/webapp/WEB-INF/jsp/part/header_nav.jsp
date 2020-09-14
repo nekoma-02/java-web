@@ -63,6 +63,7 @@
 						<form class="form-inline" id="locale-form"
 							action="${pageContext.request.contextPath}/Controller"
 							method="post">
+							<input type="hidden" name="current_url" id="url" />
 							<input type="hidden" name="local" value="ru" /> <input
 								type="hidden" name="command" value="change_local" />
 							<button class="btn" type="submit" id="rus_btn"></button>
@@ -73,6 +74,7 @@
 						<form class="form-inline" id="locale-form"
 							action="${pageContext.request.contextPath}/Controller"
 							method="post">
+							<input type="hidden" name="current_url" id="url2" />
 							<input type="hidden" name="local" value="en" /> <input
 								type="hidden" name="command" value="change_local" />
 							<button class="btn" type="submit" id="en_btn"></button>
@@ -90,6 +92,14 @@
 				</c:if>
 			</div>
 		</nav>
+		
+		<script type="text/javascript">
+		document.getElementById('url').value = window.location.pathname;
+		</script>
+		<script type="text/javascript">
+		document.getElementById('url2').value = window.location.pathname;
+		</script>
+		
 	</div>
 
 	<script

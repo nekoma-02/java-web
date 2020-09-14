@@ -12,18 +12,22 @@ import by.epam.university.controller.parameter.SessionParameterName;
 
 public class ChangeLocal implements Command {
 
+	private static final String CURRENT_URL = "current_url";
+	private static final String CONTROLLER_PATH = "/Controller";
+
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String local = request.getParameter("local");
 		session.setAttribute("local", local);
 
+		String currentUrl = request.getParameter(CURRENT_URL);
 		String queryString = (String) session.getAttribute(SessionParameterName.QUERY_STRING);
 
-		if (queryString != null) {
+		if (queryString != null && currentUrl.equals(request.getContextPath() + CONTROLLER_PATH)) {
 			response.sendRedirect(request.getContextPath() + "/Controller?" + queryString);
 		} else {
-			response.sendRedirect(request.getContextPath());
+			response.sendRedirect(currentUrl);
 		}
 
 	}

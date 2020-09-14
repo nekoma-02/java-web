@@ -12,6 +12,22 @@ import by.epam.university.service.validator.util.ValidatorParameters;
 public class ApplicationValidatorImpl implements ApplicationValidator {
 
 	private static final String DATE_FORMAT = "yyyy-mm-dd";
+	private static final String NUMBER_PASSPORT_PATTERN = "^\\d{7}$";
+	private static final String SERIES_PASSPORT_PATTERN = "^\\D{2}$";
+	private static final String ID_DOCUMENT_PATTERN = "^[A-Z0-9]{14}$";
+	
+	
+	private boolean validateNumberPassport(String numberPassport) {
+		return numberPassport.matches(NUMBER_PASSPORT_PATTERN);
+	}
+	
+	private boolean validateSeriesPassport(String series) {
+		return series.matches(SERIES_PASSPORT_PATTERN);
+	}
+	
+	private boolean validateIdDocument(String idDocument) {
+		return idDocument.matches(ID_DOCUMENT_PATTERN);
+	}
 	
 	@Override
 	public List<String> validate(String adress, int certificate, String typeDocument, String idDocument,
@@ -30,15 +46,15 @@ public class ApplicationValidatorImpl implements ApplicationValidator {
 			validation.add(ValidatorParameters.INVALID_TYPE_DOCUMENT);
 		}
 		
-		if (idDocument == null ) {
+		if (idDocument == null || !validateIdDocument(idDocument)) {
 			validation.add(ValidatorParameters.INVALID_ID_DOCUMENT);
 		}
 		
-		if (seriesPassport == null ) {
+		if (seriesPassport == null || !validateSeriesPassport(seriesPassport) ) {
 			validation.add(ValidatorParameters.INVALID_SERIES_PASSPORT);
 		}
 		
-		if (numberPassport <= 0) {
+		if (!validateNumberPassport(Integer.toString(numberPassport))) {
 			validation.add(ValidatorParameters.INVALID_NUMBER_PASSPORT);
 		}
 		

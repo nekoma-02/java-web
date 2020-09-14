@@ -25,6 +25,7 @@ import by.epam.university.controller.command.front.impl.AddTypeStudy;
 import by.epam.university.controller.command.front.impl.AdminPage;
 import by.epam.university.controller.command.front.impl.ChangeLocal;
 import by.epam.university.controller.command.front.impl.ConfirmAccount;
+import by.epam.university.controller.command.front.impl.NoSuchCommand;
 import by.epam.university.controller.command.front.impl.Registration;
 import by.epam.university.controller.command.front.impl.ShowAddApplicationPage;
 import by.epam.university.controller.command.front.impl.ShowAddSpecialtyPage;
@@ -94,6 +95,7 @@ public class CommandProvided {
 		commands.put(CommandName.UPDATE_APPLICATION, new UpdateApplication());
 		commands.put(CommandName.APPLICATIONS_SPECIALTY, new SpecialtyApplications());
 		commands.put(CommandName.ACCEPT_STUDENT, new AcceptStudent());
+		commands.put(CommandName.NO_SUCH_COMMAND, new NoSuchCommand());
 		
 		ajaxRepository.put(AjaxCommandName.GET_SPECIALTY, new GetSpecialty());
 		ajaxRepository.put(AjaxCommandName.GET_APPLICATION, new GetApplication());

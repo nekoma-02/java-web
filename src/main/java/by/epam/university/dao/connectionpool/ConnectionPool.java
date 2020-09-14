@@ -29,6 +29,20 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Level;
 
 public final class ConnectionPool {
+	
+	private static volatile ConnectionPool instance;
+	
+	public static ConnectionPool getInstance() {
+		ConnectionPool localInstance = instance;
+		if (localInstance == null) {
+			synchronized (ConnectionPool.class) {
+				if (localInstance == null) {
+					instance = localInstance = new ConnectionPool();
+				}
+			}
+		}
+		return localInstance;
+	}
 
 	private static Logger logger = LogManager.getLogger();
 	private BlockingQueue<Connection> connectionQueue;

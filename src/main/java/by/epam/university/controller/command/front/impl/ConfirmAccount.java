@@ -20,6 +20,10 @@ import by.epam.university.controller.parameter.RequestParameterName;
 import by.epam.university.controller.parameter.SessionParameterName;
 import by.epam.university.entity.Application;
 import by.epam.university.entity.ExamMark;
+import by.epam.university.entity.Privilege;
+import by.epam.university.entity.School;
+import by.epam.university.entity.Specialty;
+import by.epam.university.entity.Subject;
 import by.epam.university.entity.User;
 import by.epam.university.service.AdminService;
 import by.epam.university.service.ApplicationService;
@@ -32,7 +36,7 @@ public class ConfirmAccount implements Command {
 
 	private static Logger logger = LogManager.getLogger();
 	private static final String ADMIN_PAGE = "/Controller?command=admin_page";
-	
+
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		AdminService adminService = ServiceFactory.getInstance().getAdminService();
@@ -42,7 +46,7 @@ public class ConfirmAccount implements Command {
 		MailSender mail = MailSender.getInstance();
 
 		int idApplication = (Integer) session.getAttribute(SessionParameterName.APPLICATION_ID);
-		
+
 		int idSpecialty = Integer.parseInt(request.getParameter(RequestParameterName.SPECIALTY_ID));
 
 		String[] idSubjectArray = request.getParameterValues(RequestParameterName.SUBJECT_ID);
@@ -65,36 +69,51 @@ public class ConfirmAccount implements Command {
 			}
 
 			boolean isAddMark = false;
-			
+
 			List<ExamMark> isExistMark = adminService.getAllMarksByApplication(idApplication);
-			
+
 			for (ExamMark item : examMark) {
-				
+
 				if (isExistMark == null || isExistMark.size() == 0) {
 					isAddMark = adminService.addMark(idApplication, item.getMark(), item.getIdSubject());
 				} else {
 					isAddMark = adminService.updateMark(idApplication, item.getMark(), item.getIdSubject());
 				}
 			}
-			
-			if (!isAddMark) {
-				request.setAttribute(RequestParameterName.RESULT_INFO, "failed to add mark");
-				forwardTo(request, response, JSPPageName.USER_PAGE);
-			}
-			
+
 			Application app = appService.applicationById(idApplication);
 			User user = userService.userById(app.getUser().getId());
 
-			boolean isConfirm = adminService.confirmApplication(idApplication);
-			
-			if (isConfirm) {
-				mail.sendMail(user, "Здарствуй, "+ user.getName() + ". Ваше заявление было подтвержденно");
-				response.sendRedirect(request.getContextPath()+ADMIN_PAGE);
-			} else {
-				request.setAttribute(RequestParameterName.RESULT_INFO, "failed to confirm");
+			if (!isAddMark) {
+
+				Specialty spec = appService.getSpecialtyById(app.getSpecialties().getId());
+				School school = appService.getSchoolById(app.getSchool().getId());
+				Privilege privilege = appService.getPrivilegeById(app.getPrivilege().getId());
+
+				request.setAttribute(RequestParameterName.APPLICATION, app);
+				request.setAttribute(RequestParameterName.PRIVILEGE, privilege);
+				request.setAttribute(RequestParameterName.SPECIALTY, spec);
+				request.setAttribute(RequestParameterName.SCHOOL, school);
+				request.setAttribute(RequestParameterName.USER_INFO, user);
+				List<Subject> subjects = adminService.getSubjectBySpecialtyId(app.getSpecialties().getId());
+				request.setAttribute(RequestParameterName.SUBJECTS, subjects);
+				request.setAttribute(RequestParameterName.RESULT_INFO, "failed to add mark");
+
 				forwardTo(request, response, JSPPageName.USER_PAGE);
+			} else {
+				
+				boolean isConfirm = adminService.confirmApplication(idApplication);
+
+				if (isConfirm) {
+					mail.sendMail(user, "Здарствуй, " + user.getName() + ". Ваше заявление было подтвержденно");
+					response.sendRedirect(request.getContextPath() + ADMIN_PAGE);
+				} else {
+
+					request.setAttribute(RequestParameterName.RESULT_INFO, "failed to confirm");
+					forwardTo(request, response, JSPPageName.USER_PAGE);
+				}
 			}
-			
+
 		} catch (ServiceException | ForwardException e) {
 			logger.log(Level.ERROR, e);
 			response.sendRedirect(JSPPageName.ERROR_PAGE);

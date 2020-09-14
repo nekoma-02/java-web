@@ -14,7 +14,49 @@
 
 <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="local/local" var="loc" />
-
+<fmt:message bundle="${loc}" key="local.personal_data.name" var="name" />
+<fmt:message bundle="${loc}" key="local.personal_data.login" var="login" />
+<fmt:message bundle="${loc}" key="local.personal_data.secondname"
+	var="secondname" />
+<fmt:message bundle="${loc}" key="local.personal_data.lastname"
+	var="lastname" />
+<fmt:message bundle="${loc}" key="local.personal_data.password"
+	var="password" />
+<fmt:message bundle="${loc}" key="local.personal_data.email" var="email" />
+<fmt:message bundle="${loc}" key="local.personal_data.gender"
+	var="gender" />
+<fmt:message bundle="${loc}" key="local.personal_data.date_birthday"
+	var="date_birthday" />
+<fmt:message bundle="${loc}" key="local.personal_data.family_status"
+	var="family_status" />
+<fmt:message bundle="${loc}" key="local.personal_data.type_document"
+	var="type_document" />
+<fmt:message bundle="${loc}" key="local.personal_data.id_number"
+	var="id_number" />
+<fmt:message bundle="${loc}" key="local.personal_data.series"
+	var="series" />
+<fmt:message bundle="${loc}" key="local.personal_data.number"
+	var="number" />
+<fmt:message bundle="${loc}" key="local.personal_data.issued_by"
+	var="issued_by" />
+<fmt:message bundle="${loc}" key="local.personal_data.school"
+	var="school" />
+<fmt:message bundle="${loc}" key="local.personal_data.end_study"
+	var="end_study" />
+<fmt:message bundle="${loc}" key="local.personal_data.certificate"
+	var="certificate" />
+<fmt:message bundle="${loc}" key="local.personal_data.adress"
+	var="adress" />
+<fmt:message bundle="${loc}" key="local.personal_data.place_birth"
+	var="place_birth" />
+<fmt:message bundle="${loc}" key="local.personal_data.faculty"
+	var="faculty_loc" />
+<fmt:message bundle="${loc}" key="local.personal_data.type_sudy"
+	var="type_sudy_loc" />
+<fmt:message bundle="${loc}" key="local.personal_data.specialty"
+	var="specialty" />
+<fmt:message bundle="${loc}" key="local.personal_data.privilege"
+	var="privilege" />
 
 <title>Анкета</title>
 </head>
@@ -24,24 +66,32 @@
 
 	<div>
 		<div class="container">
+			<c:if test="${not empty message }">
+				<div class="alert alert-warning" role="alert" id="alert">
+					<c:out value="${message}"></c:out>
+				</div>
+			</c:if>
 			<div class="row">
 				<div class="col">
 					<legend>1.ФИО</legend>
 					<div class="form-group">
 						<label for="input1" class=" col-form-label">Фамилия:</label> <input
 							type="text" readonly class="form-control-plaintext" id="input1"
-							name="secondname" value="${requestScope.user_info.secondName}">
+							name="secondname" value="${requestScope.user_info.secondName}"
+							style="border: 2px solid black">
 					</div>
 					<div class="form-group">
 						<label for="input1" class=" col-form-label">Имя:</label> <input
 							type="text" readonly class="form-control-plaintext" id="input1"
-							name="name" value="${requestScope.user_info.name}">
+							name="name" value="${requestScope.user_info.name}"
+							style="border: 2px solid black">
 
 					</div>
 					<div class="form-group">
 						<label for="input1" class=" col-form-label">Отчество:</label> <input
 							type="text" readonly class="form-control-plaintext" id="input1"
-							name="lastname" value="${requestScope.user_info.lastName}">
+							name="lastname" value="${requestScope.user_info.lastName}"
+							style="border: 2px solid black">
 
 					</div>
 					<div class="form-group">
@@ -49,7 +99,8 @@
 							рождения:</label> <input type="text" readonly
 							class="form-control-plaintext" id="inputDate"
 							name="date_of_birth"
-							value="${requestScope.user_info.dateOfBirth}">
+							value="${requestScope.user_info.dateOfBirth}"
+							style="border: 2px solid black">
 
 					</div>
 					<div class="form-group">
@@ -57,7 +108,8 @@
 
 						<input type="text" readonly class="form-control-plaintext"
 							id="inputDate" name="gender"
-							value="${requestScope.user_info.gender}">
+							value="${requestScope.user_info.gender}"
+							style="border: 2px solid black">
 
 					</div>
 					<div class="form-group">
@@ -65,7 +117,8 @@
 							for="inlineFormCustomSelect">Семейное положение:</label> <input
 							type="text" readonly class="form-control-plaintext"
 							id="inputDate" name="marital_status"
-							value="${requestScope.user_info.maritalStatus}">
+							value="${requestScope.user_info.maritalStatus}"
+							style="border: 2px solid black">
 
 					</div>
 				</div>
@@ -76,33 +129,38 @@
 							for="inlineFormCustomSelect">Тип документа:</label> <input
 							type="text" readonly class="form-control-plaintext"
 							id="inputDate" name="type_document"
-							value="${requestScope.application.typeDocument}">
+							value="${requestScope.application.typeDocument}"
+							style="border: 2px solid black">
 
 					</div>
 					<div class="form-group">
 						<label for="input1" class=" col-form-label">Ид. номер:</label> <input
 							type="text" readonly class="form-control-plaintext" id="input1"
-							name="id_document" value="${requestScope.application.idDocument}">
+							name="id_document" value="${requestScope.application.idDocument}"
+							style="border: 2px solid black">
 
 					</div>
 					<div class="form-group">
 						<label for="input1" class=" col-form-label">Серия:</label> <input
 							type="text" readonly class="form-control-plaintext" id="input1"
 							name="series_passport"
-							value="${requestScope.application.seriesPassport}">
+							value="${requestScope.application.seriesPassport}"
+							style="border: 2px solid black">
 
 					</div>
 					<div class="form-group">
 						<label for="input1" class=" col-form-label">Номер:</label> <input
 							type="text" readonly class="form-control-plaintext" id="input1"
 							name="number_passport"
-							value="${requestScope.application.numberPassport}">
+							value="${requestScope.application.numberPassport}"
+							style="border: 2px solid black">
 
 					</div>
 					<div class="form-group">
 						<label for="input1" class=" col-form-label">Кем выдан:</label> <input
 							type="text" readonly class="form-control-plaintext" id="input1"
-							name="issued_by" value="${requestScope.application.issuedBy}">
+							name="issued_by" value="${requestScope.application.issuedBy}"
+							style="border: 2px solid black">
 
 					</div>
 				</div>
@@ -114,7 +172,8 @@
 						<label class=" col-form-label" for="inlineFormCustomSelect">Учебное
 							учреждение:</label> <input type="text" readonly
 							class="form-control-plaintext" id="inputDate" name="school"
-							value="${requestScope.school.name}">
+							value="${requestScope.school.name}"
+							style="border: 2px solid black">
 
 					</div>
 					<div class="form-group">
@@ -122,14 +181,16 @@
 							окончания:</label> <input type="text" readonly
 							class="form-control-plaintext" id="inputDate"
 							name="end_study_date"
-							value="${requestScope.application.endStudyDate}">
+							value="${requestScope.application.endStudyDate}"
+							style="border: 2px solid black">
 
 					</div>
 					<div class="form-group">
 						<label for="input1" class=" col-form-label">Ср. балл:</label> <input
 							type="text" readonly class="form-control-plaintext" id="input1"
 							name="certificate"
-							value="${requestScope.application.certificate}">
+							value="${requestScope.application.certificate}"
+							style="border: 2px solid black">
 
 					</div>
 				</div>
@@ -138,14 +199,16 @@
 					<div class="form-group">
 						<label for="input1" class=" col-form-label">Адрес:</label> <input
 							type="text" readonly class="form-control-plaintext" id="input1"
-							name="adres" value="${requestScope.application.adress}">
+							name="adres" value="${requestScope.application.adress}"
+							style="border: 2px solid black">
 
 					</div>
 					<div class="form-group">
 						<label for="input1" class=" col-form-label">Место
 							рождения:</label> <input type="text" readonly
 							class="form-control-plaintext" id="input1" name="place_of_birth"
-							value="${requestScope.user_info.placeOfBirth}">
+							value="${requestScope.user_info.placeOfBirth}"
+							style="border: 2px solid black">
 
 					</div>
 				</div>
@@ -157,14 +220,16 @@
 						<label class=" col-form-label" for="inlineFormCustomSelect">Форма
 							обучения:</label> <input type="text" readonly
 							class="form-control-plaintext" id="input1" name="specialty"
-							value="${requestScope.specialty.typeStudy.typeName}">
+							value="${requestScope.specialty.typeStudy.typeName}"
+							style="border: 2px solid black">
 
 					</div>
 					<div class="form-group">
 						<label class=" col-form-label" for="inlineFormCustomSelect">Выбранная
 							специальность:</label> <input type="text" readonly
 							class="form-control-plaintext" id="input1" name="specialty"
-							value="${requestScope.specialty.name}">
+							value="${requestScope.specialty.name}"
+							style="border: 2px solid black">
 
 					</div>
 				</div>
@@ -174,7 +239,8 @@
 						<label for="input1" class=" col-form-label">Почтовый ящик:</label>
 
 						<input type="text" readonly class="form-control-plaintext"
-							id="input1" name="email" value="${requestScope.user_info.email}">
+							id="input1" name="email" value="${requestScope.user_info.email}"
+							style="border: 2px solid black">
 
 					</div>
 					<div class="form-group">
@@ -182,7 +248,8 @@
 
 						<input type="text" readonly class="form-control-plaintext"
 							id="input1" name="privilege"
-							value="${requestScope.privilege.name}">
+							value="${requestScope.privilege.name}"
+							style="border: 2px solid black">
 
 					</div>
 				</div>
@@ -209,7 +276,8 @@
 									<c:forEach items="${marks}" var="marks">
 										<c:if test="${marks.idSubject == sub.id}">
 											<input type="text" required class="form-control-plaintext"
-												id="input1" name="mark" value="${marks.mark}">
+												id="input1" name="mark" value="${marks.mark}"
+												style="border: 2px solid black">
 										</c:if>
 									</c:forEach>
 								</c:when>
@@ -223,13 +291,14 @@
 							<label class=" col-form-label" for="inlineFormCustomSelect">Общий
 								балл:</label> <input type="text" readonly class="form-control-plaintext"
 								id="input1" name="total_score"
-								value="${requestScope.total_score}">
+								value="${requestScope.total_score}"
+								style="border: 2px solid black">
 						</div>
 						<div class="form-group">
-							<label class=" col-form-label" for="inlineFormCustomSelect">Общий
-								балл:</label> <input type="text" readonly class="form-control-plaintext"
-								id="input1" name="total_score"
-								value="${requestScope.total_score}">
+							<label class=" col-form-label" for="inlineFormCustomSelect">Результат:</label>
+							<input type="text" readonly class="form-control-plaintext"
+								id="input1" name="total_score" value="${requestScope.accept}"
+								style="border: 2px solid black">
 						</div>
 
 					</div>
@@ -266,34 +335,38 @@
 							<button type="submit" class="btn btn-primary">Подтвердить</button>
 						</form>
 					</div>
-					<div class="col-sm-6">
-						<legend>7.Зачисление</legend>
-						<form action="${pageContext.request.contextPath}/Controller"
-							method="post">
-							<input type="hidden" name="command" value="accept_account">
-							<div class="form-group">
-							<label class=" col-form-label" for="inlineFormCustomSelect">Общий
-								балл:</label> <input type="text" readonly class="form-control-plaintext"
-								id="input1" name="total_score"
-								value="${requestScope.total_score}">
-							</div>
-							<div class="form-group">
-							<label class=" col-form-label" for="inlineFormCustomSelect">Результат:</label> <input type="text" readonly class="form-control-plaintext"
-								id="input1" name="isAccept"
-								value="${requestScope.accept}">
-							</div>
-							<div class="form-group">
-							<label class=" col-form-label" for="inlineFormCustomSelect">Выберете итог:</label>
-
-							<select class="custom-select mr-sm-2" id="inlineFormCustomSelect"
-								required name="accept" aria-describedby="inputMutedtext">
-								<option value="true">Зачислен</option>
-								<option value="false">Отказ</option>
-							</select>
+					<c:if test="${requestScope.application.confirmation == true}">
+						<div class="col-sm-6">
+							<legend>7.Зачисление</legend>
+							<form action="${pageContext.request.contextPath}/Controller"
+								method="post">
+								<input type="hidden" name="command" value="accept_student">
+								<div class="form-group">
+									<label class=" col-form-label" for="inlineFormCustomSelect">Общий
+										балл:</label> <input type="text" readonly
+										class="form-control-plaintext" id="input1" name="total_score"
+										value="${requestScope.total_score}"
+										style="border: 2px solid black">
+								</div>
+								<div class="form-group">
+									<label class=" col-form-label" for="inlineFormCustomSelect">Результат:</label>
+									<input type="text" readonly class="form-control-plaintext"
+										id="input1" name="isAccept" value="${requestScope.accept}"
+										style="border: 2px solid black">
+								</div>
+								<div class="form-group">
+									<label class=" col-form-label" for="inlineFormCustomSelect">Выберете
+										итог:</label> <select class="custom-select mr-sm-2"
+										id="inlineFormCustomSelect" required name="accept"
+										aria-describedby="inputMutedtext">
+										<option value="true">Зачислен</option>
+										<option value="false">Отказ</option>
+									</select>
+								</div>
+								<button type="submit" class="btn btn-primary">Зачислить</button>
+							</form>
 						</div>
-							<button type="submit" class="btn btn-primary">Зачислить</button>
-						</form>
-					</div>
+					</c:if>
 				</div>
 			</c:if>
 		</div>

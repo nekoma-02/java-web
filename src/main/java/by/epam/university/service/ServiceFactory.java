@@ -6,10 +6,18 @@ import by.epam.university.service.impl.UserServiceImpl;
 
 public class ServiceFactory {
 	
-	private static final ServiceFactory instance = new ServiceFactory();
+	private static volatile ServiceFactory instance;
 
 	public static ServiceFactory getInstance() {
-		return instance;
+		ServiceFactory localInstance = instance;
+		if (localInstance == null) {
+			synchronized (ServiceFactory.class) {
+				if (localInstance == null) {
+					instance = localInstance = new ServiceFactory();
+				}
+			}
+		}
+		return localInstance;
 	}
 
 	public UserService getUserService() {

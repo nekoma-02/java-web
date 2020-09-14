@@ -21,18 +21,39 @@
 	var="sign_in" />
 <fmt:message bundle="${loc}" key="local.button.name.sign_up"
 	var="sign_up" />
+	
+<fmt:message bundle="${loc}" key="local.index_page.login_account"
+	var="login_account" />
+	<fmt:message bundle="${loc}" key="local.index_page.personal_account"
+	var="personal_account" />
+	<fmt:message bundle="${loc}" key="local.index_page.filling_account"
+	var="filling_account" />
+	<fmt:message bundle="${loc}" key="local.index_page.havent_account"
+	var="havent_account" />
+	<fmt:message bundle="${loc}" key="local.index_page.have_account"
+	var="have_account" />
+	<fmt:message bundle="${loc}" key="local.index_page.info1"
+	var="info1" />
+	<fmt:message bundle="${loc}" key="local.index_page.bsua"
+	var="bsua" />
+	<fmt:message bundle="${loc}" key="local.index_page.info2"
+	var="info2" />
+	<fmt:message bundle="${loc}" key="local.index_page.info3"
+	var="info3" />
+	<fmt:message bundle="${loc}" key="local.index_page.info4"
+	var="info4" />
 
 <title>Главная страница</title>
 </head>
 <body>
-	<jsp:include page="WEB-INF/jsp/part/header_nav.jsp"></jsp:include>
+	<jsp:include page="WEB-INF/jsp/part/header_nav.jsp"/>
 
 
 	<div class="content">
 		<div class="row" id="accaunt-row">
 			<div class="col">
 				<legend>
-					<h2 style="text-align: center;">Личный кабинет абитуриента</h2>
+					<h2 style="text-align: center;">${personal_account}</h2>
 				</legend>
 
 				<c:if test="${not empty sessionScope.user_id}">
@@ -43,7 +64,7 @@
 							<div class="col">
 								<a class="btn btn-lg btn-success"
 									href="${pageContext.request.contextPath}/Controller?command=show_userpage"
-									style="width: 100%;">Войти в кабинет</a>
+									style="width: 100%;">${login_account}</a>
 							</div>
 						</div>
 					</c:if>
@@ -63,7 +84,7 @@
 								<div class="col">
 									<a class="btn btn-lg btn-success"
 										href="${pageContext.request.contextPath}/Controller?command=show_addapplication_page"
-										style="width: 100%;">Перейти к заполнению кабинета</a>
+										style="width: 100%;">${filling_account}</a>
 								</div>
 							</div>
 						</c:if>
@@ -74,11 +95,10 @@
 				<c:if test="${empty sessionScope.user_id}">
 					<div class="row">
 						<div class="col">
-							<p>Если у Вас ещё нет личного кабинета абитуриента БГУА, то
-								Вам необходимо</p>
+							<p>${havent_account}</p>
 						</div>
 						<div class="col" style="border-left: 1px dotted lightgray;">
-							<p>Если Вы уже зарегистрировались, то можете</p>
+							<p>${have_account}</p>
 						</div>
 					</div>
 					<div class="row">
@@ -101,49 +121,23 @@
 		<div class="row">
 			<div class="col">
 
-				<h3 style="margin-top: 10px;">Белорусский государственный
-					университет Александра</h3>
+				<h3 style="margin-top: 10px;">${bsua}</h3>
 				<p style="font-size: medium; text-align: justify;">
-					БГУА - это крупный учебно-научно-инновационный комплекс, в
-					структуру которого входят <strong>10 факультетов</strong>, 38
-					кафедр, научно-исследовательская часть, Институт информационных
-					технологий (2 факультета и 3 кафедры). Университет осуществляет
-					подготовку специалистов по <strong>38 специальностям</strong>,
-					охватывающим все актуальные направления современной информатики,
-					радиоэлектроники и телекоммуникаций.
+					${info1}
 				</p>
 				<br />
 				<div class="row" id="img-content">
 					<p style="font-size: smaller; text-align: justify;"
 						class="col-sm-4">
-						<img src="resources/images/1.jpg" /> <br /> В вузе обучается
-						около <strong>17 тысяч студентов, магистрантов и
-							аспирантов</strong>, в том числе более 500 — из других стран. Ведется
-						подготовка иностранных и белорусских студентов на английском
-						языке. Активно развивается дистанционное обучение. Весь процесс
-						обучения ведется с использованием современных информационных
-						технологий, мультимедийной техники, электронных
-						учебно-методических комплексов. За годы работы университет
-						выпустил более 50 тысяч инженеров, которые успешно работают в
-						наиболее наукоемких отраслях экономики.
+						<img src="resources/images/1.jpg" /> <br /> ${info2}
 					</p>
 					<p style="font-size: smaller; text-align: justify;"
 						class="col-sm-4">
-						<img src="resources/images/3.jpg" /><br /> Научные школы БГУА
-						являются признанными лидерами отечественной и мировой науки в
-						области информатики и радиоэлектроники, что позволяет осуществлять
-						подготовку кадров высшей научной квалификации по <strong>
-							29 специальностям аспирантуры и 9 специальностям докторантуры </strong>,
-						успешно развивать фундаментальные и прикладные исследования. За
-						годы своего существования университет подготовил более 850
-						кандидатов наук и 90 докторов наук.
+						<img src="resources/images/3.jpg" /><br /> ${info3}
 					</p>
 					<p style="font-size: smaller; text-align: justify;"
 						class="col-sm-4">
-						<img src="resources/images/2.jpg" /><br /> БГУА располагает
-						современной лабораторной базой и учебно-научной инфраструктурой,
-						позволяющей проводить научные исследования по основным
-						направлениям университета.
+						<img src="resources/images/2.jpg" /><br /> ${info4}
 					</p>
 				</div>
 			</div>

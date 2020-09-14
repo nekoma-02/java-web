@@ -17,7 +17,23 @@
 <fmt:setBundle basename="local/local" var="loc" />
 
 
-<title>Index page</title>
+<fmt:message bundle="${loc}" key="local.specialty_info.faculty"
+	var="faculty" />
+	<fmt:message bundle="${loc}" key="local.specialty_info.type_study"
+	var="type_study" />
+	<fmt:message bundle="${loc}" key="local.specialty_info.plan"
+	var="plan" />
+	<fmt:message bundle="${loc}" key="local.specialty_info.year"
+	var="year" />
+	<fmt:message bundle="${loc}" key="local.specialty_info.specialty"
+	var="specialty" />
+	<fmt:message bundle="${loc}" key="local.specialty_info.more"
+	var="more" />
+	
+
+
+
+<title>Специальности</title>
 </head>
 <body>
 	<jsp:include page="../WEB-INF/jsp/part/header_nav.jsp"></jsp:include>
@@ -28,12 +44,12 @@
 				<caption>Список специальностей</caption>
 				<thead class="thead-dark">
 					<tr>
-						<th scope="col">Факультет</th>
-						<th scope="col">Форма обучения</th>
-						<th scope="col">План</th>
-						<th scope="col">Год</th>
-						<th scope="col">Специальность</th>
-						<th scope="col">Подробнее</th>
+						<th scope="col">${faculty}</th>
+						<th scope="col">${type_study}</th>
+						<th scope="col">${plan}</th>
+						<th scope="col">${year}</th>
+						<th scope="col">${specialty}</th>
+						<th scope="col">${more}</th>
 
 					</tr>
 				</thead>

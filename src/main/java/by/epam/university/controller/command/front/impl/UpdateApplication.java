@@ -20,9 +20,11 @@ import by.epam.university.controller.parameter.JSPPageName;
 import by.epam.university.controller.parameter.RequestParameterName;
 import by.epam.university.controller.parameter.SessionParameterName;
 import by.epam.university.entity.Application;
+import by.epam.university.entity.Faculty;
 import by.epam.university.entity.Privilege;
 import by.epam.university.entity.School;
 import by.epam.university.entity.Specialty;
+import by.epam.university.entity.TypeStudy;
 import by.epam.university.entity.User;
 import by.epam.university.service.ApplicationService;
 import by.epam.university.service.ServiceFactory;
@@ -92,6 +94,21 @@ private static Logger logger = LogManager.getLogger();
 				response.sendRedirect(request.getContextPath() + USER_PAGE); 
 				
 			} else {
+				
+				List<Faculty> faculties = appService.getAllFaculties();
+				List<TypeStudy> typesStudy = appService.getAllTypesStudy();
+				List<School> schools = appService.getAllSchools();
+				List<Privilege> privileges = appService.getAllPrivileges();
+				
+				request.setAttribute(RequestParameterName.SCHOOLS, schools);
+				
+				request.setAttribute(RequestParameterName.PRIVILEGES, privileges);
+				request.setAttribute(RequestParameterName.FACULTY, faculties);
+				request.setAttribute(RequestParameterName.TYPE_STUDY, typesStudy);
+				
+				request.setAttribute(RequestParameterName.USER_INFO, new User(idUser,name,secondName,lastName,email,gender,maritalStatus, placeOfBirth, Date.valueOf(dateOfBirth)));
+				request.setAttribute(RequestParameterName.APPLICATION, new Application(adres, Integer.parseInt(certificate), new Privilege(Integer.parseInt(idPrivilege)), new User(idUser), new School(Integer.parseInt(idSchool)), new Specialty(Integer.parseInt(idSpecialty)), false, typeDocument, idDocument, seriesPassport, Integer.parseInt(numberPassport), issuedBy, Date.valueOf(endStudyDate)));
+
 				
 				for (String item : validation) {
 					request.setAttribute(item.toLowerCase(), item);

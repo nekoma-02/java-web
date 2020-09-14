@@ -30,7 +30,28 @@
 	var="loc_invalid_last_name" />
 <fmt:message bundle="${loc}" key="local.invalid_message.invalid_email"
 	var="loc_invalid_email" />
-
+	
+	<fmt:message bundle="${loc}" key="local.registration_page.registration"
+	var="registration" />
+	<fmt:message bundle="${loc}" key="local.registration_page.registration_system"
+	var="registration_system" />
+	<fmt:message bundle="${loc}" key="local.personal_data.name"
+	var="name" />
+	<fmt:message bundle="${loc}" key="local.personal_data.login"
+	var="login" />
+	<fmt:message bundle="${loc}" key="local.personal_data.secondname"
+	var="secondname" />
+	<fmt:message bundle="${loc}" key="local.personal_data.lastname"
+	var="lastname" />
+	<fmt:message bundle="${loc}" key="local.personal_data.password"
+	var="password" />
+	<fmt:message bundle="${loc}" key="local.personal_data.email"
+	var="email" />
+	<fmt:message bundle="${loc}" key="local.personal_data.repeat_password"
+	var="repeat_password" />
+	
+	
+	
 <title>Регистрация</title>
 </head>
 <body>
@@ -40,7 +61,7 @@
 
 	<div>
 
-		<h2 style="margin-left: 10%;">Личный кабинет абитуриента БГУА</h2>
+		<h2 style="margin-left: 10%;">${personal_account}</h2>
 
 		<c:if test="${not empty message}">
 			<div class="alert alert-warning" role="alert" id="alert">
@@ -87,12 +108,12 @@
 		<form action="${pageContext.request.contextPath}/Controller"
 			method="post" class="registration-form">
 
-			<legend>Регистрация в системе</legend>
+			<legend>${registration_system}</legend>
 			<input type="hidden" name="command" value="registration"> <input
 				type="hidden" name="user_role" value="user">
 
 			<div class="form-group row">
-				<label for="formGroupExampleInput" class="col-sm-2 col-form-label">Логин</label>
+				<label for="formGroupExampleInput" class="col-sm-2 col-form-label">${login}</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" id="formGroupExampleInput"
 						placeholder="Введите логин" required name="login">
@@ -101,7 +122,7 @@
 			</div>
 
 			<div class="form-group row">
-				<label for="formGroupExampleInput" class="col-sm-2 col-form-label">Фамилия</label>
+				<label for="formGroupExampleInput" class="col-sm-2 col-form-label">${secondname}</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" id="formGroupExampleInput"
 						placeholder="Введите фамилию" required name="secondname"
@@ -111,7 +132,7 @@
 
 			<div class="form-group row">
 
-				<label for="formGroupExampleInput" class="col-sm-2 col-form-label">Имя</label>
+				<label for="formGroupExampleInput" class="col-sm-2 col-form-label">${name}</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" id="formGroupExampleInput"
 						placeholder="Введите имя" required name="name"
@@ -121,7 +142,7 @@
 
 			<div class="form-group row">
 
-				<label for="formGroupExampleInput" class="col-sm-2 col-form-label">Отчество</label>
+				<label for="formGroupExampleInput" class="col-sm-2 col-form-label">${lastname}</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" id="formGroupExampleInput"
 						placeholder="Введите отчество" required name="lastname"
@@ -131,8 +152,7 @@
 
 			<div class="form-group row">
 
-				<label for="exampleInputEmail1" class="col-sm-2 col-form-label">Почтовый
-					ящик</label>
+				<label for="exampleInputEmail1" class="col-sm-2 col-form-label">${email}</label>
 				<div class="col-sm-10">
 					<input type="email" class="form-control" id="exampleInputEmail1"
 						placeholder="Введите почтовый ящик" required name="email">
@@ -140,7 +160,7 @@
 			</div>
 
 			<div class="form-group row">
-				<label for="exampleInputPassword1" class="col-sm-2 col-form-label">Пароль</label>
+				<label for="exampleInputPassword1" class="col-sm-2 col-form-label">${password}</label>
 				<div class="col-sm-10">
 					<input type="password" class="form-control"
 						id="exampleInputPassword1" placeholder="Придумайте пароль"
@@ -149,8 +169,7 @@
 			</div>
 
 			<div class="form-group row">
-				<label for="exampleInputPassword1" class="col-sm-2 col-form-label">Подтверждение
-					пароля</label>
+				<label for="exampleInputPassword1" class="col-sm-2 col-form-label">${repeat_password}</label>
 				<div class="col-sm-10">
 					<input type="password" class="form-control"
 						id="exampleInputPassword1" placeholder="Подтвердите пароль"
@@ -158,7 +177,7 @@
 				</div>
 			</div>
 
-			<button type="submit" class="btn btn-primary">Регистрация</button>
+			<button type="submit" class="btn btn-primary">${registration}</button>
 
 		</form>
 

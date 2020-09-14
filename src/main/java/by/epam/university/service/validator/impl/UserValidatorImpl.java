@@ -10,8 +10,8 @@ import by.epam.university.service.validator.util.ValidatorParameters;
 
 public class UserValidatorImpl implements UserValidator {
 
-	private static final String LOGIN_PATTERN = "[a-zA-Z0-9-_]{5,15}$";
-	private static final String PASSWORD_PATTERN = "[a-zA-Z0-9_-]{6,18}$";
+	private static final String LOGIN_PATTERN = "^[A-Za-z0-9]{4,13}$";
+	private static final String PASSWORD_PATTERN = "^[A-Za-z0-9]{6,15}$";
 	private static final String NAME_PATTERN = "^([a-zA-Z-]|[à-ÿÀ-ß-]){2,25}$";
 	public static final String EMAIL_PATTERN = "^[-\\w.]+@([A-z0-9][-A-z0-9]+\\.)+[A-z]{2,4}$";
 

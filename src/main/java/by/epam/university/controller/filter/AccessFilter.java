@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import by.epam.university.controller.command.front.CommandName;
 import by.epam.university.controller.parameter.JSPPageName;
+import by.epam.university.controller.parameter.RequestParameterName;
 import by.epam.university.controller.parameter.SessionParameterName;
 import by.epam.university.entity.Role;
 
@@ -33,9 +35,12 @@ public class AccessFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
 		HttpSession session = req.getSession();
+		String command = req.getParameter(RequestParameterName.COMMAND);
+
+		
 		Role role = (Role) session.getAttribute(SessionParameterName.USER_ROLE);
-		if (role == null || role != Role.ADMIN) {
-			resp.sendRedirect(req.getContextPath()+ "/" + JSPPageName.INDEX_PAGE);
+		if ((role == null || role != Role.ADMIN) && command.equals(CommandName.ADMIN_PAGE.toString().toLowerCase())) {
+			req.getRequestDispatcher(JSPPageName.INDEX_PAGE).forward(req, resp);;
 		}
 		chain.doFilter(request, response);
 	}

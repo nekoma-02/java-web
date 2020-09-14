@@ -62,7 +62,6 @@ public class MailSender {
 			Transport.send(message);
 
 		} catch (MessagingException e) {
-			System.out.println(e.getMessage());
 			logger.log(Level.ERROR, e);
 			throw new ServiceException("Exception during mail sending", e);
 		}

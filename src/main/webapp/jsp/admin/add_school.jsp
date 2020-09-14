@@ -54,9 +54,9 @@
 					<form action="${pageContext.request.contextPath}/Controller"
 						method="post">
 						<input type="hidden" name="command" value="add_school">
-						<div class="container">
+						<div class="container-fluid">
 							<div class="row">
-								<div class="col">
+								<div class="col-sm-6">
 									<legend>1.Добавление учебного заведения</legend>
 									<div class="form-group">
 										<label for="input1" class="col-form-label">Номер

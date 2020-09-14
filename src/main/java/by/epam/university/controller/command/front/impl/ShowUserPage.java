@@ -82,7 +82,8 @@ public class ShowUserPage implements Command {
 				boolean isAccepted = adminService.getAcceptStudent(app.getId());
 
 				for (ExamMark examMark : examMarks) {
-					totalScore += examMark.getMark();
+					totalScore += examMark.getMark()*10;
+					
 				}
 				totalScore += app.getCertificate();
 

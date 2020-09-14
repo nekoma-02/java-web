@@ -16,49 +16,38 @@ import by.epam.university.controller.command.front.ForwardException;
 import by.epam.university.controller.parameter.JSPPageName;
 import by.epam.university.controller.parameter.RequestParameterName;
 import by.epam.university.controller.parameter.SessionParameterName;
+import by.epam.university.entity.TypeStudy;
 import by.epam.university.service.AdminService;
-import by.epam.university.service.ApplicationService;
 import by.epam.university.service.ServiceFactory;
 import by.epam.university.service.exception.ServiceException;
 
-public class AcceptStudent implements Command {
+public class UpdateTypeStudyPage implements Command{
 
 	private static Logger logger = LogManager.getLogger();
-
+	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		AdminService adminService = ServiceFactory.getInstance().getAdminService();
-		ApplicationService appService = ServiceFactory.getInstance().getApplicationService();
+		AdminService service = ServiceFactory.getInstance().getAdminService();
 		HttpSession session = request.getSession();
-
-		int idApplication = (Integer) session.getAttribute(SessionParameterName.APPLICATION_ID);
-		int totalScore = Integer.parseInt(request.getParameter(RequestParameterName.TOTAL_SCORE));
-		String accept = request.getParameter(RequestParameterName.ACCEPT);
-
-		boolean isAccept = false;
-
-		if (accept.equals("true")) {
-			isAccept = true;
-		} else {
-			isAccept = false;
-		}
-
+		String id =  request.getParameter(RequestParameterName.TYPE_STUDY_ID);
+		
 		try {
-			boolean isAccepted = adminService.acceptStudent(totalScore, isAccept, idApplication);
 			
-			if (isAccepted) {
-				int userId = appService.applicationById(idApplication).getUser().getId();
-				response.sendRedirect(request.getContextPath() + "/Controller?command=show_userpage&user_id=" + userId + "&application_id=" + idApplication);
-			} else {
-				request.setAttribute(RequestParameterName.RESULT_INFO, "ошибка подтверждения");
-				forwardTo(request, response, JSPPageName.USER_PAGE);
-			}
+			TypeStudy typeStudy = service.getTypeStudyById(Integer.parseInt(id));
+
+			request.setAttribute(RequestParameterName.TYPE_STUDY_ID, typeStudy.getId());
+			request.setAttribute(RequestParameterName.TYPE_STUDY_NAME, typeStudy.getTypeName());
+
+			session.setAttribute(SessionParameterName.QUERY_STRING, request.getQueryString());
+			forwardTo(request, response, JSPPageName.UPDATE_TYPE_STUDY);
 
 		} catch (ServiceException | ForwardException e) {
+
 			logger.log(Level.ERROR, e);
 			response.sendRedirect(JSPPageName.ERROR_PAGE);
-		}
 
+		}
+		
 	}
 
 }

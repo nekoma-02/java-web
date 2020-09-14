@@ -18,10 +18,18 @@ import by.epam.university.service.validator.impl.TypeStudyValidatorImpl;
 import by.epam.university.service.validator.impl.UserValidatorImpl;
 
 public class ValidatorFactory {
-	private static final ValidatorFactory instance = new ValidatorFactory();
-	
+	private static volatile ValidatorFactory instance;
+
 	public static ValidatorFactory getInstance() {
-		return instance;
+		ValidatorFactory localInstance = instance;
+		if (localInstance == null) {
+			synchronized (ValidatorFactory.class) {
+				if (localInstance == null) {
+					instance = localInstance = new ValidatorFactory();
+				}
+			}
+		}
+		return localInstance;
 	}
 	
 	public UserValidator getUserValidator() {

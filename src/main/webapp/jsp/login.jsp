@@ -17,6 +17,24 @@
 
 <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="local/local" var="loc" />
+<fmt:message bundle="${loc}" key="local.invalid_message.invalid_login"
+	var="loc_invalid_login" />
+<fmt:message bundle="${loc}"
+	key="local.invalid_message.invalid_password" var="loc_invalid_password" />
+	<fmt:message bundle="${loc}" key="local.personal_data.login"
+	var="login" />
+	<fmt:message bundle="${loc}" key="local.personal_data.password"
+	var="password" />
+	<fmt:message bundle="${loc}" key="local.login_page.enter_system"
+	var="enter_system" />
+	<fmt:message bundle="${loc}" key="local.login_page.access_text"
+	var="access_text" />
+	<fmt:message bundle="${loc}" key="local.index_page.personal_account"
+	var="personal_account" />
+	<fmt:message bundle="${loc}" key="local.generic_page.enter"
+	var="enter" />
+	
+	
 <title>Авторизация</title>
 </head>
 <body>
@@ -25,7 +43,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<h2 style="margin-left: 10%;">Личный кабинет абитуриента БГУА</h2>
+				<h2 style="margin-left: 10%;">${personal_account}</h2>
 
 				<c:if test="${not empty message }">
 					<div class="alert alert-warning" role="alert" id="alert">
@@ -34,35 +52,33 @@
 				</c:if>
 				<c:if test="${not empty invalid_login }">
 					<div class="alert alert-warning" role="alert" id="alert">
-						<c:out value="${invalid_login}"></c:out>
+						<c:out value="${loc_invalid_login}"></c:out>
 					</div>
 				</c:if>
 				<c:if test="${not empty invalid_password }">
 					<div class="alert alert-warning" role="alert" id="alert">
-						<c:out value="${invalid_password}"></c:out>
+						<c:out value="${loc_invalid_password}"></c:out>
 					</div>
 				</c:if>
 
 				<form action="${pageContext.request.contextPath}/Controller"
 					method="post" class="authorization_form">
 					<input type="hidden" name="command" value="sign_in">
-					<legend>Вход в систему</legend>
+					<legend>${enter_system}</legend>
 
-					<label>Чтобы получить доступ к вашему личному кабинету,
-						пожалуйста, введите логин и текущий пароль. <br /> Обратите
-						внимание, что пароль чувствителен к регистру.
+					<label>${access_text}
 					</label>
 					<div class="form-group">
-						<label for="formGroupExampleInput">Логин</label> <input
+						<label for="formGroupExampleInput">${login}</label> <input
 							type="text" class="form-control" id="formGroupExampleInput"
 							placeholder="Введите логин" required name="login">
 					</div>
 					<div class="form-group">
-						<label for="exampleInputPassword1">Пароль</label> <input
+						<label for="exampleInputPassword1">${password}</label> <input
 							type="password" class="form-control" id="exampleInputPassword1"
 							placeholder="Введите пароль" required name="password">
 					</div>
-					<button type="submit" class="btn btn-primary">Войти</button>
+					<button type="submit" class="btn btn-primary">${enter}</button>
 
 				</form>
 			</div>

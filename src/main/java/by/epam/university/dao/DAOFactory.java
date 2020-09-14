@@ -8,10 +8,18 @@ import by.epam.university.dao.impl.UserDAOImpl;
 
 public class DAOFactory {
 
-	private static final DAOFactory instance = new DAOFactory();
-	
+	private static volatile DAOFactory instance;
+
 	public static DAOFactory getInstance() {
-		return instance;
+		DAOFactory localInstance = instance;
+		if (localInstance == null) {
+			synchronized (DAOFactory.class) {
+				if (localInstance == null) {
+					instance = localInstance = new DAOFactory();
+				}
+			}
+		}
+		return localInstance;
 	}
 	
 	public SQLUserDao getUserDAO() {

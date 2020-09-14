@@ -22,6 +22,103 @@
 <fmt:setBundle basename="local/local" var="loc" />
 
 
+<fmt:message bundle="${loc}" key="local.Invalid_message.Invalid_login"
+	var="inv_login" />
+	<fmt:message bundle="${loc}" key="local.Invalid_message.Invalid_password"
+	var="inv_password" />
+	<fmt:message bundle="${loc}" key="local.Invalid_message.Invalid_first_name"
+	var="inv_first_name" />
+	<fmt:message bundle="${loc}" key="local.Invalid_message.Invalid_second_name"
+	var="inv_second_name" />
+	<fmt:message bundle="${loc}" key="local.Invalid_message.Invalid_last_name"
+	var="inv_last_name" />
+	<fmt:message bundle="${loc}" key="local.Invalid_message.Invalid_email"
+	var="inv_email" />
+	<fmt:message bundle="${loc}" key="local.Invalid_message.Invalid_series"
+	var="inv_series" />
+	<fmt:message bundle="${loc}" key="local.Invalid_message.Invalid_id_document"
+	var="inv_id_document" />
+	<fmt:message bundle="${loc}" key="local.Invalid_message.Invalid_gender"
+	var="inv_gender" />
+	<fmt:message bundle="${loc}" key="local.Invalid_message.Invalid_date_birth"
+	var="inv_date_birth" />
+	<fmt:message bundle="${loc}" key="local.Invalid_message.Invalid_family_status"
+	var="inv_family_status" />
+	<fmt:message bundle="${loc}" key="local.Invalid_message.Invalid_type_document"
+	var="inv_type_document" />
+	<fmt:message bundle="${loc}" key="local.Invalid_message.Invalid_number_passport"
+	var="inv_number_passport" />
+	<fmt:message bundle="${loc}" key="local.Invalid_message.Invalid_issued_by"
+	var="inv_issued_by" />
+	<fmt:message bundle="${loc}" key="local.Invalid_message.Invalid_school"
+	var="inv_school" />
+	<fmt:message bundle="${loc}" key="local.Invalid_message.Invalid_end_study"
+	var="inv_end_study" />
+	<fmt:message bundle="${loc}" key="local.Invalid_message.Invalid_certificate"
+	var="inv_certificate" />
+	<fmt:message bundle="${loc}" key="local.Invalid_message.Invalid_place_birth"
+	var="inv_place_birth" />
+	<fmt:message bundle="${loc}" key="local.Invalid_message.Invalid_faculty_name"
+	var="inv_faculty_name" />
+	<fmt:message bundle="${loc}" key="local.Invalid_message.Invalid_type_name"
+	var="inv_type_name" />
+	<fmt:message bundle="${loc}" key="local.Invalid_message.Invalid_specialty"
+	var="inv_specialty" />
+	<fmt:message bundle="${loc}" key="local.Invalid_message.Invalid_privilege"
+	var="inv_privilege" />
+
+	
+
+
+
+<fmt:message bundle="${loc}" key="local.personal_data.name"
+	var="name" />
+	<fmt:message bundle="${loc}" key="local.personal_data.login"
+	var="login" />
+	<fmt:message bundle="${loc}" key="local.personal_data.secondname"
+	var="secondname" />
+	<fmt:message bundle="${loc}" key="local.personal_data.lastname"
+	var="lastname" />
+	<fmt:message bundle="${loc}" key="local.personal_data.password"
+	var="password" />
+	<fmt:message bundle="${loc}" key="local.personal_data.email"
+	var="email" />
+	<fmt:message bundle="${loc}" key="local.personal_data.gender"
+	var="gender" />
+	<fmt:message bundle="${loc}" key="local.personal_data.date_birthday"
+	var="date_birthday" />
+	<fmt:message bundle="${loc}" key="local.personal_data.family_status"
+	var="family_status" />
+	<fmt:message bundle="${loc}" key="local.personal_data.type_document"
+	var="type_document" />
+	<fmt:message bundle="${loc}" key="local.personal_data.id_number"
+	var="id_number" />
+	<fmt:message bundle="${loc}" key="local.personal_data.series"
+	var="series" />
+	<fmt:message bundle="${loc}" key="local.personal_data.number"
+	var="number" />
+	<fmt:message bundle="${loc}" key="local.personal_data.issued_by"
+	var="issued_by" />
+	<fmt:message bundle="${loc}" key="local.personal_data.school"
+	var="school" />
+	<fmt:message bundle="${loc}" key="local.personal_data.end_study"
+	var="end_study" />
+	<fmt:message bundle="${loc}" key="local.personal_data.certificate"
+	var="certificate" />
+	<fmt:message bundle="${loc}" key="local.personal_data.adress"
+	var="adress" />
+	<fmt:message bundle="${loc}" key="local.personal_data.place_birth"
+	var="place_birth" />
+	<fmt:message bundle="${loc}" key="local.personal_data.faculty"
+	var="faculty_loc" />
+	<fmt:message bundle="${loc}" key="local.personal_data.type_sudy"
+	var="type_sudy_loc" />
+	<fmt:message bundle="${loc}" key="local.personal_data.specialty"
+	var="specialty" />
+	<fmt:message bundle="${loc}" key="local.personal_data.privilege"
+	var="privilege" />
+
+
 <title>Анкета</title>
 </head>
 <body>
@@ -47,52 +144,51 @@
 					<div class="col">
 						<legend>1.ФИО</legend>
 						<div class="form-group">
-							<label for="input1" class="col-form-label">Фамилия:</label> <input
+							<label for="input1" class="col-form-label">${secondname}:</label> <input
 								type="text" class="form-control" id="input1" name="secondname"
 								aria-describedby="inputMutedtext"
 								value="${requestScope.user_info.secondName}">
 							<c:if test="${not empty invalid_second_name}">
 								<small id="inputMutedtext" class="form-text text-muted">
-									<c:out value="${invalid_second_name}"></c:out>
+									<c:out value="${inv_second_name}"></c:out>
 								</small>
 							</c:if>
 						</div>
 						<div class="form-group">
-							<label for="input1" class=" col-form-label">Имя:</label> <input
+							<label for="input1" class=" col-form-label">${name}:</label> <input
 								type="text" class="form-control" id="input1" required
 								name="name" aria-describedby="inputMutedtext"
 								value="${requestScope.user_info.name}">
 							<c:if test="${not empty invalid_first_name}">
 								<small id="inputMutedtext" class="form-text text-muted">
-									<c:out value="${invalid_first_name}"></c:out>
+									<c:out value="${inv_first_name}"></c:out>
 								</small>
 							</c:if>
 						</div>
 						<div class="form-group">
-							<label for="input1" class=" col-form-label">Отчество:</label> <input
+							<label for="input1" class=" col-form-label">${lastname}:</label> <input
 								type="text" class="form-control" id="input1" required
 								name="lastname" aria-describedby="inputMutedtext"
 								value="${requestScope.user_info.lastName}">
 							<c:if test="${not empty invalid_last_name}">
 								<small id="inputMutedtext" class="form-text text-muted">
-									<c:out value="${invalid_last_name}"></c:out>
+									<c:out value="${inv_last_name}"></c:out>
 								</small>
 							</c:if>
 						</div>
 						<div class="form-group">
-							<label for="inputDate" class=" col-form-label">Дата
-								рождения:</label> <input type="date" class="form-control" id="inputDate"
+							<label for="inputDate" class=" col-form-label">${date_birthday}:</label> <input type="date" class="form-control" id="inputDate"
 								required name="date_of_birth" aria-describedby="inputMutedtext"
 								value="${requestScope.user_info.dateOfBirth}">
 							<c:if test="${not empty invalid_date_of_birth}">
 								<small id="inputMutedtext" class="form-text text-muted">
-									<c:out value="${nvalid_date_of_birth}"></c:out>
+									<c:out value="${inv_date_birth}"></c:out>
 								</small>
 							</c:if>
 
 						</div>
 						<div class="form-group">
-							<label class=" col-form-label" for="inlineFormCustomSelect">Пол:</label>
+							<label class=" col-form-label" for="inlineFormCustomSelect">${gender}:</label>
 
 							<select class="custom-select mr-sm-2" id="inlineFormCustomSelect"
 								required name="gender" aria-describedby="inputMutedtext">
@@ -113,14 +209,14 @@
 							</select>
 							<c:if test="${not empty invalid_gender}">
 								<small id="inputMutedtext" class="form-text text-muted">
-									<c:out value="${invalid_gender}"></c:out>
+									<c:out value="${inv_gender}"></c:out>
 								</small>
 							</c:if>
 
 						</div>
 						<div class="form-group">
 							<label class="col-sm-5 col-form-label"
-								for="inlineFormCustomSelect">Семейное положение:</label> <select
+								for="inlineFormCustomSelect">${family_status}:</label> <select
 								class="form-control" id="inlineFormCustomSelect" required
 								name="marital_status" aria-describedby="inputMutedtext">
 								<c:choose>
@@ -144,7 +240,7 @@
 							</select>
 							<c:if test="${not empty invalid_marital_status}">
 								<small id="inputMutedtext" class="form-text text-muted">
-									<c:out value="${invalid_marital_status}"></c:out>
+									<c:out value="${inv_family_status}"></c:out>
 								</small>
 							</c:if>
 
@@ -154,7 +250,7 @@
 						<legend>2.Документ удостоверяющий личность</legend>
 						<div class="form-group">
 							<label class=" col-form-label text-right"
-								for="inlineFormCustomSelect">Тип документа:</label> <select
+								for="inlineFormCustomSelect">${type_document}:</label> <select
 								class="custom-select mr-sm-2" id="inlineFormCustomSelect"
 								required name="type_document" aria-describedby="inputMutedtext">
 								<option selected value="Паспорт гражданина РБ">Паспорт
@@ -162,52 +258,52 @@
 							</select>
 							<c:if test="${not empty invalid_type_document}">
 								<small id="inputMutedtext" class="form-text text-muted">
-									<c:out value="${invalid_type_document}"></c:out>
+									<c:out value="${inv_type_document}"></c:out>
 								</small>
 							</c:if>
 
 						</div>
 						<div class="form-group">
-							<label for="input1" class=" col-form-label">Ид. номер:</label> <input
+							<label for="input1" class=" col-form-label">${id_number}:</label> <input
 								type="text" class="form-control" id="input1" required
 								name="id_document" aria-describedby="inputMutedtext"
 								value="${requestScope.application.idDocument}">
 							<c:if test="${not empty invalid_id_document}">
 								<small id="inputMutedtext" class="form-text text-muted">
-									<c:out value="${invalid_id_document}"></c:out>
+									<c:out value="${inv_id_document}"></c:out>
 								</small>
 							</c:if>
 						</div>
 						<div class="form-group">
-							<label for="input1" class=" col-form-label">Серия:</label> <input
+							<label for="input1" class=" col-form-label">${series}:</label> <input
 								type="text" class="form-control" id="input1" required
 								name="series_passport" aria-describedby="inputMutedtext"
 								value="${requestScope.application.seriesPassport}">
 							<c:if test="${not empty invalid_series_passport}">
 								<small id="inputMutedtext" class="form-text text-muted">
-									<c:out value="${invalid_series_passport}"></c:out>
+									<c:out value="${inv_series}"></c:out>
 								</small>
 							</c:if>
 						</div>
 						<div class="form-group">
-							<label for="input1" class=" col-form-label">Номер:</label> <input
+							<label for="input1" class=" col-form-label">${number}:</label> <input
 								type="text" class="form-control" id="input1" required
 								name="number_passport" aria-describedby="inputMutedtext"
 								value="${requestScope.application.numberPassport}">
 							<c:if test="${not empty invalid_number_passport}">
 								<small id="inputMutedtext" class="form-text text-muted">
-									<c:out value="${invalid_number_passport}"></c:out>
+									<c:out value="${inv_number_passport}"></c:out>
 								</small>
 							</c:if>
 						</div>
 						<div class="form-group">
-							<label for="input1" class=" col-form-label">Кем выдан:</label> <input
+							<label for="input1" class=" col-form-label">${issued_by}:</label> <input
 								type="text" class="form-control" id="input1" required
 								name="issued_by" aria-describedby="inputMutedtext"
 								value="${requestScope.application.issuedBy}">
 							<c:if test="${not empty invalid_issued_by}">
 								<small id="inputMutedtext" class="form-text text-muted">
-									<c:out value="${invalid_issued_by}"></c:out>
+									<c:out value="${inv_issued_by}"></c:out>
 								</small>
 							</c:if>
 						</div>
@@ -217,8 +313,7 @@
 					<div class="col">
 						<legend>3.Образование</legend>
 						<div class="form-group">
-							<label class=" col-form-label" for="inlineFormCustomSelect">Учебное
-								учреждение:</label> <select class="form-control"
+							<label class=" col-form-label" for="inlineFormCustomSelect">${school}:</label> <select class="form-control"
 								id="inlineFormCustomSelect" required name="school">
 								<option value="${requestScope.school.id}" selected>${requestScope.school.name}</option>
 								<c:forEach items="${requestScope.schools}" var="item">
@@ -227,30 +322,29 @@
 							</select>
 							<c:if test="${not empty invalid_school}">
 								<small id="inputMutedtext" class="form-text text-muted">
-									<c:out value="${invalid_school}"></c:out>
+									<c:out value="${inv_school}"></c:out>
 								</small>
 							</c:if>
 						</div>
 						<div class="form-group">
-							<label for="inputDate" class=" col-form-label">Дата
-								окончания:</label> <input type="date" class="form-control"
+							<label for="inputDate" class=" col-form-label">${end_study}:</label> <input type="date" class="form-control"
 								id="inputDate" required name="end_study_date"
 								aria-describedby="inputMutedtext"
 								value="${requestScope.application.endStudyDate}">
 							<c:if test="${not empty invalid_end_study_date}">
 								<small id="inputMutedtext" class="form-text text-muted">
-									<c:out value="${invalid_end_study_date}"></c:out>
+									<c:out value="${inv_end_study}"></c:out>
 								</small>
 							</c:if>
 						</div>
 						<div class="form-group">
-							<label for="input1" class=" col-form-label">Ср. балл:</label> <input
+							<label for="input1" class=" col-form-label">${certificate}:</label> <input
 								type="text" class="form-control" id="input1" required
 								name="certificate" aria-describedby="inputMutedtext"
 								value="${requestScope.application.certificate}">
 							<c:if test="${not empty invalid_certificate}">
 								<small id="inputMutedtext" class="form-text text-muted">
-									<c:out value="${invalid_certificate}"></c:out>
+									<c:out value="${inv_certificate}"></c:out>
 								</small>
 							</c:if>
 						</div>
@@ -258,24 +352,23 @@
 					<div class="col">
 						<legend>4.Адрес</legend>
 						<div class="form-group">
-							<label for="input1" class=" col-form-label">Адрес:</label> <input
+							<label for="input1" class=" col-form-label">${adress}:</label> <input
 								type="text" class="form-control" id="input1" required
 								name="adres" aria-describedby="inputMutedtext"
 								value="${requestScope.application.adress}">
 							<c:if test="${not empty invalid_adress}">
 								<small id="inputMutedtext" class="form-text text-muted">
-									<c:out value="${invalid_adress}"></c:out>
+									<c:out value="${inv_adress}"></c:out>
 								</small>
 							</c:if>
 						</div>
 						<div class="form-group">
-							<label for="input1" class=" col-form-label">Место
-								рождения:</label> <input type="text" class="form-control" id="input1"
+							<label for="input1" class=" col-form-label">${place_birth}:</label> <input type="text" class="form-control" id="input1"
 								required name="place_of_birth" aria-describedby="inputMutedtext"
 								value="${requestScope.user_info.placeOfBirth}">
 							<c:if test="${not empty invalid_place_of_birth}">
 								<small id="inputMutedtext" class="form-text text-muted">
-									<c:out value="${invalid_place_of_birth}"></c:out>
+									<c:out value="${inv_place_birth}"></c:out>
 								</small>
 							</c:if>
 						</div>
@@ -285,8 +378,7 @@
 					<div class="col">
 						<legend>5.Специальность</legend>
 						<div class="form-group">
-							<label class=" col-form-label" for="faculty_list">Выберете
-								факультет:</label> <select class="form-control" id="faculty_list"
+							<label class=" col-form-label" for="faculty_list">${faculty_loc}:</label> <select class="form-control" id="faculty_list"
 								required name="faculty" aria-describedby="inputMutedtext">
 								<option value="${requestScope.specialty.faculty.id}" selected>${requestScope.specialty.faculty.name}</option>
 								<c:forEach items="${requestScope.faculty}" var="item">
@@ -295,14 +387,13 @@
 							</select>
 							<c:if test="${not empty invalid_faculty_name}">
 								<small id="inputMutedtext" class="form-text text-muted">
-									<c:out value="${invalid_faculty_name}"></c:out>
+									<c:out value="${inv_faculty_name}"></c:out>
 								</small>
 							</c:if>
 						</div>
 
 						<div class="form-group">
-							<label class=" col-form-label" for="type_study_list">Выберете
-								тип обучения:</label> <select class="form-control" id="type_study_list"
+							<label class=" col-form-label" for="type_study_list">${type_sudy_loc}:</label> <select class="form-control" id="type_study_list"
 								required name="type_study" aria-describedby="inputMutedtext">
 								<option value="${requestScope.specialty.typeStudy.id}" selected>${requestScope.specialty.typeStudy.typeName}</option>
 								<c:forEach items="${requestScope.type_study}" var="item">
@@ -311,20 +402,19 @@
 							</select>
 							<c:if test="${not empty invalid_type_name}">
 								<small id="inputMutedtext" class="form-text text-muted">
-									<c:out value="${invalid_type_name}"></c:out>
+									<c:out value="${inv_type_name}"></c:out>
 								</small>
 							</c:if>
 						</div>
 						<div class="form-group">
-							<label class=" col-form-label" for="specialty_list">Выберете
-								специальность:</label> <select class="form-control specialties"
+							<label class=" col-form-label" for="specialty_list">${specialty}:</label> <select class="form-control specialties"
 								id="specialty_list" required name="specialty"
 								aria-describedby="inputMutedtext">
 								<option value="${requestScope.specialty.id}">${requestScope.specialty.name}</option>
 							</select>
 							<c:if test="${not empty invalid_specialty}">
 								<small id="inputMutedtext" class="form-text text-muted">
-									<c:out value="${invalid_specialty}"></c:out>
+									<c:out value="${inv_specialty}"></c:out>
 								</small>
 							</c:if>
 						</div>
@@ -332,18 +422,17 @@
 					<div class="col">
 						<legend>6.Прочее</legend>
 						<div class="form-group">
-							<label for="input1" class=" col-form-label">Почтовый
-								ящик:</label> <input type="text" class="form-control" id="input1"
+							<label for="input1" class=" col-form-label">${email}:</label> <input type="text" class="form-control" id="input1"
 								required name="email" aria-describedby="inputMutedtext"
 								value="${requestScope.user_info.email}">
 							<c:if test="${not empty invalid_email}">
 								<small id="inputMutedtext" class="form-text text-muted">
-									<c:out value="${invalid_email}"></c:out>
+									<c:out value="${inv_email}"></c:out>
 								</small>
 							</c:if>
 						</div>
 						<div class="form-group">
-							<label class=" col-form-label" for="inlineFormCustomSelect">Привилегия:</label>
+							<label class=" col-form-label" for="inlineFormCustomSelect">${privilege}:</label>
 
 							<select class="form-control" id="inlineFormCustomSelect" required
 								name="privilege" aria-describedby="inputMutedtext">
@@ -354,7 +443,7 @@
 							</select>
 							<c:if test="${not empty invalid_privilege}">
 								<small id="inputMutedtext" class="form-text text-muted">
-									<c:out value="${invalid_privilege}"></c:out>
+									<c:out value="${inv_privilege}"></c:out>
 								</small>
 							</c:if>
 						</div>
