@@ -70,7 +70,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public boolean insertFaculty(Faculty faculty) throws ServiceException, FacultyExistsException {
 		SQLSpecialtyDao dao = DAOFactory.getInstance().getSpecialtyDAO();
-		
+
 		FacultyValidator validator = ValidatorFactory.getInstance().getFacultyValidator();
 
 		try {
@@ -78,7 +78,7 @@ public class AdminServiceImpl implements AdminService {
 			if (faculty.equals(temp)) {
 				throw new FacultyExistsException("that faculty already exists!");
 			}
-			
+
 			boolean isValid = validator.validateFaculty(faculty);
 			if (isValid) {
 				return false;
@@ -100,7 +100,7 @@ public class AdminServiceImpl implements AdminService {
 			if (typeStudy.equals(temp)) {
 				throw new TypeStudyExistsException("that type study already exists!");
 			}
-			
+
 			boolean isValid = validator.validateTypeStudy(typeStudy);
 			if (isValid) {
 				return false;
@@ -122,7 +122,7 @@ public class AdminServiceImpl implements AdminService {
 			if (school.equals(temp)) {
 				throw new SchoolExistsException("that school already exists!");
 			}
-			
+
 			boolean isValid = validator.validateSchool(school);
 			if (isValid) {
 				return false;
@@ -139,12 +139,12 @@ public class AdminServiceImpl implements AdminService {
 		PrivilegeValidator validator = ValidatorFactory.getInstance().getPrivilegeValidator();
 
 		try {
-			
+
 			Privilege temp = dao.getById(privilege.getId());
 			if (privilege.equals(temp)) {
 				throw new PrivilegeExistsException("that privilege already exists!");
 			}
-			
+
 			boolean isValid = validator.validatePrivilege(privilege);
 			if (isValid) {
 				return false;
@@ -166,7 +166,7 @@ public class AdminServiceImpl implements AdminService {
 			if (faculty.equals(temp)) {
 				throw new FacultyExistsException("that faculty already exists!");
 			}
-			
+
 			boolean isValid = validator.validateFaculty(faculty);
 			if (isValid) {
 				return false;
@@ -188,8 +188,7 @@ public class AdminServiceImpl implements AdminService {
 			if (typeStudy.equals(temp)) {
 				throw new TypeStudyExistsException("that type study already exists!");
 			}
-			
-			
+
 			boolean isValid = validator.validateTypeStudy(typeStudy);
 			if (isValid) {
 				return false;
@@ -211,7 +210,7 @@ public class AdminServiceImpl implements AdminService {
 			if (school.equals(temp)) {
 				throw new SchoolExistsException("that school already exists!");
 			}
-			
+
 			boolean isValid = validator.validateSchool(school);
 			if (isValid) {
 				return false;
@@ -232,7 +231,7 @@ public class AdminServiceImpl implements AdminService {
 			if (privilege.equals(temp)) {
 				throw new PrivilegeExistsException("that privilege already exists!");
 			}
-			
+
 			boolean isValid = validator.validatePrivilege(privilege);
 			if (isValid) {
 				return false;
@@ -276,8 +275,7 @@ public class AdminServiceImpl implements AdminService {
 			if (specialty.equals(temp)) {
 				throw new SpecialtyExistsException("that specialty already exists!");
 			}
-			
-			
+
 			boolean isValid = validator.validateSpecialty(specialty);
 			if (isValid) {
 				return false;
@@ -294,12 +292,12 @@ public class AdminServiceImpl implements AdminService {
 		SpecialtyValidator validator = ValidatorFactory.getInstance().getSpecialtyValidator();
 
 		try {
-			
+
 			Specialty temp = dao.getSpecialtyById(specialty.getId());
 			if (specialty.equals(temp)) {
 				throw new SpecialtyExistsException("that specialty already exists!");
 			}
-			
+
 			boolean isValid = validator.validateSpecialty(specialty);
 			if (isValid) {
 				return false;
@@ -399,17 +397,17 @@ public class AdminServiceImpl implements AdminService {
 		SQLSpecialtyDao dao = DAOFactory.getInstance().getSpecialtyDAO();
 		SubjectValidator validator = ValidatorFactory.getInstance().getSubjectValidator();
 		try {
-			
+
 			boolean isValid = validator.validateSubject(subject);
 			if (isValid) {
 				return false;
 			}
-			
+
 			Subject temp = dao.getSubjectById(subject.getId());
 			if (subject.equals(temp)) {
 				throw new SubjectExistsException("such subject already exists");
 			}
-			
+
 			return dao.updateSubject(subject);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
@@ -422,17 +420,17 @@ public class AdminServiceImpl implements AdminService {
 
 		SubjectValidator validator = ValidatorFactory.getInstance().getSubjectValidator();
 		try {
-			
+
 			boolean isValid = validator.validateSubject(subject);
 			if (isValid) {
 				return false;
 			}
-			
+
 			Subject temp = dao.getSubjectById(subject.getId());
 			if (subject.equals(temp)) {
 				throw new SubjectExistsException("such subject already exists");
 			}
-			
+
 			return dao.addSubject(subject);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
@@ -444,9 +442,7 @@ public class AdminServiceImpl implements AdminService {
 		SQLSpecialtyDao dao = DAOFactory.getInstance().getSpecialtyDAO();
 
 		try {
-			
-			
-			
+
 			return dao.addSubjectBySpecialty(idSpecialty, idSubject);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
@@ -498,7 +494,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public boolean insertSpecialtyAndSubject(Specialty specialty, int... idSubject) throws ServiceException, SpecialtyExistsException {
+	public boolean insertSpecialtyAndSubject(Specialty specialty, int... idSubject)
+			throws ServiceException, SpecialtyExistsException {
 		SQLSpecialtyDao dao = DAOFactory.getInstance().getSpecialtyDAO();
 
 		SpecialtyValidator validator = ValidatorFactory.getInstance().getSpecialtyValidator();
@@ -508,15 +505,14 @@ public class AdminServiceImpl implements AdminService {
 			if (specialty.equals(temp)) {
 				throw new SpecialtyExistsException("that specialty already exists!");
 			}
-			
-			
+
 			boolean isValid = validator.validateSpecialty(specialty);
 			if (isValid) {
 				return false;
 			}
-			
+
 			dao.insertSpecialtyAndSubject(specialty, idSubject);
-			
+
 			return true;
 		} catch (DAOException e) {
 			throw new ServiceException(e);
@@ -524,7 +520,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public boolean updateSpecialtyAndSubject(Specialty specialty, int... idSubject) throws ServiceException, SpecialtyExistsException {
+	public boolean updateSpecialtyAndSubject(Specialty specialty, int... idSubject)
+			throws ServiceException, SpecialtyExistsException {
 		SQLSpecialtyDao dao = DAOFactory.getInstance().getSpecialtyDAO();
 
 		SpecialtyValidator validator = ValidatorFactory.getInstance().getSpecialtyValidator();
@@ -534,15 +531,14 @@ public class AdminServiceImpl implements AdminService {
 			if (specialty.equals(temp)) {
 				throw new SpecialtyExistsException("that specialty already exists!");
 			}
-			
-			
+
 			boolean isValid = validator.validateSpecialty(specialty);
 			if (isValid) {
 				return false;
 			}
-			
+
 			dao.updateSpecialtyAndSubject(specialty, idSubject);
-			
+
 			return true;
 		} catch (DAOException e) {
 			throw new ServiceException(e);
@@ -591,7 +587,73 @@ public class AdminServiceImpl implements AdminService {
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
+
+	}
+
+	@Override
+	public boolean removeSpecialty(int idSpecialty) throws ServiceException {
+		SQLSpecialtyDao dao = DAOFactory.getInstance().getSpecialtyDAO();
+
+		try {
+			return dao.remove(idSpecialty);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public boolean removeSchool(int idSchool) throws ServiceException {
+		SQLSchoolDao dao = DAOFactory.getInstance().getSchoolDAO();
 		
+		try {
+			return dao.remove(idSchool);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public boolean removePrivilege(int idPrivilege) throws ServiceException {
+		SQLPrivilegeDao dao = DAOFactory.getInstance().getPrivilegeDAO();
+		
+		try {
+			return dao.remove(idPrivilege);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public boolean removeFaculty(int idFaculty) throws ServiceException {
+		SQLSpecialtyDao dao = DAOFactory.getInstance().getSpecialtyDAO();
+
+		try {
+			return dao.removeFaculty(idFaculty);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public boolean removeTypeStudy(int idTypeStudy) throws ServiceException {
+		SQLSpecialtyDao dao = DAOFactory.getInstance().getSpecialtyDAO();
+
+		try {
+			return dao.removeTypeStudy(idTypeStudy);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public boolean removeSubject(int idSubject) throws ServiceException {
+		SQLSpecialtyDao dao = DAOFactory.getInstance().getSpecialtyDAO();
+
+		try {
+			return dao.removeSubject(idSubject);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
 	}
 
 }

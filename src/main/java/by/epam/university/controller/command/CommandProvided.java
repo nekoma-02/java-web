@@ -27,6 +27,12 @@ import by.epam.university.controller.command.front.impl.ChangeLocal;
 import by.epam.university.controller.command.front.impl.ConfirmAccount;
 import by.epam.university.controller.command.front.impl.NoSuchCommand;
 import by.epam.university.controller.command.front.impl.Registration;
+import by.epam.university.controller.command.front.impl.RemoveFaculty;
+import by.epam.university.controller.command.front.impl.RemovePrivilege;
+import by.epam.university.controller.command.front.impl.RemoveSchool;
+import by.epam.university.controller.command.front.impl.RemoveSpecialty;
+import by.epam.university.controller.command.front.impl.RemoveSubject;
+import by.epam.university.controller.command.front.impl.RemoveTypeStudy;
 import by.epam.university.controller.command.front.impl.ShowAddApplicationPage;
 import by.epam.university.controller.command.front.impl.ShowAddSpecialtyPage;
 import by.epam.university.controller.command.front.impl.ShowSpecialty;
@@ -95,6 +101,13 @@ public class CommandProvided {
 		commands.put(CommandName.UPDATE_APPLICATION, new UpdateApplication());
 		commands.put(CommandName.APPLICATIONS_SPECIALTY, new SpecialtyApplications());
 		commands.put(CommandName.ACCEPT_STUDENT, new AcceptStudent());
+		commands.put(CommandName.NO_SUCH_COMMAND, new NoSuchCommand());
+		commands.put(CommandName.REMOVE_FACULTY, new RemoveFaculty());
+		commands.put(CommandName.REMOVE_PRIVILEGE, new RemovePrivilege());
+		commands.put(CommandName.REMOVE_SPECIALTY, new RemoveSpecialty());
+		commands.put(CommandName.REMOVE_SUBJECT, new RemoveSubject());
+		commands.put(CommandName.REMOVE_TYPE_STUDY, new RemoveTypeStudy());
+		commands.put(CommandName.REMOVE_SCHOOL, new RemoveSchool());
 		commands.put(CommandName.NO_SUCH_COMMAND, new NoSuchCommand());
 		
 		ajaxRepository.put(AjaxCommandName.GET_SPECIALTY, new GetSpecialty());

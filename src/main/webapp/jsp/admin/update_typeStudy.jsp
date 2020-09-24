@@ -49,7 +49,7 @@
 						<input type="hidden" name="command" value="update_type_study">
 						<input type="hidden" name="type_study_id"
 							value="${requestScope.type_study_id}">
-						<div class="container">
+						<div class="container-fluid">
 							<div class="row">
 								<div class="col">
 									<legend>1.Изменение формы обучения</legend>
@@ -67,6 +67,19 @@
 								</div>
 							</div>
 						</div>
+					</form>
+					<form action="${pageContext.request.contextPath}/Controller"
+						method="post">
+						<input type="hidden" name="command" value="remove_type_study">
+						<input type="hidden" name="type_study_id"
+							value="${requestScope.type_study_id}">
+							<div class="container-fluid">
+							<div class="row">
+								<div class="col-sm-6">
+									<button type="submit" class="btn btn-primary btn-block">Удалить</button>
+								</div>
+							</div>
+							</div>
 					</form>
 				</div>
 			</div>

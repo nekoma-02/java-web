@@ -46,7 +46,7 @@
 						<input type="hidden" name="command" value="update_privilege">
 						<input type="hidden" name="privilege_id"
 							value="${requestScope.privilege_id}">
-						<div class="container">
+						<div class="container-fluid">
 							<div class="row">
 								<div class="col">
 									<legend>1.Изменение привилегии</legend>
@@ -61,6 +61,19 @@
 							<div class="row">
 								<div class="col-sm-6">
 									<button type="submit" class="btn btn-primary btn-block">Сохранить</button>
+								</div>
+							</div>
+						</div>
+					</form>
+					<form action="${pageContext.request.contextPath}/Controller"
+						method="post">
+						<input type="hidden" name="command" value="remove_privilege">
+						<input type="hidden" name="privilege_id"
+							value="${requestScope.privilege_id}">
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-sm-6">
+									<button type="submit" class="btn btn-primary btn-block">Удалить</button>
 								</div>
 							</div>
 						</div>

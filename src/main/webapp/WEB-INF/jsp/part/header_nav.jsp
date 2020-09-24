@@ -23,6 +23,12 @@
 	var="infopage" />
 <fmt:message bundle="${loc}" key="local.namepage.contact_page"
 	var="contactpage" />
+	<fmt:message bundle="${loc}" key="local.namepage.admin_page"
+	var="admin_page" />
+	<fmt:message bundle="${loc}" key="local.index_page.personal_account"
+	var="personal_account" />
+	<fmt:message bundle="${loc}" key="local.generic_page.exit"
+	var="exit" />
 
 </head>
 <body>
@@ -49,14 +55,14 @@
 						<c:if test="${sessionScope.user_role != 'ADMIN'}">
 							<li><a
 								href="${pageContext.request.contextPath}/Controller?command=show_userpage"
-								class="nav-link">Личный кабинет</a></li>
+								class="nav-link">${personal_account}</a></li>
 						</c:if>
 					</c:if>
 
 
 					<c:if test="${sessionScope.user_role == 'ADMIN'}">
 						<li class="nav-item"><a class="nav-link"
-							href="${pageContext.request.contextPath}/Controller?command=admin_page">Админка</a>
+							href="${pageContext.request.contextPath}/Controller?command=admin_page">${admin_page}</a>
 						</li>
 					</c:if>
 					<li>
@@ -87,7 +93,7 @@
 						method="post">
 						<input type="hidden" name="command" value="sign_out" /> <a
 							href="#">${sessionScope.user_login} </a>
-						<button type="submit">Выйти</button>
+						<button type="submit">${exit}</button>
 					</form>
 				</c:if>
 			</div>

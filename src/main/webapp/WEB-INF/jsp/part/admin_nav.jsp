@@ -23,32 +23,61 @@
 	var="infopage" />
 <fmt:message bundle="${loc}" key="local.namepage.contact_page"
 	var="contactpage" />
+	<fmt:message bundle="${loc}" key="local.admin_nav.addition"
+	var="addition" />
+	<fmt:message bundle="${loc}" key="local.admin_nav.faculty"
+	var="faculty" />
+	<fmt:message bundle="${loc}" key="local.admin_nav.specialty"
+	var="specialty" />
+	<fmt:message bundle="${loc}" key="local.admin_nav.subject"
+	var="subject" />
+	<fmt:message bundle="${loc}" key="local.admin_nav.viewing"
+	var="viewing" />
+	<fmt:message bundle="${loc}" key="local.admin_nav.type_study"
+	var="type_study" />
+	<fmt:message bundle="${loc}" key="local.admin_nav.privilege"
+	var="privilege" />
+	<fmt:message bundle="${loc}" key="local.admin_nav.school"
+	var="school" />
+	<fmt:message bundle="${loc}" key="local.admin_nav.administrator"
+	var="administrator" />
+
+	
+	
+
+
+
+
+
+
+
 
 </head>
 <body>
 	<div class="col-2 bg-dark" id="admin-nav">
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item"><a class="nav-link"
-				href="${pageContext.request.contextPath}/Controller?command=admin_page">Просмотр</a></li>
+				href="${pageContext.request.contextPath}/Controller?command=admin_page">${viewing}</a></li>
 			<li class="nav-item"><a class="nav-link" data-toggle="collapse"
 				href="#collapseExample" role="button" aria-expanded="false"
-				aria-controls="collapseExample">Добавление</a>
+				aria-controls="collapseExample">${addition}</a>
 				<div class="collapse" id="collapseExample">
 					<div class="card card-body bg-dark">
 						<ul class="navbar-nav mr-auto">
+						<li class="nav-item"><a class="nav-link"
+								href="${pageContext.request.contextPath}/jsp/admin/add_moderator.jsp">${administrator}</a></li>
 							<li class="nav-item"><a class="nav-link"
-								href="${pageContext.request.contextPath}/jsp/admin/add_faculty.jsp">Факультет</a></li>
+								href="${pageContext.request.contextPath}/jsp/admin/add_faculty.jsp">${faculty}</a></li>
 							<li class="nav-item"><a class="nav-link"
-								href="${pageContext.request.contextPath}/jsp/admin/add_school.jsp">Учреждение</a></li>
+								href="${pageContext.request.contextPath}/jsp/admin/add_school.jsp">${school}</a></li>
 							<li class="nav-item"><a class="nav-link"
-								href="${pageContext.request.contextPath}/jsp/admin/add_typeStudy.jsp">Форма
-									обучения</a></li>
+								href="${pageContext.request.contextPath}/jsp/admin/add_typeStudy.jsp">${type_study}</a></li>
 							<li class="nav-item"><a class="nav-link"
-								href="${pageContext.request.contextPath}/Controller?command=SHOW_ADD_SPECIALTY_PAGE">Специальность</a></li>
+								href="${pageContext.request.contextPath}/Controller?command=SHOW_ADD_SPECIALTY_PAGE">${specialty}</a></li>
 							<li class="nav-item"><a class="nav-link"
-								href="${pageContext.request.contextPath}/jsp/admin/add_privilege.jsp">Привилегия</a></li>
+								href="${pageContext.request.contextPath}/jsp/admin/add_privilege.jsp">${privilege}</a></li>
 							<li class="nav-item"><a class="nav-link"
-								href="${pageContext.request.contextPath}/jsp/admin/add_subject.jsp">Предмет</a></li>
+								href="${pageContext.request.contextPath}/jsp/admin/add_subject.jsp">${subject}</a></li>
 						</ul>
 					</div>
 				</div></li>

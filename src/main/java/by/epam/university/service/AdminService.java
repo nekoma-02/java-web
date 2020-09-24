@@ -31,7 +31,7 @@ public interface AdminService {
 	List<ExamMark> getAllMarksByApplication(int idApplication) throws ServiceException;
 
 	List<Subject> getAllSubject() throws ServiceException;
-	
+
 	List<Application> getAllAplicationBySpecialty(int idSpecialty) throws ServiceException;
 
 	boolean insertFaculty(Faculty faculty) throws ServiceException, FacultyExistsException;
@@ -69,15 +69,29 @@ public interface AdminService {
 	boolean updateSubjectBySpecialty(int idSpecialty, int idSubject) throws ServiceException;
 
 	boolean removeSubjectBySpecialty(int idSpecialty, int idSubject) throws ServiceException;
-	
-	boolean insertSpecialtyAndSubject(Specialty specialty, int... idSubject) throws ServiceException, SpecialtyExistsException;
-	
-	boolean updateSpecialtyAndSubject(Specialty specialty, int... idSubject) throws ServiceException, SpecialtyExistsException;
-	
+
+	boolean insertSpecialtyAndSubject(Specialty specialty, int... idSubject)
+			throws ServiceException, SpecialtyExistsException;
+
+	boolean updateSpecialtyAndSubject(Specialty specialty, int... idSubject)
+			throws ServiceException, SpecialtyExistsException;
+
 	boolean acceptStudent(int totalScore, boolean isAccepted, int idApplication) throws ServiceException;
-	
+
 	boolean getAcceptStudent(int idApplication) throws ServiceException;
+
+	boolean removeSpecialty(int idSpecialty) throws ServiceException;
+
+	boolean removeSchool(int idSchool) throws ServiceException;
+
+	boolean removePrivilege(int idPrivilege) throws ServiceException;
+
+	boolean removeFaculty(int idFaculty) throws ServiceException;
+
+	boolean removeTypeStudy(int idTypeStudy) throws ServiceException;
 	
+	boolean removeSubject(int idSubject) throws ServiceException;
+
 	void createResult(int idApplication) throws ServiceException;
 
 	Faculty getFacultyById(int id) throws ServiceException;

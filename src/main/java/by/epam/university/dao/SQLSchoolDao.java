@@ -17,4 +17,6 @@ public interface SQLSchoolDao {
 	
 	boolean update(School school) throws DAOException;
 	
+	boolean remove(int idSchool) throws DAOException;
+	
 }

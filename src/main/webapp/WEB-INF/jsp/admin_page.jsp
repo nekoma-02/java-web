@@ -62,7 +62,6 @@
 						<h4 id="table-caption">Application</h4>
 					</div>
 					<table class="table table-hover">
-						<caption id="table-caption">Application</caption>
 						<thead class="thead-dark" id="table-caption">
 							<tr id="Application-caption" style="visibility: visible;">
 								<th scope="col">ФИО</th>
@@ -113,7 +112,12 @@
 									<td>${app.specialties.name}</td>
 									<td>${app.specialties.faculty.name}</td>
 									<td>${app.specialties.typeStudy.typeName}</td>
-									<td>${app.confirmation}</td>
+									<c:if test="${app.confirmation == true }">
+									<td>Active</td>
+									</c:if>
+									<c:if test="${app.confirmation == false }">
+									<td>Non active</td>
+									</c:if>
 									<td><a
 										href="${pageContext.request.contextPath}/Controller?command=show_userpage&user_id=${app.user.id}&application_id=${app.id}">CLICK</a></td>
 								</tr>

@@ -49,7 +49,7 @@
 						<input type="hidden" name="command" value="update_subject">
 						<input type="hidden" name="subject_id"
 							value="${requestScope.subject_id}">
-						<div class="container">
+						<div class="container-fluid">
 							<div class="row">
 								<div class="col">
 									<legend>1.Изменение предмета</legend>
@@ -66,6 +66,19 @@
 								</div>
 							</div>
 						</div>
+					</form>
+					<form action="${pageContext.request.contextPath}/Controller"
+						method="post">
+						<input type="hidden" name="command" value="remove_subject">
+						<input type="hidden" name="subject_id"
+							value="${requestScope.subject_id}">
+							<div class="container-fluid">
+							<div class="row">
+								<div class="col-sm-6">
+									<button type="submit" class="btn btn-primary btn-block">Удалить</button>
+								</div>
+							</div>
+							</div>
 					</form>
 				</div>
 			</div>

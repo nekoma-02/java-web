@@ -31,11 +31,10 @@
 			<div class="col-10">
 				<div>
 					<div>
-						<H2>${application.get(0).getSpecialties().getName()}</H2>
 						<h4>Заявления по специальности</h4>
 					</div>
 					<table class="table table-hover">
-						<caption>${application.get(0).getSpecialties().getName()}</caption>
+					
 						<thead class="thead-dark" id="table-caption">
 							<tr id="Application-caption">
 								<th scope="col">ФИО</th>

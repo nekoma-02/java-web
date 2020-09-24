@@ -51,6 +51,8 @@ public class ConfirmAccount implements Command {
 
 		String[] idSubjectArray = request.getParameterValues(RequestParameterName.SUBJECT_ID);
 		String[] mark = request.getParameterValues(RequestParameterName.MARK);
+		
+
 
 		try {
 
@@ -68,23 +70,19 @@ public class ConfirmAccount implements Command {
 				forwardTo(request, response, JSPPageName.USER_PAGE);
 			}
 
-			boolean isAddMark = false;
-
-			List<ExamMark> isExistMark = adminService.getAllMarksByApplication(idApplication);
-
-			for (ExamMark item : examMark) {
-
-				if (isExistMark == null || isExistMark.size() == 0) {
-					isAddMark = adminService.addMark(idApplication, item.getMark(), item.getIdSubject());
-				} else {
-					isAddMark = adminService.updateMark(idApplication, item.getMark(), item.getIdSubject());
-				}
-			}
-
 			Application app = appService.applicationById(idApplication);
 			User user = userService.userById(app.getUser().getId());
-
-			if (!isAddMark) {
+		
+			boolean isValidMark = true;
+			
+			for (ExamMark item : examMark) {
+				if (item.getMark() < 0 || item.getMark() > 10 ) {
+					isValidMark = false;
+				}
+			}
+			
+			
+			if (!isValidMark) {
 
 				Specialty spec = appService.getSpecialtyById(app.getSpecialties().getId());
 				School school = appService.getSchoolById(app.getSchool().getId());
@@ -98,9 +96,22 @@ public class ConfirmAccount implements Command {
 				List<Subject> subjects = adminService.getSubjectBySpecialtyId(app.getSpecialties().getId());
 				request.setAttribute(RequestParameterName.SUBJECTS, subjects);
 				request.setAttribute(RequestParameterName.RESULT_INFO, "failed to add mark");
-
 				forwardTo(request, response, JSPPageName.USER_PAGE);
 			} else {
+				
+				List<ExamMark> isExistMark = adminService.getAllMarksByApplication(idApplication);
+
+				for (ExamMark item : examMark) {
+
+					
+					if (isExistMark == null || isExistMark.size() == 0) {
+						adminService.addMark(idApplication, item.getMark(), item.getIdSubject());
+					} else {
+						adminService.updateMark(idApplication, item.getMark(), item.getIdSubject());
+					}
+					
+					
+				}
 				
 				boolean isConfirm = adminService.confirmApplication(idApplication);
 

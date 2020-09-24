@@ -42,6 +42,8 @@
 	var="info3" />
 	<fmt:message bundle="${loc}" key="local.index_page.info4"
 	var="info4" />
+	<fmt:message bundle="${loc}" key="local.namepage.admin_page"
+	var="admin_page" />
 
 <title>Главная страница</title>
 </head>
@@ -73,7 +75,7 @@
 							<div class="col">
 								<a class="btn btn-lg btn-success"
 									href="${pageContext.request.contextPath}/Controller?command=admin_page"
-									style="width: 100%;">Админка</a>
+									style="width: 100%;">${admin_page}</a>
 							</div>
 						</div>
 					</c:if>

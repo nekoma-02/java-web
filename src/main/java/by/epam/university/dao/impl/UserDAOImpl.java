@@ -1,6 +1,7 @@
 package by.epam.university.dao.impl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,31 +27,30 @@ import by.epam.university.entity.User;
 public class UserDAOImpl implements SQLUserDao {
 
 	private static Logger logger = LogManager.getLogger();
-	
+
 	private final static int LOG_ROUNDS = 12;
 	private ConnectionPool connectionPool = ConnectionPoolManager.getInstance().getConnectionPool();
 
 	private static final String INSER_USER = "insert into users(name,secondName,lastName,login,password,email,roles_id_role) "
 			+ "values (?,?,?,?,?,?,?)";
-	
+
 	private static final String SELECT_USER_BY_PASSWORD_LOGIN = "select id_user,name,secondName,lastName,login,password,email,"
 			+ "roles.role_name,gender,marital_status,place_of_birth,date_of_birth from users "
 			+ "inner join roles on users.roles_id_role = roles.id_role where login = ? and password = ?";
-	
+
 	private static final String SELECT_USER_BY_LOGIN = "select id_user,name,secondName,lastName,login,password,email,"
 			+ "roles.role_name,gender,marital_status,place_of_birth,date_of_birth from users "
 			+ "inner join roles on users.roles_id_role = roles.id_role where login = ?";
-	
+
 	private static final String SELECT_USER_BY_ID = "select id_user,name,secondName,lastName,login,password,email,"
 			+ "roles.role_name,gender,marital_status,place_of_birth,date_of_birth from users "
 			+ "inner join roles on users.roles_id_role = roles.id_role where id_user = ?";
 	private static final String SELECT_ALL_USERS = "select id_user,name,secondName,lastName,login,password,email,"
 			+ "roles.role_name,gender,marital_status,place_of_birth,date_of_birth from users "
 			+ "inner join roles on users.roles_id_role = roles.id_role";
-	
+
 	private static final String UPDATE_USER_BY_ID = "update users set name = ?,secondName = ?,lastName = ?,email = ?,"
 			+ "gender = ?,marital_status = ?,place_of_birth = ?,date_of_birth = ? where id_user = ?";
-	
 
 	@Override
 	public boolean insert(User user) throws DAOException {
@@ -75,7 +75,7 @@ public class UserDAOImpl implements SQLUserDao {
 			ps.setString(loginInt, user.getLogin());
 			ps.setString(passwordInt, hashBCryptPassword(user.getPassword()));
 			ps.setString(emailInt, user.getEmail());
-			ps.setInt(roleInt, user.getRole().ordinal()+1);
+			ps.setInt(roleInt, user.getRole().ordinal() + 1);
 
 			return ps.executeUpdate() == 1;
 
@@ -89,25 +89,34 @@ public class UserDAOImpl implements SQLUserDao {
 
 	}
 
+	private User buildUser(ResultSet rs) throws SQLException {
+		User user = null;
+
+		int id = rs.getInt(1);
+		String name = rs.getString(2);
+		String secondName = rs.getString(3);
+		String lastName = rs.getString(4);
+		String login = rs.getString(5);
+		String password = rs.getString(6);
+		String email = rs.getString(7);
+		Role role = Role.valueOf(rs.getString(8).toUpperCase());
+		String gender = rs.getString(9);
+		String maritalStatus = rs.getString(10);
+		String placeOfBirth = rs.getString(11);
+		Date birthDate = rs.getDate(12);
+
+		user = new User(id, name, secondName, lastName, login, password, email, role, gender, maritalStatus,
+				placeOfBirth, birthDate);
+		return user;
+
+	}
+
 	@Override
 	public User getUserByLoginPassword(String login, String password) throws DAOException {
 		User user = null;
 		Connection connection = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-
-		int idInt = 1;
-		int nameInt = 2;
-		int secondNameInt = 3;
-		int lastNameInt = 4;
-		int loginInt = 5;
-		int passwordInt = 6;
-		int emailInt = 7;
-		int roleInt = 8;
-		int genderInt = 9;
-		int maritalInt = 10;
-		int placeInt = 11;
-		int dateInt = 12;
 
 		try {
 			connection = connectionPool.takeConnection();
@@ -119,12 +128,9 @@ public class UserDAOImpl implements SQLUserDao {
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
-				user = new User(rs.getInt(idInt), rs.getString(nameInt), rs.getString(secondNameInt),
-						rs.getString(lastNameInt), rs.getString(loginInt), rs.getString(passwordInt),
-						rs.getString(emailInt), Role.valueOf(rs.getString(roleInt).toUpperCase()),
-						rs.getString(genderInt),rs.getString(maritalInt),rs.getString(placeInt),rs.getDate(dateInt));
+				user = buildUser(rs);
 			}
-			
+
 			return user;
 
 		} catch (ConnectionPoolException e) {
@@ -145,19 +151,6 @@ public class UserDAOImpl implements SQLUserDao {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
-		int idInt = 1;
-		int nameInt = 2;
-		int secondNameInt = 3;
-		int lastNameInt = 4;
-		int loginInt = 5;
-		int passwordInt = 6;
-		int emailInt = 7;
-		int roleInt = 8;
-		int genderInt = 9;
-		int maritalInt = 10;
-		int placeInt = 11;
-		int dateInt = 12;
-
 		try {
 			connection = connectionPool.takeConnection();
 			ps = connection.prepareStatement(SELECT_USER_BY_LOGIN);
@@ -167,11 +160,8 @@ public class UserDAOImpl implements SQLUserDao {
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
-				user = new User(rs.getInt(idInt), rs.getString(nameInt), rs.getString(secondNameInt),
-						rs.getString(lastNameInt), rs.getString(loginInt), rs.getString(passwordInt),
-						rs.getString(emailInt), Role.valueOf(rs.getString(roleInt).toUpperCase()),
-						rs.getString(genderInt),rs.getString(maritalInt),rs.getString(placeInt),rs.getDate(dateInt));
-		}
+				user = buildUser(rs);
+			}
 
 			return user;
 
@@ -192,19 +182,6 @@ public class UserDAOImpl implements SQLUserDao {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
-		int idInt = 1;
-		int nameInt = 2;
-		int secondNameInt = 3;
-		int lastNameInt = 4;
-		int loginInt = 5;
-		int passwordInt = 6;
-		int emailInt = 7;
-		int roleInt = 8;
-		int genderInt = 9;
-		int maritalInt = 10;
-		int placeInt = 11;
-		int dateInt = 12;
-
 		try {
 			connection = connectionPool.takeConnection();
 			ps = connection.prepareStatement(SELECT_USER_BY_ID);
@@ -214,11 +191,8 @@ public class UserDAOImpl implements SQLUserDao {
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
-				user = new User(rs.getInt(idInt), rs.getString(nameInt), rs.getString(secondNameInt),
-						rs.getString(lastNameInt), rs.getString(loginInt), rs.getString(passwordInt),
-						rs.getString(emailInt), Role.valueOf(rs.getString(roleInt).toUpperCase()),
-						rs.getString(genderInt),rs.getString(maritalInt),rs.getString(placeInt),rs.getDate(dateInt));
-		}
+				user = buildUser(rs);
+			}
 
 			return user;
 
@@ -284,19 +258,6 @@ public class UserDAOImpl implements SQLUserDao {
 		Statement st = null;
 		ResultSet rs = null;
 
-		int idInt = 1;
-		int nameInt = 2;
-		int secondNameInt = 3;
-		int lastNameInt = 4;
-		int loginInt = 5;
-		int passwordInt = 6;
-		int emailInt = 7;
-		int roleInt = 8;
-		int genderInt = 9;
-		int maritalInt = 10;
-		int placeInt = 11;
-		int dateInt = 12;
-
 		try {
 			connection = connectionPool.takeConnection();
 			st = connection.createStatement();
@@ -304,10 +265,7 @@ public class UserDAOImpl implements SQLUserDao {
 			rs = st.executeQuery(SELECT_ALL_USERS);
 
 			while (rs.next()) {
-				userList.add(new User(rs.getInt(idInt), rs.getString(nameInt), rs.getString(secondNameInt),
-						rs.getString(lastNameInt), rs.getString(loginInt), rs.getString(passwordInt),
-						rs.getString(emailInt), Role.valueOf(rs.getString(roleInt).toUpperCase()),
-						rs.getString(genderInt),rs.getString(maritalInt),rs.getString(placeInt),rs.getDate(dateInt)));
+				userList.add(buildUser(rs));
 			}
 
 			return userList;
@@ -321,7 +279,6 @@ public class UserDAOImpl implements SQLUserDao {
 		}
 	}
 
-	
 	@Override
 	public boolean updateUser(User user) throws DAOException {
 		Connection connection = null;
@@ -351,7 +308,6 @@ public class UserDAOImpl implements SQLUserDao {
 			ps.setDate(dateInt, user.getDateOfBirth());
 			ps.setInt(idInt, user.getId());
 
-
 			return ps.executeUpdate() == 1;
 
 		} catch (ConnectionPoolException e) {
@@ -362,7 +318,7 @@ public class UserDAOImpl implements SQLUserDao {
 			closeConnection(connection, ps);
 		}
 	}
-	
+
 	private String hashBCryptPassword(String password) {
 		String salt = BCrypt.gensalt(LOG_ROUNDS);
 		return BCrypt.hashpw(password, salt);

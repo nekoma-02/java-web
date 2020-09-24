@@ -60,6 +60,14 @@ public interface SQLSpecialtyDao {
 	
 	void updateSpecialtyAndSubject(Specialty specialty, int... idSubject) throws DAOException;
 	
+	boolean remove(int idSpecialty) throws DAOException;
+	
+	boolean removeSubject(int idSubject) throws DAOException;
+	
+	boolean removeTypeStudy(int idTypeStudy) throws DAOException;
+	
+	boolean removeFaculty(int idFaculty) throws DAOException;
+	
 	
 	
 }

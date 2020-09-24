@@ -151,14 +151,26 @@ $(document).ready(
 
 				$.each(data, function(application, app) {
 
-					applications += '<tr>' + '<td>' + app.user.secondName + ' '
-							+ app.user.name + ' ' + app.user.lastName + '</td>'
-							+ '<td>' + app.adress + '</td>' + '<td>'
-							+ app.specialties.name + '</td>' + '<td>'
-							+ app.specialties.faculty.name + '</td>' + '<td>'
-							+ app.specialties.typeStudy.typeName + '</td>'
-							+ '<td>' + app.confirmation + '</td>'
-							+ '<td> <a href="Controller?command=show_userpage&user_id=' + app.user.id + '&application_id=' + app.id + '"> CLICK </a> </td>' + '</tr>';
+					if (app.confirmation == true ) {
+						applications += '<tr>' + '<td>' + app.user.secondName + ' '
+						+ app.user.name + ' ' + app.user.lastName + '</td>'
+						+ '<td>' + app.adress + '</td>' + '<td>'
+						+ app.specialties.name + '</td>' + '<td>'
+						+ app.specialties.faculty.name + '</td>' + '<td>'
+						+ app.specialties.typeStudy.typeName + '</td>'
+						+ '<td>' + 'Active' + '</td>'
+						+ '<td> <a href="Controller?command=show_userpage&user_id=' + app.user.id + '&application_id=' + app.id + '"> CLICK </a> </td>' + '</tr>';
+					} else {
+						applications += '<tr>' + '<td>' + app.user.secondName + ' '
+						+ app.user.name + ' ' + app.user.lastName + '</td>'
+						+ '<td>' + app.adress + '</td>' + '<td>'
+						+ app.specialties.name + '</td>' + '<td>'
+						+ app.specialties.faculty.name + '</td>' + '<td>'
+						+ app.specialties.typeStudy.typeName + '</td>'
+						+ '<td>' + 'Non active' + '</td>'
+						+ '<td> <a href="Controller?command=show_userpage&user_id=' + app.user.id + '&application_id=' + app.id + '"> CLICK </a> </td>' + '</tr>';
+					}
+					
 
 				});
 

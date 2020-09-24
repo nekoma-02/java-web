@@ -16,4 +16,6 @@ public interface SQLPrivilegeDao {
 	boolean insert(Privilege privilege) throws DAOException;
 	
 	boolean update(Privilege privilege) throws DAOException;
+	
+	boolean remove(int idPrivilege) throws DAOException;
 }

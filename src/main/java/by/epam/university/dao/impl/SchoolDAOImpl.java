@@ -31,7 +31,7 @@ public class SchoolDAOImpl implements SQLSchoolDao {
 	private static final String SELECT_SCHOOL_BY_ID = "select * from schools where idschool = ?";
 	private static final String INSERT_SCHOOL = "insert into schools(name,level,institution) values (?,?,?)";
 	private static final String UPDATE_SCHOOL = "update schools set name = ?, level = ?, institution = ? where idschool = ?";
-
+	private static final String REMOVE_SCHOOL = "delete from schools where idschool = ?";
 	
 	@Override
 	public List<School> getAll() throws DAOException {
@@ -223,6 +223,28 @@ public class SchoolDAOImpl implements SQLSchoolDao {
 			ps.setInt(4, school.getId());
 			
 
+			return ps.executeUpdate() == 1;
+
+		} catch (ConnectionPoolException e) {
+			throw new DAOConnectionPoolException(e);
+		} catch (SQLException e) {
+			throw new DAOSQLException(e);
+		} finally {
+			closeConnection(connection, ps);
+		}
+	}
+
+	@Override
+	public boolean remove(int idSchool) throws DAOException {
+		Connection connection = null;
+		PreparedStatement ps = null;
+
+		try {
+			connection = connectionPool.takeConnection();
+			ps = connection.prepareStatement(REMOVE_SCHOOL);
+
+			ps.setInt(1, idSchool);
+			
 			return ps.executeUpdate() == 1;
 
 		} catch (ConnectionPoolException e) {

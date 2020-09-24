@@ -181,6 +181,12 @@ public class ApplicationDAOImpl implements SQLApplicationDao {
 		}
 	}
 
+	/** 
+	 * Ñreating a new application and updating user data.
+	 * @param application - ready object with valid data.
+	 * @param user - ready object with valid data.
+	 * 
+	 * */
 	@Override
 	public void insertApplication(Application application, User user) throws DAOException {
 		Connection connection = null;
@@ -222,7 +228,6 @@ public class ApplicationDAOImpl implements SQLApplicationDao {
 
 			ps.executeUpdate();
 			
-			
 
 			connection.commit();
 
@@ -253,6 +258,12 @@ public class ApplicationDAOImpl implements SQLApplicationDao {
 		}
 	}
 
+	/**
+	 * Updating the existing statement and user data.
+	 * @param application - ready object with valid data.
+	 * @param user - ready object with valid data. 
+	 */
+	
 	@Override
 	public void updateApplication(Application application, User user) throws DAOException {
 		Connection connection = null;
@@ -324,6 +335,10 @@ public class ApplicationDAOImpl implements SQLApplicationDao {
 		}
 	}
 
+	
+	/**
+	 * Receives all inactive applications
+	 */
 	@Override
 	public List<Application> getAllUnconfirmedApplication() throws DAOException {
 		List<Application> applications = new ArrayList<Application>();
@@ -353,6 +368,9 @@ public class ApplicationDAOImpl implements SQLApplicationDao {
 		}
 	}
 
+	/**
+	 * Receives all active applications
+	 */
 	@Override
 	public List<Application> getAllConfirmedApplication() throws DAOException {
 		List<Application> applications = new ArrayList<Application>();
@@ -382,6 +400,9 @@ public class ApplicationDAOImpl implements SQLApplicationDao {
 		}
 	}
 
+	/**
+	 * Receives all applications
+	 */
 	@Override
 	public List<Application> getAllApplication() throws DAOException {
 		List<Application> applications = new ArrayList<Application>();
@@ -641,6 +662,10 @@ public class ApplicationDAOImpl implements SQLApplicationDao {
 		}
 	}
 
+	/**
+	 * Receives the number of consolidated places per specialty.
+	 * @param idSpecialty - ID of the specialty for which you need to get the number of free places
+	 */
 	@Override
 	public int getNumberOfFreePlaces(int idSpecialty) throws DAOException {
 		int countPlaces = 0;
